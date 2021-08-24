@@ -32,10 +32,9 @@ class PageLister<T>(
 
         val outputChannel = Channel<Response<List<T?>?>?>().also { this@PageLister.outputChannel = it }
         val pageQueue = PriorityBlockingQueue<PagedResponse<T?>>(11, compareBy { it.page }).also { this@PageLister.pageQueue = it }
-        val taskChannel = Channel<Deferred<PagedResponse<T?>>>()
+        val taskChannel = Channel<Int>()
 
-        val taskProcessor: suspend (Deferred<PagedResponse<T?>>) -> Unit = process@{ task ->
-            val cpr = task.await()
+        val taskProcessor: suspend (PagedResponse<T?>) -> Unit = process@{ cpr ->
             val cr = cpr.response
             logger.info("Finished page load ${cpr.page} res: ${cr?.code()}, size: ${cr?.body()?.size ?: -1}, avail works ${semWork.availablePermits}")
 
@@ -69,14 +68,22 @@ class PageLister<T>(
             logger.info("Released, avail ${semWork.availablePermits}")
         }
 
+        val pageLoader: suspend (Int) -> Unit = { page ->
+            logger.info("Starting async page load for page $page")
+            val rr = loader(countPerPage, page)
+            taskProcessor(PagedResponse(page, rr))
+        }
+
+        // Page downloaders and processors
         repeat(concurrentPages){
             launch {
-                for(task in taskChannel) {
-                    taskProcessor(task)
+                for(page in taskChannel) {
+                    pageLoader(page)
                 }
             }
         }
 
+        // Page number generator
         genJob = launch {
             for(page in generateSequence(1) { it + 1 }){
                 if (page >= lowestEmptyPage.get()){
@@ -84,15 +91,10 @@ class PageLister<T>(
                     break
                 }
 
-                val task = async {
-                    logger.info("Starting async page load for page $page")
-                    val rr = loader(countPerPage, page)
-                    PagedResponse(page, rr)
-                }
-                taskChannel.send(task)
+                taskChannel.send(page)
 
-                // launch { taskProcessor(task) }
-
+                // Coroutine per request - more robust in case of failures
+                // launch { pageLoader(page) }
                 semWork.acquire()
             }
         }

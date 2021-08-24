@@ -128,114 +128,16 @@ class AccountServiceTest : TestBase() {
             logger.info("Block: ${it}")
         }
 
+//        val rr = apiBlock.blocksHashOrNumberNextGet(projId, "2829000", countPerPage, page)
+//        val rr = apiAddr.addressesAddressTransactionsGet(
+//            projId,
+//            "DdzFFzCqrhstmqBkaU98vdHu6PdqjqotmgudToWYEeRmQKDrn4cAgGv9EZKtu1DevLrMA1pdVazufUCK4zhFkUcQZ5Gm88mVHnrwmXvT",
+//            countPerPage,
+//            page, "asc", null, null
+//        )
+
 //        val r2 = api.accountsStakeAddressAddressesAssetsGet(projId, "stake_test1upwlsqc3m9629dsf2vw3ycuqv5jhd023xtjh3ax42nvj03gwy2cha", 3, 1, "asc")
 //        logger.info("$r2")
-
-//        val concurrentPages = 10
-//        val countPerPage = 20
-//        val lowestEmptyPage = AtomicInteger(Int.MAX_VALUE - concurrentPages - 1)
-//        val semWork = Semaphore(concurrentPages, 0)
-//
-//        val outputChannel = Channel<Response<List<BlockContent?>?>?>()
-//        val pageQueue = PriorityBlockingQueue<PagedResponse<List<BlockContent?>?>>(11, compareBy { it.page })
-//
-//        launch {
-//            for(page in generateSequence(1) { it + 1 }){
-//                if (page >= lowestEmptyPage.get()){
-//                    logger.info("Paging stopped at $page")
-//                    break
-//                }
-//
-//                val task = async {
-//                    logger.info("Starting async page load for page $page")
-//                    val rr = apiBlock.blocksHashOrNumberNextGet(projId, "2829000", countPerPage, page)
-//
-//    //                val rr = apiAddr.addressesAddressTransactionsGet(
-//    //                    projId,
-//    //                    "DdzFFzCqrhstmqBkaU98vdHu6PdqjqotmgudToWYEeRmQKDrn4cAgGv9EZKtu1DevLrMA1pdVazufUCK4zhFkUcQZ5Gm88mVHnrwmXvT",
-//    //                    countPerPage,
-//    //                    page, "asc", null, null
-//    //                )
-//
-//    //                val rr = api.accountsStakeAddressAddressesGet(projId, "stake_test1upwlsqc3m9629dsf2vw3ycuqv5jhd023xtjh3ax42nvj03gwy2cha", countPerPage, page, "asc")
-//                    PagedResponse(page, rr)
-//                }
-//
-//                launch process@{
-//                    val cpr = task.await()
-//                    val cr = cpr.response
-//                    logger.info("Finished page load ${cpr.page} res: ${cr?.code()}, avail ${semWork.availablePermits}")
-//
-//                    if (cr == null || !cr.isSuccessful){
-//                        outputChannel.close(RuntimeException("Broken"))
-//                        logger.info("--broken ${cpr.page}")
-//                        semWork.release()
-//                        throw RuntimeException("Broken")
-//                        //return@process
-//                    }
-//
-//                    if ((cr.body()?.size ?: 0) < countPerPage){
-//                        val origLastPage = lowestEmptyPage.get()
-//                        val newLast = ensureMinAndGet(lowestEmptyPage, cpr.page)
-//                        logger.info("Handling empty page ${cpr.page}, orig last: $origLastPage, newLast: $newLast")
-//
-//                        outputChannel.trySend(null)  // can fail have to insert null as order can be permuted
-//                        semWork.release()
-//                        return@process
-//                    }
-//
-//                    try {
-//                        outputChannel.send(cr)
-//                        pageQueue.add(cpr)
-//                    } catch(e: Exception){
-//                        logger.error("Exception adding page ${cpr.page}")
-//                        throw e
-//                    }
-//
-//                    semWork.release()
-//                    logger.info("Released, avail ${semWork.availablePermits}")
-//                }
-//
-//                semWork.acquire()
-//            }
-//        }
-//
-//        var lastQueuePage = 0
-//        val queueDrainer = { ix: Int ->
-//            while (!pageQueue.isEmpty() && lastQueuePage + 1 == pageQueue.peek().page){
-//                val toReturn = pageQueue.poll()
-//                lastQueuePage = toReturn.page
-//                logger.info(".. Sorted page: ${toReturn.page} in cycle $ix")
-//            }
-//        }
-//
-//        var nread = 0
-//        var nNotNull = 0
-//        for(res in outputChannel){
-//            logger.info("output[$nread]: $res")
-//            if (res != null){
-//                nNotNull += 1
-//            }
-//            nread += 1
-//
-//            queueDrainer(nread)
-//            val firstEmpty = lowestEmptyPage.get()
-//            if ((nNotNull + 1) >= firstEmpty){
-//                logger.info("Closing channel, processed $nread, nnull $nNotNull, last ${lowestEmptyPage.get()}")
-//                outputChannel.close()
-//                break
-//            }
-//        }
-//
-//        queueDrainer(nread)
-//
-//        logger.info("Finished, perms: ${semWork.availablePermits}")
-//        if (nNotNull + 1 != lowestEmptyPage.get()){
-//            logger.error("nread: $nread, nNotNull: $nNotNull, lowest empty: ${lowestEmptyPage.get()}")
-//            throw RuntimeException("whyyyyyy")
-//        }
-
-        // TODO: fix ordering. emit only if pages returned in order. Maybe add to priority queue, emit only if strictly increasing from the last one.
 
         val r2 = api.accountsStakeAddressAddressesGet(projId, "stake_test1upwlsqc3m9629dsf2vw3ycuqv5jhd023xtjh3ax42nvj03gwy2cha", 1, 1, "asc")
         logger.info("$r2")
