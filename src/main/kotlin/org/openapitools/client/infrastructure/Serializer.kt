@@ -14,9 +14,9 @@ object Serializer {
         .add(UUIDAdapter())
         .add(ByteArrayAdapter())
         .add(URIAdapter())
-        .add(KotlinJsonAdapterFactory())
         .add(BigDecimalAdapter())
         .add(BigIntegerAdapter())
+        .add(JsonObjectAdapter)
 
     @JvmStatic
     val moshi: Moshi by lazy {
