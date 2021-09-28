@@ -5,7 +5,6 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.sync.Semaphore
-import org.openapitools.client.models.BlockContent
 import retrofit2.Response
 import java.util.concurrent.PriorityBlockingQueue
 import java.util.concurrent.atomic.AtomicInteger
@@ -28,7 +27,7 @@ class PageLister<T>(
 
     suspend fun load(loader: suspend (count: Int, page: Int) -> Response<List<T?>?>) : Flow<T> = flow { coroutineScope {
         val lowestEmptyPage = AtomicInteger(Int.MAX_VALUE - concurrentPages - 1)
-        val semWork = Semaphore(concurrentPages, 0).also { this@PageLister.semWork = it }
+        val semWorkers = Semaphore(concurrentPages, 0).also { this@PageLister.semWork = it }
 
         val outputChannel = Channel<Response<List<T?>?>?>().also { this@PageLister.outputChannel = it }
         val pageQueue = PriorityBlockingQueue<PagedResponse<T?>>(11, compareBy { it.page }).also { this@PageLister.pageQueue = it }
@@ -36,13 +35,19 @@ class PageLister<T>(
 
         val taskProcessor: suspend (PagedResponse<T?>) -> Unit = process@{ cpr ->
             val cr = cpr.response
-            logger.info("Finished page load ${cpr.page} res: ${cr?.code()}, size: ${cr?.body()?.size ?: -1}, avail works ${semWork.availablePermits}")
+            logger.info("Finished page load ${cpr.page} res: ${cr?.code()}, size: ${cr?.body()?.size ?: -1}, avail works ${semWorkers.availablePermits}")
 
             if (cr == null || !cr.isSuccessful){
                 logger.info("Page loading error ${cpr.page}")
+                semWorkers.release()
+
+                if (cpr.page >= lowestEmptyPage.get()) {
+                    outputChannel.trySend(null)
+                    return@process
+                }
+
                 val exc = RuntimeException("Page loader error - could not load the page ${cpr.page}")
                 outputChannel.close(exc)
-                semWork.release()
                 throw exc
             }
 
@@ -52,7 +57,7 @@ class PageLister<T>(
                 logger.info("Handling empty page ${cpr.page}, orig last: $origLastPage, newLast: $newLast")
 
                 outputChannel.trySend(null)  // can fail, have to insert null as order can be permuted
-                semWork.release()
+                semWorkers.release()
                 return@process
             }
 
@@ -64,14 +69,18 @@ class PageLister<T>(
                 throw e
             }
 
-            semWork.release()
-            logger.info("Released, avail ${semWork.availablePermits}")
+            semWorkers.release()
+            logger.info("Released, avail ${semWorkers.availablePermits}")
         }
 
         val pageLoader: suspend (Int) -> Unit = { page ->
             logger.info("Starting async page load for page $page")
-            val rr = loader(countPerPage, page)
-            taskProcessor(PagedResponse(page, rr))
+            try {
+                val rr = loader(countPerPage, page)
+                taskProcessor(PagedResponse(page, rr))
+            } catch (e: Exception){
+                logger.error("Exception in loader, page: $page", e)
+            }
         }
 
         // Page downloaders and processors
@@ -95,7 +104,7 @@ class PageLister<T>(
 
                 // Coroutine per request - more robust in case of failures
                 // launch { pageLoader(page) }
-                semWork.acquire()
+                semWorkers.acquire()
             }
         }
 
@@ -132,7 +141,7 @@ class PageLister<T>(
 
         queueDrainer(nread)
 
-        logger.info("Finished, perms: ${semWork.availablePermits}")
+        logger.info("Finished, perms: ${semWorkers.availablePermits}")
         if (nNotNull + 1 != lowestEmptyPage.get()){
             logger.error("nread: $nread, nNotNull: $nNotNull, lowest empty: ${lowestEmptyPage.get()}")
             throw RuntimeException("Page loader error - pages missing")
