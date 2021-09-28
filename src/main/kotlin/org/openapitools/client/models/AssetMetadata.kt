@@ -28,17 +28,22 @@ data class AssetMetadata (
     /* Asset name */
     @Json(name = "name")
     val name: kotlin.String,
+
     /* Asset description */
     @Json(name = "description")
     val description: kotlin.String,
+
     @Json(name = "ticker")
     val ticker: kotlin.String?,
+
     /* Asset website */
     @Json(name = "url")
     val url: kotlin.String?,
+
     /* Base64 encoded logo of the asset */
     @Json(name = "logo")
     val logo: kotlin.String?,
+
     /* Number of decimal places of the asset unit */
     @Json(name = "decimals")
     val decimals: kotlin.Int?

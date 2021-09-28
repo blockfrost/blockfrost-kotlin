@@ -3,26 +3,26 @@ package org.openapitools.client.infrastructure
 data class PaginationSetting(
     val count: Int,
     val page: Int = 1,
-    val order: Order = Order.ASC,
+    val order: SortOrder = SortOrder.ASC,
     val allPages: Boolean = false,
 ) {
 
     companion object {
           fun allPages(): PaginationSetting {
-              return PaginationSetting(0, 1, Order.ASC, true)
+              return PaginationSetting(-1, 1, SortOrder.ASC, true)
           }
 
-          fun count(count: Int): PaginationSetting {
-              return PaginationSetting(count, 1, Order.ASC, true)
+          fun count(count: Int = 100): PaginationSetting {
+              return PaginationSetting(count, 1, SortOrder.ASC, true)
           }
 
-          fun create(count: Int, page: Int = 1, order: Order = Order.ASC): PaginationSetting {
+          fun first(count: Int = 100): PaginationSetting {
+              return PaginationSetting(count, 1, SortOrder.ASC, true)
+          }
+
+          fun create(count: Int = 100, page: Int = 1, order: SortOrder = SortOrder.ASC): PaginationSetting {
               return PaginationSetting(count, page, order, false)
           }
-    }
-
-    enum class Order {
-        ASC, DESC
     }
 }
 

@@ -12,13 +12,8 @@
 package org.openapitools.client.apis
 
 import org.openapitools.client.models.InlineResponse200
-import org.openapitools.client.models.InlineResponse2001
+import org.openapitools.client.models.Health
 import org.openapitools.client.models.InlineResponse2002
-import org.openapitools.client.models.InlineResponse400
-import org.openapitools.client.models.InlineResponse403
-import org.openapitools.client.models.InlineResponse418
-import org.openapitools.client.models.InlineResponse429
-import org.openapitools.client.models.InlineResponse500
 
 import org.openapitools.client.infrastructure.ApiClient
 import org.openapitools.client.infrastructure.ClientException
@@ -30,7 +25,6 @@ import org.openapitools.client.infrastructure.RequestConfig
 import org.openapitools.client.infrastructure.RequestMethod
 import org.openapitools.client.infrastructure.ResponseType
 import org.openapitools.client.infrastructure.Success
-import org.openapitools.client.infrastructure.toMultiValue
 
 class HealthApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     companion object {
@@ -101,15 +95,15 @@ class HealthApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath)
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun healthGet() : InlineResponse2001 {
+    suspend fun healthGet() : Health {
         val localVariableConfig = healthGetRequestConfig()
 
-        val localVarResponse = request<Unit, InlineResponse2001>(
+        val localVarResponse = request<Unit, Health>(
             localVariableConfig
         )
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as InlineResponse2001
+            ResponseType.Success -> (localVarResponse as Success<*>).data as Health
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {

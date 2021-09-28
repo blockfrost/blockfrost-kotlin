@@ -11,12 +11,7 @@
 */
 package org.openapitools.client.apis
 
-import org.openapitools.client.models.GenesisContent
-import org.openapitools.client.models.InlineResponse400
-import org.openapitools.client.models.InlineResponse403
-import org.openapitools.client.models.InlineResponse418
-import org.openapitools.client.models.InlineResponse429
-import org.openapitools.client.models.InlineResponse500
+import org.openapitools.client.models.Genesis
 
 import org.openapitools.client.infrastructure.ApiClient
 import org.openapitools.client.infrastructure.ClientException
@@ -28,7 +23,6 @@ import org.openapitools.client.infrastructure.RequestConfig
 import org.openapitools.client.infrastructure.RequestMethod
 import org.openapitools.client.infrastructure.ResponseType
 import org.openapitools.client.infrastructure.Success
-import org.openapitools.client.infrastructure.toMultiValue
 
 class CardanoLedgerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     companion object {
@@ -48,15 +42,15 @@ class CardanoLedgerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(ba
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun genesisGet() : GenesisContent {
+    suspend fun genesisGet() : Genesis {
         val localVariableConfig = genesisGetRequestConfig()
 
-        val localVarResponse = request<Unit, GenesisContent>(
+        val localVarResponse = request<Unit, Genesis>(
             localVariableConfig
         )
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as GenesisContent
+            ResponseType.Success -> (localVarResponse as Success<*>).data as Genesis
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {

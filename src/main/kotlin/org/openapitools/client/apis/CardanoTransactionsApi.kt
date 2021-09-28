@@ -11,14 +11,8 @@
 */
 package org.openapitools.client.apis
 
-import org.openapitools.client.models.InlineResponse400
-import org.openapitools.client.models.InlineResponse403
-import org.openapitools.client.models.InlineResponse404
-import org.openapitools.client.models.InlineResponse418
-import org.openapitools.client.models.InlineResponse429
-import org.openapitools.client.models.InlineResponse500
-import org.openapitools.client.models.TxContent
-import org.openapitools.client.models.TxContentUtxo
+import org.openapitools.client.models.Transaction
+import org.openapitools.client.models.TransactionUtxo
 
 import org.openapitools.client.infrastructure.ApiClient
 import org.openapitools.client.infrastructure.ClientException
@@ -30,7 +24,6 @@ import org.openapitools.client.infrastructure.RequestConfig
 import org.openapitools.client.infrastructure.RequestMethod
 import org.openapitools.client.infrastructure.ResponseType
 import org.openapitools.client.infrastructure.Success
-import org.openapitools.client.infrastructure.toMultiValue
 
 class CardanoTransactionsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     companion object {
@@ -158,15 +151,15 @@ class CardanoTransactionsApi(basePath: kotlin.String = defaultBasePath) : ApiCli
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun txsHashGet(hash: kotlin.String) : TxContent {
+    suspend fun txsHashGet(hash: kotlin.String) : Transaction {
         val localVariableConfig = txsHashGetRequestConfig(hash = hash)
 
-        val localVarResponse = request<Unit, TxContent>(
+        val localVarResponse = request<Unit, Transaction>(
             localVariableConfig
         )
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as TxContent
+            ResponseType.Success -> (localVarResponse as Success<*>).data as Transaction
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -529,15 +522,15 @@ class CardanoTransactionsApi(basePath: kotlin.String = defaultBasePath) : ApiCli
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun txsHashUtxosGet(hash: kotlin.String) : TxContentUtxo {
+    suspend fun txsHashUtxosGet(hash: kotlin.String) : TransactionUtxo {
         val localVariableConfig = txsHashUtxosGetRequestConfig(hash = hash)
 
-        val localVarResponse = request<Unit, TxContentUtxo>(
+        val localVarResponse = request<Unit, TransactionUtxo>(
             localVariableConfig
         )
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as TxContentUtxo
+            ResponseType.Success -> (localVarResponse as Success<*>).data as TransactionUtxo
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {

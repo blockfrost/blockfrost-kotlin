@@ -11,8 +11,6 @@
 */
 package org.openapitools.client.models
 
-import org.openapitools.client.models.TxContentOutputAmount
-
 import com.squareup.moshi.Json
 
 /**
@@ -27,5 +25,23 @@ data class Address (
     /* Bech32 encoded addresses */
     @Json(name = "address")
     val address: kotlin.String,
-    )
+    @Json(name = "amount")
+    val amount: kotlin.collections.List<TransactionOutputAmount>,
+    /* Stake address that controls the key */
+    @Json(name = "stake_address")
+    val stakeAddress: kotlin.String?,
+    /* Address era */
+    @Json(name = "type")
+    val type: Address.Type
+) {
+
+    /**
+     * Address era
+     * Values: byron,shelley
+     */
+    enum class Type(val value: kotlin.String) {
+        @Json(name = "byron") byron("byron"),
+        @Json(name = "shelley") shelley("shelley");
+    }
+}
 

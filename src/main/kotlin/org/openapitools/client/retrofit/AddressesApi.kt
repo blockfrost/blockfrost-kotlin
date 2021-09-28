@@ -1,7 +1,9 @@
 package org.openapitools.client.retrofit
 
-import org.openapitools.client.models.TxContent
-import retrofit2.Call
+import org.openapitools.client.models.Address
+import org.openapitools.client.models.AddressTotal
+import org.openapitools.client.models.AddressUtxo
+import org.openapitools.client.models.Transaction
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -9,6 +11,32 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface AddressesApi {
+    /**
+     * Specific address
+     * Obtain information about a specific address.
+     *
+     * @param address Bech32 address. (required)
+     * @return Call&lt;Address&gt;
+     */
+    @GET("addresses/{address}")
+    suspend fun addressesAddressGet(
+        @Header("project_id") projectId: String?,
+        @Path("address") address: String?
+    ): Response<Address?>?
+
+    /**
+     * Address details
+     * Obtain details about an address.
+     *
+     * @param address Bech32 address. (required)
+     * @return Call&lt;AddressTotal&gt;
+     */
+    @GET("addresses/{address}/total")
+    suspend fun addressesAddressTotalGet(
+        @Header("project_id") projectId: String?,
+        @Path("address") address: String?
+    ): Response<AddressTotal?>?
+
     /**
      * Address transactions
      * Transactions on the address.
@@ -30,5 +58,24 @@ interface AddressesApi {
         @Query("order") order: String?,
         @Query("from") from: String?,
         @Query("to") to: String?
-    ): Response<List<TxContent?>?>
+    ): Response<List<Transaction?>?>
+
+    /**
+     * Address UTXOs
+     * UTXOs of the address.
+     *
+     * @param address Bech32 address. (required)
+     * @param count   The number of results displayed on one page. (optional, default to 100)
+     * @param page    The page number for listing the results. (optional, default to 1)
+     * @param order   Ordered by tx index in the block. The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to asc)
+     * @return Call&lt;List&lt;Object&gt;&gt;
+     */
+    @GET("addresses/{address}/utxos")
+    suspend fun addressesAddressUtxosGet(
+        @Header("project_id") projectId: String?,
+        @Path("address") address: String?,
+        @Query("count") count: Int?,
+        @Query("page") page: Int?,
+        @Query("order") order: String?
+    ): Response<List<AddressUtxo?>?>?
 }

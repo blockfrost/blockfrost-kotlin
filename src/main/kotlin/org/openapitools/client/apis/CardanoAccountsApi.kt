@@ -11,13 +11,7 @@
 */
 package org.openapitools.client.apis
 
-import org.openapitools.client.models.AccountContent
-import org.openapitools.client.models.InlineResponse400
-import org.openapitools.client.models.InlineResponse403
-import org.openapitools.client.models.InlineResponse404
-import org.openapitools.client.models.InlineResponse418
-import org.openapitools.client.models.InlineResponse429
-import org.openapitools.client.models.InlineResponse500
+import org.openapitools.client.models.Account
 
 import org.openapitools.client.infrastructure.ApiClient
 import org.openapitools.client.infrastructure.ClientException
@@ -29,7 +23,6 @@ import org.openapitools.client.infrastructure.RequestConfig
 import org.openapitools.client.infrastructure.RequestMethod
 import org.openapitools.client.infrastructure.ResponseType
 import org.openapitools.client.infrastructure.Success
-import org.openapitools.client.infrastructure.toMultiValue
 
 class CardanoAccountsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     companion object {
@@ -260,15 +253,15 @@ class CardanoAccountsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun accountsStakeAddressGet(stakeAddress: kotlin.String) : AccountContent {
+    suspend fun accountsStakeAddressGet(stakeAddress: kotlin.String) : Account {
         val localVariableConfig = accountsStakeAddressGetRequestConfig(stakeAddress = stakeAddress)
 
-        val localVarResponse = request<Unit, AccountContent>(
+        val localVarResponse = request<Unit, Account>(
             localVariableConfig
         )
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as AccountContent
+            ResponseType.Success -> (localVarResponse as Success<*>).data as Account
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {

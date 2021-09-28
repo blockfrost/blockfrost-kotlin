@@ -14,7 +14,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.openapitools.client.infrastructure.PageLister
 import org.openapitools.client.infrastructure.Serializer
-import org.openapitools.client.models.BlockContent
+import org.openapitools.client.models.Block
 import org.openapitools.client.retrofit.AccountsApi
 import org.openapitools.client.retrofit.AddressesApi
 import org.openapitools.client.retrofit.BlocksApi
@@ -52,14 +52,14 @@ class AccountServiceTest : TestBase() {
 
         // Create a Retry with custom configuration
         val retry: Retry = Retry.of(
-            "id", RetryConfig.custom<Response<String>>()
+            "apiRetry", RetryConfig.custom<Response<String>>()
                 .maxAttempts(2)
                 .intervalFunction(intervalFn)
                 .retryOnResult { response: Response<String> -> setOf(429, 500).contains(response.code())  }
                 //.retryOnException { e: Throwable? -> e is WebServiceException }
                 .retryExceptions(IOException::class.java, TimeoutException::class.java)
                 //.ignoreExceptions(BusinessException::class.java, OtherBusinessException::class.java)
-                .failAfterMaxAttempts(true)
+                .failAfterMaxAttempts(false)  // important, do not throw, otherwise callback is missed
                 .build()
         )
 
@@ -118,14 +118,18 @@ class AccountServiceTest : TestBase() {
         val r = api.accountsStakeAddressGet(projId, stakeAddress)
         logger.info("$r")
 
-
-        val pager = PageLister<BlockContent>()
+        val pager = PageLister<Block>(concurrentPages = 5)
         val flow = pager.load { count, page ->
-            apiBlock.blocksHashOrNumberNextGet(projId, "2829500", count, page)
+            apiBlock.blocksHashOrNumberNextGet(projId, "2828500", count, page)
         }
 
-        flow.collect {
-            logger.info("Block: ${it}")
+        try {
+            flow.collect {
+                logger.info("Block: $it")
+            }
+        } catch(e: Exception){
+            logger.error("Error in flow collection", e)
+            throw e
         }
 
 //        val rr = apiBlock.blocksHashOrNumberNextGet(projId, "2829000", countPerPage, page)

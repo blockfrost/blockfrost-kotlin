@@ -11,14 +11,8 @@
 */
 package org.openapitools.client.apis
 
-import org.openapitools.client.models.AddressContent
-import org.openapitools.client.models.AddressContentTotal
-import org.openapitools.client.models.InlineResponse400
-import org.openapitools.client.models.InlineResponse403
-import org.openapitools.client.models.InlineResponse404
-import org.openapitools.client.models.InlineResponse418
-import org.openapitools.client.models.InlineResponse429
-import org.openapitools.client.models.InlineResponse500
+import org.openapitools.client.models.Address
+import org.openapitools.client.models.AddressTotal
 
 import org.openapitools.client.infrastructure.ApiClient
 import org.openapitools.client.infrastructure.ClientException
@@ -30,7 +24,6 @@ import org.openapitools.client.infrastructure.RequestConfig
 import org.openapitools.client.infrastructure.RequestMethod
 import org.openapitools.client.infrastructure.ResponseType
 import org.openapitools.client.infrastructure.Success
-import org.openapitools.client.infrastructure.toMultiValue
 
 class CardanoAddressesApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     companion object {
@@ -51,15 +44,15 @@ class CardanoAddressesApi(basePath: kotlin.String = defaultBasePath) : ApiClient
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun addressesAddressGet(address: kotlin.String) : AddressContent {
+    suspend fun addressesAddressGet(address: kotlin.String) : Address {
         val localVariableConfig = addressesAddressGetRequestConfig(address = address)
 
-        val localVarResponse = request<Unit, AddressContent>(
+        val localVarResponse = request<Unit, Address>(
             localVariableConfig
         )
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as AddressContent
+            ResponseType.Success -> (localVarResponse as Success<*>).data as Address
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -104,15 +97,15 @@ class CardanoAddressesApi(basePath: kotlin.String = defaultBasePath) : ApiClient
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun addressesAddressTotalGet(address: kotlin.String) : AddressContentTotal {
+    suspend fun addressesAddressTotalGet(address: kotlin.String) : AddressTotal {
         val localVariableConfig = addressesAddressTotalGetRequestConfig(address = address)
 
-        val localVarResponse = request<Unit, AddressContentTotal>(
+        val localVarResponse = request<Unit, AddressTotal>(
             localVariableConfig
         )
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as AddressContentTotal
+            ResponseType.Success -> (localVarResponse as Success<*>).data as AddressTotal
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {

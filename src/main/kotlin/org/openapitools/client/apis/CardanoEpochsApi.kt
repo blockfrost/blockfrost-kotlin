@@ -11,14 +11,8 @@
 */
 package org.openapitools.client.apis
 
-import org.openapitools.client.models.EpochContent
-import org.openapitools.client.models.EpochParamContent
-import org.openapitools.client.models.InlineResponse400
-import org.openapitools.client.models.InlineResponse403
-import org.openapitools.client.models.InlineResponse404
-import org.openapitools.client.models.InlineResponse418
-import org.openapitools.client.models.InlineResponse429
-import org.openapitools.client.models.InlineResponse500
+import org.openapitools.client.models.Epoch
+import org.openapitools.client.models.EpochParam
 
 import org.openapitools.client.infrastructure.ApiClient
 import org.openapitools.client.infrastructure.ClientException
@@ -30,7 +24,6 @@ import org.openapitools.client.infrastructure.RequestConfig
 import org.openapitools.client.infrastructure.RequestMethod
 import org.openapitools.client.infrastructure.ResponseType
 import org.openapitools.client.infrastructure.Success
-import org.openapitools.client.infrastructure.toMultiValue
 
 class CardanoEpochsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     companion object {
@@ -50,15 +43,15 @@ class CardanoEpochsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(ba
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun epochsLatestGet() : EpochContent {
+    suspend fun epochsLatestGet() : Epoch {
         val localVariableConfig = epochsLatestGetRequestConfig()
 
-        val localVarResponse = request<Unit, EpochContent>(
+        val localVarResponse = request<Unit, Epoch>(
             localVariableConfig
         )
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as EpochContent
+            ResponseType.Success -> (localVarResponse as Success<*>).data as Epoch
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -101,15 +94,15 @@ class CardanoEpochsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(ba
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun epochsLatestParametersGet() : EpochParamContent {
+    suspend fun epochsLatestParametersGet() : EpochParam {
         val localVariableConfig = epochsLatestParametersGetRequestConfig()
 
-        val localVarResponse = request<Unit, EpochParamContent>(
+        val localVarResponse = request<Unit, EpochParam>(
             localVariableConfig
         )
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as EpochParamContent
+            ResponseType.Success -> (localVarResponse as Success<*>).data as EpochParam
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -295,15 +288,15 @@ class CardanoEpochsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(ba
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun epochsNumberGet(number: kotlin.Int) : EpochContent {
+    suspend fun epochsNumberGet(number: kotlin.Int) : Epoch {
         val localVariableConfig = epochsNumberGetRequestConfig(number = number)
 
-        val localVarResponse = request<Unit, EpochContent>(
+        val localVarResponse = request<Unit, Epoch>(
             localVariableConfig
         )
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as EpochContent
+            ResponseType.Success -> (localVarResponse as Success<*>).data as Epoch
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -350,15 +343,15 @@ class CardanoEpochsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(ba
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun epochsNumberNextGet(number: kotlin.Int, count: kotlin.Int?, page: kotlin.Int?) : kotlin.collections.List<EpochContent> {
+    suspend fun epochsNumberNextGet(number: kotlin.Int, count: kotlin.Int?, page: kotlin.Int?) : kotlin.collections.List<Epoch> {
         val localVariableConfig = epochsNumberNextGetRequestConfig(number = number, count = count, page = page)
 
-        val localVarResponse = request<Unit, kotlin.collections.List<EpochContent>>(
+        val localVarResponse = request<Unit, kotlin.collections.List<Epoch>>(
             localVariableConfig
         )
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.collections.List<EpochContent>
+            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.collections.List<Epoch>
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -413,15 +406,15 @@ class CardanoEpochsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(ba
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun epochsNumberParametersGet(number: kotlin.Int) : EpochParamContent {
+    suspend fun epochsNumberParametersGet(number: kotlin.Int) : EpochParam {
         val localVariableConfig = epochsNumberParametersGetRequestConfig(number = number)
 
-        val localVarResponse = request<Unit, EpochParamContent>(
+        val localVarResponse = request<Unit, EpochParam>(
             localVariableConfig
         )
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as EpochParamContent
+            ResponseType.Success -> (localVarResponse as Success<*>).data as EpochParam
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -468,15 +461,15 @@ class CardanoEpochsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(ba
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun epochsNumberPreviousGet(number: kotlin.Int, count: kotlin.Int?, page: kotlin.Int?) : kotlin.collections.List<EpochContent> {
+    suspend fun epochsNumberPreviousGet(number: kotlin.Int, count: kotlin.Int?, page: kotlin.Int?) : kotlin.collections.List<Epoch> {
         val localVariableConfig = epochsNumberPreviousGetRequestConfig(number = number, count = count, page = page)
 
-        val localVarResponse = request<Unit, kotlin.collections.List<EpochContent>>(
+        val localVarResponse = request<Unit, kotlin.collections.List<Epoch>>(
             localVariableConfig
         )
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.collections.List<EpochContent>
+            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.collections.List<Epoch>
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {

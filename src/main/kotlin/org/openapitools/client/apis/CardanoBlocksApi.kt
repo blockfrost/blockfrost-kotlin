@@ -11,13 +11,7 @@
 */
 package org.openapitools.client.apis
 
-import org.openapitools.client.models.BlockContent
-import org.openapitools.client.models.InlineResponse400
-import org.openapitools.client.models.InlineResponse403
-import org.openapitools.client.models.InlineResponse404
-import org.openapitools.client.models.InlineResponse418
-import org.openapitools.client.models.InlineResponse429
-import org.openapitools.client.models.InlineResponse500
+import org.openapitools.client.models.Block
 
 import org.openapitools.client.infrastructure.ApiClient
 import org.openapitools.client.infrastructure.ClientException
@@ -29,7 +23,6 @@ import org.openapitools.client.infrastructure.RequestConfig
 import org.openapitools.client.infrastructure.RequestMethod
 import org.openapitools.client.infrastructure.ResponseType
 import org.openapitools.client.infrastructure.Success
-import org.openapitools.client.infrastructure.toMultiValue
 
 class CardanoBlocksApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     companion object {
@@ -51,15 +44,15 @@ class CardanoBlocksApi(basePath: kotlin.String = defaultBasePath) : ApiClient(ba
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun blocksEpochEpochNumberSlotSlotNumberGet(epochNumber: kotlin.Int, slotNumber: kotlin.Int) : BlockContent {
+    suspend fun blocksEpochEpochNumberSlotSlotNumberGet(epochNumber: kotlin.Int, slotNumber: kotlin.Int) : Block {
         val localVariableConfig = blocksEpochEpochNumberSlotSlotNumberGetRequestConfig(epochNumber = epochNumber, slotNumber = slotNumber)
 
-        val localVarResponse = request<Unit, BlockContent>(
+        val localVarResponse = request<Unit, Block>(
             localVariableConfig
         )
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as BlockContent
+            ResponseType.Success -> (localVarResponse as Success<*>).data as Block
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -105,15 +98,15 @@ class CardanoBlocksApi(basePath: kotlin.String = defaultBasePath) : ApiClient(ba
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun blocksHashOrNumberGet(hashOrNumber: kotlin.String) : BlockContent {
+    suspend fun blocksHashOrNumberGet(hashOrNumber: kotlin.String) : Block {
         val localVariableConfig = blocksHashOrNumberGetRequestConfig(hashOrNumber = hashOrNumber)
 
-        val localVarResponse = request<Unit, BlockContent>(
+        val localVarResponse = request<Unit, Block>(
             localVariableConfig
         )
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as BlockContent
+            ResponseType.Success -> (localVarResponse as Success<*>).data as Block
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -160,15 +153,15 @@ class CardanoBlocksApi(basePath: kotlin.String = defaultBasePath) : ApiClient(ba
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun blocksHashOrNumberNextGet(hashOrNumber: kotlin.String, count: kotlin.Int?, page: kotlin.Int?) : kotlin.collections.List<BlockContent> {
+    suspend fun blocksHashOrNumberNextGet(hashOrNumber: kotlin.String, count: kotlin.Int?, page: kotlin.Int?) : kotlin.collections.List<Block> {
         val localVariableConfig = blocksHashOrNumberNextGetRequestConfig(hashOrNumber = hashOrNumber, count = count, page = page)
 
-        val localVarResponse = request<Unit, kotlin.collections.List<BlockContent>>(
+        val localVarResponse = request<Unit, kotlin.collections.List<Block>>(
             localVariableConfig
         )
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.collections.List<BlockContent>
+            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.collections.List<Block>
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -225,15 +218,15 @@ class CardanoBlocksApi(basePath: kotlin.String = defaultBasePath) : ApiClient(ba
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun blocksHashOrNumberPreviousGet(hashOrNumber: kotlin.String, count: kotlin.Int?, page: kotlin.Int?) : kotlin.collections.List<BlockContent> {
+    suspend fun blocksHashOrNumberPreviousGet(hashOrNumber: kotlin.String, count: kotlin.Int?, page: kotlin.Int?) : kotlin.collections.List<Block> {
         val localVariableConfig = blocksHashOrNumberPreviousGetRequestConfig(hashOrNumber = hashOrNumber, count = count, page = page)
 
-        val localVarResponse = request<Unit, kotlin.collections.List<BlockContent>>(
+        val localVarResponse = request<Unit, kotlin.collections.List<Block>>(
             localVariableConfig
         )
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.collections.List<BlockContent>
+            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.collections.List<Block>
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -357,15 +350,15 @@ class CardanoBlocksApi(basePath: kotlin.String = defaultBasePath) : ApiClient(ba
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun blocksLatestGet() : BlockContent {
+    suspend fun blocksLatestGet() : Block {
         val localVariableConfig = blocksLatestGetRequestConfig()
 
-        val localVarResponse = request<Unit, BlockContent>(
+        val localVarResponse = request<Unit, Block>(
             localVariableConfig
         )
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as BlockContent
+            ResponseType.Success -> (localVarResponse as Success<*>).data as Block
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -477,15 +470,15 @@ class CardanoBlocksApi(basePath: kotlin.String = defaultBasePath) : ApiClient(ba
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun blocksSlotSlotNumberGet(slotNumber: kotlin.Int) : BlockContent {
+    suspend fun blocksSlotSlotNumberGet(slotNumber: kotlin.Int) : Block {
         val localVariableConfig = blocksSlotSlotNumberGetRequestConfig(slotNumber = slotNumber)
 
-        val localVarResponse = request<Unit, BlockContent>(
+        val localVarResponse = request<Unit, Block>(
             localVariableConfig
         )
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as BlockContent
+            ResponseType.Success -> (localVarResponse as Success<*>).data as Block
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
