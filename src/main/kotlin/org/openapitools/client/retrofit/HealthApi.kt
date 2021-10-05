@@ -1,41 +1,58 @@
-package org.openapitools.client.retrofit
+package org.openapitools.client.apis
 
-import okhttp3.ResponseBody
-import org.openapitools.client.models.Clock
-import org.openapitools.client.models.Health
+import org.openapitools.client.infrastructure.CollectionFormats.*
+import retrofit2.http.*
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Header
+import okhttp3.RequestBody
+import org.openapitools.client.models.*
 
 interface HealthApi {
     /**
-     * Current backend time
-     * This endpoint provides the current UNIX time. Your application might use this to verify if the client clock is not out of sync.
+     * Root endpoint
+     * Root endpoint has no other function than to point end users to documentation. 
+     * Responses:
+     *  - 200: Information pointing to the documentation.
+     *  - 400: Bad request
+     *  - 403: Authentication secret is missing or invalid
+     *  - 429: Usage limit reached
+     *  - 418: IP has been auto-banned for extensive sending of requests after usage limit has been reached
+     *  - 500: Internal Server Error
      *
-     * @return Call&lt;Clock&gt;
+     * @return [ApiRoot]
+     */
+    @GET("")
+    suspend fun getApiRoot(): Response<ApiRoot>
+
+    /**
+     * Current backend time
+     * This endpoint provides the current UNIX time. Your application might use this to verify if the client clock is not out of sync. 
+     * Responses:
+     *  - 200: Return the current UNIX time in milliseconds.
+     *  - 400: Bad request
+     *  - 403: Authentication secret is missing or invalid
+     *  - 429: Usage limit reached
+     *  - 418: IP has been auto-banned for extensive sending of requests after usage limit has been reached
+     *  - 500: Internal Server Error
+     *
+     * @return [Clock]
      */
     @GET("health/clock")
-    fun healthClockGet(@Header("project_id") projectId: String?): Response<Clock?>?
-
+    suspend fun getCurrentBackendTime(): Response<Clock>
 
     /**
      * Backend health status
-     * Return backend status as a boolean. Your application  should handle situations when backend for the given chain is unavailable.
+     * Return backend status as a boolean. Your application     should handle situations when backend for the given chain is unavailable. 
+     * Responses:
+     *  - 200: Return the boolean indicating the health of the backend.
+     *  - 400: Bad request
+     *  - 403: Authentication secret is missing or invalid
+     *  - 429: Usage limit reached
+     *  - 418: IP has been auto-banned for extensive sending of requests after usage limit has been reached
+     *  - 500: Internal Server Error
      *
-     * @return Call&lt;Health&gt;
+     * @return [Health]
      */
     @GET("health")
-    fun healthGet(@Header("project_id") projectId: String?): Response<Health?>?
-
-
-    /**
-     * Root endpoint
-     * Root endpoint has no other function than to point end users to documentation.
-     *
-     * @return Call&lt;ApiRoot&gt;
-     */
-    @GET("/")
-    fun rootGet(@Header("project_id") projectId: String?): Response<ResponseBody?>?
-
+    suspend fun getHealth(): Response<Health>
 
 }

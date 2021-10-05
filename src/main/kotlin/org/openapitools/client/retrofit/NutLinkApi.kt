@@ -1,74 +1,102 @@
-package org.openapitools.client.retrofit
+package org.openapitools.client.apis
 
-import org.openapitools.client.models.nutlink.NutLinkAddress
-import org.openapitools.client.models.nutlink.Ticker
-import org.openapitools.client.models.nutlink.TickerRecord
+import org.openapitools.client.infrastructure.CollectionFormats.*
+import retrofit2.http.*
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Path
-import retrofit2.http.Query
+import okhttp3.RequestBody
+
+import org.openapitools.client.models.InlineResponse400
+import org.openapitools.client.models.InlineResponse403
+import org.openapitools.client.models.InlineResponse404
+import org.openapitools.client.models.InlineResponse418
+import org.openapitools.client.models.InlineResponse429
+import org.openapitools.client.models.InlineResponse500
+import org.openapitools.client.models.NutlinkAddress
+import org.openapitools.client.models.NutlinkAddressTicker
+import org.openapitools.client.models.NutlinkAddressTickers
+import org.openapitools.client.models.NutlinkTickersTicker
 
 interface NutLinkApi {
     /**
-     *
+     * 
      * List metadata about specific address
-     * @param address  (required)
-     * @return Call&lt;[NutLinkAddress]&gt;
+     * Responses:
+     *  - 200: Return the metadata about metadata oracle
+     *  - 400: Bad request
+     *  - 403: Authentication secret is missing or invalid
+     *  - 404: Component not found
+     *  - 429: Usage limit reached
+     *  - 418: IP has been auto-banned for extensive sending of requests after usage limit has been reached
+     *  - 500: Internal Server Error
+     *
+     * @param address  
+     * @return [NutlinkAddress]
      */
     @GET("nutlink/{address}")
-    fun addressGet(
-        @Header("project_id") projectId: String?,
-        @Path("address") address: String?
-    ): Response<NutLinkAddress?>?
+    suspend fun getAddress(@Path("address") address: kotlin.String): Response<NutlinkAddress>
 
     /**
-     *
+     * 
      * List tickers for a specific metadata oracle
-     * @param address  (required)
+     * Responses:
+     *  - 200: Return the tickers provided by the metadata oracle
+     *  - 400: Bad request
+     *  - 403: Authentication secret is missing or invalid
+     *  - 404: Component not found
+     *  - 429: Usage limit reached
+     *  - 418: IP has been auto-banned for extensive sending of requests after usage limit has been reached
+     *  - 500: Internal Server Error
+     *
+     * @param address  
      * @param count The number of results displayed on one page. (optional, default to 100)
      * @param page The page number for listing the results. (optional, default to 1)
      * @param order The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to asc)
-     * @return Call&lt;List&lt;Object&gt;&gt;
+     * @return [kotlin.collections.List<NutlinkAddressTickers>]
      */
     @GET("nutlink/{address}/tickers")
-    fun addressTickersGet(
-        @Header("project_id") projectId: String?,
-        @Path("address") address: String?, @Query("count") count: Int?, @Query("page") page: Int?,
-        @Query("order") order: String?
-    ): Response<List<Ticker?>?>?
-
+    suspend fun getAddressTickers(@Path("address") address: kotlin.String, @Query("count") count: kotlin.Int? = null, @Query("page") page: kotlin.Int? = null, @Query("order") order: kotlin.String? = null): Response<kotlin.collections.List<NutlinkAddressTickers>>
 
     /**
-     *
+     * 
      * List of records of a specific ticker
-     * @param address  (required)
-     * @param ticker  (required)
+     * Responses:
+     *  - 200: Return the tickers provided by the metadata oracle
+     *  - 400: Bad request
+     *  - 403: Authentication secret is missing or invalid
+     *  - 404: Component not found
+     *  - 429: Usage limit reached
+     *  - 418: IP has been auto-banned for extensive sending of requests after usage limit has been reached
+     *  - 500: Internal Server Error
+     *
+     * @param address  
+     * @param ticker  
      * @param count The number of results displayed on one page. (optional, default to 100)
      * @param page The page number for listing the results. (optional, default to 1)
      * @param order The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to asc)
-     * @return Call&lt;List&lt;Object&gt;&gt;
+     * @return [kotlin.collections.List<NutlinkAddressTicker>]
      */
     @GET("nutlink/{address}/tickers/{ticker}")
-    fun addressTickerRecords(
-        @Header("project_id") projectId: String?,
-        @Path("address") address: String?, @Path("ticker") ticker: String?, @Query("count") count: Int?,
-        @Query("page") page: Int?, @Query("order") order: String?
-    ): Response<List<TickerRecord?>?>?
+    suspend fun getTickerRecordsByAddressAndTicker(@Path("address") address: kotlin.String, @Path("ticker") ticker: kotlin.String, @Query("count") count: kotlin.Int? = null, @Query("page") page: kotlin.Int? = null, @Query("order") order: kotlin.String? = null): Response<kotlin.collections.List<NutlinkAddressTicker>>
 
     /**
-     *
+     * 
      * List of records of a specific ticker
-     * @param ticker  (required)
+     * Responses:
+     *  - 200: Return the tickers provided by the metadata oracle
+     *  - 400: Bad request
+     *  - 403: Authentication secret is missing or invalid
+     *  - 404: Component not found
+     *  - 429: Usage limit reached
+     *  - 418: IP has been auto-banned for extensive sending of requests after usage limit has been reached
+     *  - 500: Internal Server Error
+     *
+     * @param ticker  
      * @param count The number of results displayed on one page. (optional, default to 100)
      * @param page The page number for listing the results. (optional, default to 1)
      * @param order The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to asc)
-     * @return Call&lt;List&lt;Object&gt;&gt;
+     * @return [kotlin.collections.List<NutlinkTickersTicker>]
      */
     @GET("nutlink/tickers/{ticker}")
-    fun tickerRecords(
-        @Header("project_id") projectId: String?,
-        @Path("ticker") ticker: String?, @Query("count") count: Int?, @Query("page") page: Int?,
-        @Query("order") order: String?
-    ): Response<List<TickerRecord?>?>?
+    suspend fun getTickerRecordsByTicker(@Path("ticker") ticker: kotlin.String, @Query("count") count: kotlin.Int? = null, @Query("page") page: kotlin.Int? = null, @Query("order") order: kotlin.String? = null): Response<kotlin.collections.List<NutlinkTickersTicker>>
+
 }

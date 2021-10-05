@@ -12,12 +12,9 @@ import kotlinx.coroutines.test.TestCoroutineDispatcher
 import okhttp3.OkHttpClient
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.openapitools.client.infrastructure.PageLister
+import org.openapitools.client.api.CardanoAccountsApi4
+import org.openapitools.client.infrastructure.BlockfrostConfig
 import org.openapitools.client.infrastructure.Serializer
-import org.openapitools.client.models.Block
-import org.openapitools.client.retrofit.AccountsApi
-import org.openapitools.client.retrofit.AddressesApi
-import org.openapitools.client.retrofit.BlocksApi
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import retrofit2.Response
@@ -110,27 +107,41 @@ class AccountServiceTest : TestBase() {
 
     @Test
     fun getAccountByStakeAddress_willReturn_Account(): Unit = runBlocking {
-        val api = getRetrofit().create(AccountsApi::class.java)
-        val apiAddr = getRetrofit().create(AddressesApi::class.java)
-        val apiBlock = getRetrofit().create(BlocksApi::class.java)
+//        val api = getRetrofit().create(AccountsApi::class.java)
+//        val apiAddr = getRetrofit().create(AddressesApi::class.java)
+//        val apiBlock = getRetrofit().create(BlocksApi::class.java)
         val stakeAddress = "stake_test1upwlsqc3m9629dsf2vw3ycuqv5jhd023xtjh3ax42nvj03gwy2cha"
         val projId = "PXCu29tM3mTm3ZK503IAgfJo23s9eLlF"
-        val r = api.accountsStakeAddressGet(projId, stakeAddress)
-        logger.info("$r")
+//        val r = api.accountsStakeAddressGet(projId, stakeAddress)
+//        logger.info("$r")
 
-        val pager = PageLister<Block>(concurrentPages = 5)
-        val flow = pager.load { count, page ->
-            apiBlock.blocksHashOrNumberNextGet(projId, "2828500", count, page)
-        }
+        val stakeAddr = "stake1u9a3t4rgddm4expj0ucyxhxg3ft9ugk2ry6r9w69h04ea6cfj887f"
+        val config = BlockfrostConfig.defaulMainNetConfig
+        val api4 = CardanoAccountsApi4(config)
+        val r1 = api4.getAccountAddresses(stakeAddr)
 
         try {
-            flow.collect {
-                logger.info("Block: $it")
+            api4.getAccountAddressesAll(stakeAddr).collect {
+                logger.info("Addr: $it")
             }
         } catch(e: Exception){
             logger.error("Error in flow collection", e)
             throw e
         }
+
+//        val pager = PageLister<Block>(concurrentPages = 5)
+//        val flow = pager.load { count, page ->
+//            apiBlock.blocksHashOrNumberNextGet(projId, "2828500", count, page)
+//        }
+//
+//        try {
+//            flow.collect {
+//                logger.info("Block: $it")
+//            }
+//        } catch(e: Exception){
+//            logger.error("Error in flow collection", e)
+//            throw e
+//        }
 
 //        val rr = apiBlock.blocksHashOrNumberNextGet(projId, "2829000", countPerPage, page)
 //        val rr = apiAddr.addressesAddressTransactionsGet(
@@ -143,8 +154,8 @@ class AccountServiceTest : TestBase() {
 //        val r2 = api.accountsStakeAddressAddressesAssetsGet(projId, "stake_test1upwlsqc3m9629dsf2vw3ycuqv5jhd023xtjh3ax42nvj03gwy2cha", 3, 1, "asc")
 //        logger.info("$r2")
 
-        val r2 = api.accountsStakeAddressAddressesGet(projId, "stake_test1upwlsqc3m9629dsf2vw3ycuqv5jhd023xtjh3ax42nvj03gwy2cha", 1, 1, "asc")
-        logger.info("$r2")
+//        val r2 = api.accountsStakeAddressAddressesGet(projId, "stake_test1upwlsqc3m9629dsf2vw3ycuqv5jhd023xtjh3ax42nvj03gwy2cha", 1, 1, "asc")
+//        logger.info("$r2")
 
 //        val account: Account = accountService.getAccountByStakeAddress(stakeAddress)
 //        assertThat(

@@ -21,19 +21,19 @@ class PageLister<T>(
     private var genJob: Job? = null
 
     private var semWork: Semaphore? = null
-    private var outputChannel: Channel<Response<List<T?>?>?>? = null
-    private var pageQueue: PriorityBlockingQueue<PagedResponse<T?>>? = null
+    private var outputChannel: Channel<Response<List<T>>?>? = null
+    private var pageQueue: PriorityBlockingQueue<PagedResponse<T>>? = null
     private var numPages = 0
 
-    suspend fun load(loader: suspend (count: Int, page: Int) -> Response<List<T?>?>) : Flow<T> = flow { coroutineScope {
+    suspend fun load(loader: suspend (count: Int, page: Int) -> Response<List<T>>) : Flow<T> = flow { coroutineScope {
         val lowestEmptyPage = AtomicInteger(Int.MAX_VALUE - concurrentPages - 1)
         val semWorkers = Semaphore(concurrentPages, 0).also { this@PageLister.semWork = it }
 
-        val outputChannel = Channel<Response<List<T?>?>?>().also { this@PageLister.outputChannel = it }
-        val pageQueue = PriorityBlockingQueue<PagedResponse<T?>>(11, compareBy { it.page }).also { this@PageLister.pageQueue = it }
+        val outputChannel = Channel<Response<List<T>>?>().also { this@PageLister.outputChannel = it }
+        val pageQueue = PriorityBlockingQueue<PagedResponse<T>>(11, compareBy { it.page }).also { this@PageLister.pageQueue = it }
         val taskChannel = Channel<Int>()
 
-        val taskProcessor: suspend (PagedResponse<T?>) -> Unit = process@{ cpr ->
+        val taskProcessor: suspend (PagedResponse<T>) -> Unit = process@{ cpr ->
             val cr = cpr.response
             logger.info("Finished page load ${cpr.page} res: ${cr?.code()}, size: ${cr?.body()?.size ?: -1}, avail works ${semWorkers.availablePermits}")
 

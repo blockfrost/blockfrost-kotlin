@@ -22,4 +22,4 @@ fun <T : Any?> toMultiValue(items: Iterable<T>, collectionFormat: String, map: (
     }
 }
 
-class PagedResponse<T>(val page: Int, val response: retrofit2.Response<List<T>?>? = null)
+class PagedResponse<T>(val page: Int, val response: retrofit2.Response<List<T>>? = null)

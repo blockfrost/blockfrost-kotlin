@@ -1,5 +1,11 @@
 package org.openapitools.client.infrastructure
 
+import io.github.resilience4j.circuitbreaker.CircuitBreaker
+import io.github.resilience4j.core.IntervalFunction
+import io.github.resilience4j.retrofit.CircuitBreakerCallAdapter
+import io.github.resilience4j.retrofit.RetryCallAdapter
+import io.github.resilience4j.retry.Retry
+import io.github.resilience4j.retry.RetryConfig
 import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.suspendCancellableCoroutine
 import okhttp3.*
@@ -8,6 +14,8 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.Response
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
@@ -20,11 +28,12 @@ import java.time.OffsetDateTime
 import java.time.OffsetTime
 import java.util.Date
 import java.util.Locale
+import java.util.concurrent.TimeoutException
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-open class ApiClient(val baseUrl: String) {
+open class ApiClient(val config: BlockfrostConfig) {
     companion object {
         protected const val ContentType = "Content-Type"
         protected const val Accept = "Accept"
@@ -36,9 +45,6 @@ open class ApiClient(val baseUrl: String) {
 
         val apiKey: MutableMap<String, String> = mutableMapOf()
         val apiKeyPrefix: MutableMap<String, String> = mutableMapOf()
-        var username: String? = null
-        var password: String? = null
-        var accessToken: String? = null
 
         @JvmStatic
         val client: OkHttpClient by lazy {
@@ -47,6 +53,19 @@ open class ApiClient(val baseUrl: String) {
 
         @JvmStatic
         val builder: OkHttpClient.Builder = OkHttpClient.Builder()
+    }
+
+    /**
+     * BaseURL loaded from configuration
+     */
+    val baseUrl: String get() = config.baseUrl ?: BlockfrostConfig.UrlMainnet
+
+    open fun getRetrofit(): Retrofit {
+        return config.getRetrofit()
+    }
+
+    open fun <S> createService(serviceClass: Class<S>): S {
+        return config.createService(serviceClass)
     }
 
     /**
