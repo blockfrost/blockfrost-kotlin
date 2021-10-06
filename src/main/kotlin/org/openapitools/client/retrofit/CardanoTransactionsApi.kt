@@ -2,10 +2,7 @@ package org.openapitools.client.retrofit
 
 import org.openapitools.client.models.*
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface CardanoTransactionsApi {
     /**
@@ -222,6 +219,6 @@ interface CardanoTransactionsApi {
      * @return [kotlin.String]
      */
     @POST("tx/submit")
-    suspend fun submitTransaction(@Header("Content-Type") contentType: kotlin.String): Response<kotlin.String>
+    suspend fun submitTransaction(@Header("Content-Type") contentType: kotlin.String? = null, @Body data: ByteArray): Response<kotlin.String>
 
 }
