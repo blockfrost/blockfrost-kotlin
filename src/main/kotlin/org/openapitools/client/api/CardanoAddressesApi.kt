@@ -52,7 +52,6 @@ open class CardanoAddressesApi(config: BlockfrostConfig = BlockfrostConfig.defau
         handleResponse(api.getAddress(address = address))
     }
 
-
     /**
      * Address details
      * Obtain details about an address.
@@ -68,7 +67,6 @@ open class CardanoAddressesApi(config: BlockfrostConfig = BlockfrostConfig.defau
     ): AddressContentTotal? = withContext(Dispatchers.IO) {
         handleResponse(api.getAddressDetails(address = address))
     }
-
 
     /**
      * Address transactions

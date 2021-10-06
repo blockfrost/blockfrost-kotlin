@@ -329,7 +329,6 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         handleResponse(api.getEpoch(number = number))
     }
 
-
     /**
      * Protocol parameters
      * Return the protocol parameters for the epoch specified.
@@ -346,7 +345,6 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         handleResponse(api.getEpochParam(number = number))
     }
 
-
     /**
      * Latest epoch
      * Return the information about the latest, therefore current, epoch.
@@ -362,7 +360,6 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         handleResponse(api.getLatestEpoch())
     }
 
-
     /**
      * Latest epoch protocol parameters
      * Return the protocol parameters for the latest epoch.
@@ -377,7 +374,6 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
     ): EpochParamContent? = withContext(Dispatchers.IO) {
         handleResponse(api.getLatestEpochParam())
     }
-
 
     /**
      * Listing of next epochs

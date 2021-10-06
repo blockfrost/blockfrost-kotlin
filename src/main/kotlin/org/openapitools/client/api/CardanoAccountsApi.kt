@@ -183,7 +183,6 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
         handleResponse(api.getAccountByStakeAddress(stakeAddress = stakeAddress))
     }
 
-
     /**
      * Account delegation history
      * Obtain information about the delegation of a specific account.

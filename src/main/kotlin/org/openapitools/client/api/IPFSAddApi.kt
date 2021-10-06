@@ -49,5 +49,4 @@ open class IPFSAddApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
         handleResponse(api.add())
     }
 
-
 }

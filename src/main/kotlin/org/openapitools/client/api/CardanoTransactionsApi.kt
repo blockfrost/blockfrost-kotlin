@@ -50,7 +50,6 @@ open class CardanoTransactionsApi(config: BlockfrostConfig = BlockfrostConfig.de
         handleResponse(api.getTransaction(hash = hash))
     }
 
-
     /**
      * Transaction delegation certificates
      * Obtain information about delegation certificates of a specific transaction.
@@ -66,7 +65,6 @@ open class CardanoTransactionsApi(config: BlockfrostConfig = BlockfrostConfig.de
     ): kotlin.collections.List<TxContentDelegation> = withContext(Dispatchers.IO) {
         handleListResponse(api.getTransactionDelegations(hash = hash))
     }
-
 
     /**
      * Transaction metadata
@@ -84,7 +82,6 @@ open class CardanoTransactionsApi(config: BlockfrostConfig = BlockfrostConfig.de
         handleListResponse(api.getTransactionMetadata(hash = hash))
     }
 
-
     /**
      * Transaction metadata in CBOR
      * Obtain the transaction metadata in CBOR.
@@ -100,7 +97,6 @@ open class CardanoTransactionsApi(config: BlockfrostConfig = BlockfrostConfig.de
     ): kotlin.collections.List<TxContentMetadataCbor> = withContext(Dispatchers.IO) {
         handleListResponse(api.getTransactionMetadataCbor(hash = hash))
     }
-
 
     /**
      * Transaction MIRs
@@ -118,7 +114,6 @@ open class CardanoTransactionsApi(config: BlockfrostConfig = BlockfrostConfig.de
         handleListResponse(api.getTransactionMirs(hash = hash))
     }
 
-
     /**
      * Transaction stake pool retirement certificates
      * Obtain information about stake pool retirements within a specific transaction.
@@ -134,7 +129,6 @@ open class CardanoTransactionsApi(config: BlockfrostConfig = BlockfrostConfig.de
     ): kotlin.collections.List<TxContentPoolRetire> = withContext(Dispatchers.IO) {
         handleListResponse(api.getTransactionPoolRetires(hash = hash))
     }
-
 
     /**
      * Transaction stake pool registration and update certificates
@@ -152,7 +146,6 @@ open class CardanoTransactionsApi(config: BlockfrostConfig = BlockfrostConfig.de
         handleListResponse(api.getTransactionPoolUpdates(hash = hash))
     }
 
-
     /**
      * Transaction redeemers
      * Obtain the transaction redeemers.
@@ -168,7 +161,6 @@ open class CardanoTransactionsApi(config: BlockfrostConfig = BlockfrostConfig.de
     ): kotlin.collections.List<TxContentRedeemer> = withContext(Dispatchers.IO) {
         handleListResponse(api.getTransactionRedeemers(hash = hash))
     }
-
 
     /**
      * Transaction stake addresses certificates
@@ -186,7 +178,6 @@ open class CardanoTransactionsApi(config: BlockfrostConfig = BlockfrostConfig.de
         handleListResponse(api.getTransactionStakes(hash = hash))
     }
 
-
     /**
      * Transaction UTXOs
      * Return the inputs and UTXOs of the specific transaction.
@@ -202,7 +193,6 @@ open class CardanoTransactionsApi(config: BlockfrostConfig = BlockfrostConfig.de
     ): TxContentUtxo? = withContext(Dispatchers.IO) {
         handleResponse(api.getTransactionUtxos(hash = hash))
     }
-
 
     /**
      * Transaction withdrawal
@@ -220,7 +210,6 @@ open class CardanoTransactionsApi(config: BlockfrostConfig = BlockfrostConfig.de
         handleListResponse(api.getTransactionWithdrawals(hash = hash))
     }
 
-
     /**
      * Submit a transaction
      * Submit an already serialized transaction to the network.
@@ -236,6 +225,5 @@ open class CardanoTransactionsApi(config: BlockfrostConfig = BlockfrostConfig.de
     ): kotlin.String? = withContext(Dispatchers.IO) {
         handleResponse(api.submitTransaction(contentType = contentType))
     }
-
 
 }

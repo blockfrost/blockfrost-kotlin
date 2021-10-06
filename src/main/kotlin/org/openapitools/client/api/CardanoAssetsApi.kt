@@ -49,7 +49,6 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         handleResponse(api.getAsset(asset = asset))
     }
 
-
     /**
      * Asset addresses
      * List of a addresses containing a specific asset

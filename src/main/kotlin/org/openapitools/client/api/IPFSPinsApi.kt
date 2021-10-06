@@ -109,7 +109,6 @@ open class IPFSPinsApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig
         handleResponse(api.getPinListByIpfsPath(ipFSPath = ipFSPath))
     }
 
-
     /**
      * Pin an object
      * Pinned objects are counted in your user storage quota.
@@ -126,7 +125,6 @@ open class IPFSPinsApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig
         handleResponse(api.pinAdd(ipFSPath = ipFSPath))
     }
 
-
     /**
      *
      * Remove pinned objects from local storage
@@ -142,6 +140,5 @@ open class IPFSPinsApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig
     ): InlineResponse2007? = withContext(Dispatchers.IO) {
         handleResponse(api.removePin(ipFSPath = ipFSPath))
     }
-
 
 }

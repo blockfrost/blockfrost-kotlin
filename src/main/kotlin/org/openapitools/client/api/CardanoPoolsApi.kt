@@ -49,7 +49,6 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
         handleResponse(api.getPool(poolId = poolId))
     }
 
-
     /**
      * Stake pool blocks
      * List of stake pools blocks.
@@ -253,7 +252,6 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
         handleResponse(api.getPoolMetadata(poolId = poolId))
     }
 
-
     /**
      * Stake pool relays
      * Relays of a stake pool.
@@ -269,7 +267,6 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
     ): kotlin.collections.List<PoolRelay> = withContext(Dispatchers.IO) {
         handleListResponse(api.getPoolRelays(poolId = poolId))
     }
-
 
     /**
      * Stake pool updates

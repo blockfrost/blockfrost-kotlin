@@ -47,7 +47,6 @@ open class HealthApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig) 
         handleResponse(api.getApiRoot())
     }
 
-
     /**
      * Current backend time
      * This endpoint provides the current UNIX time. Your application might use this to verify if the client clock is not out of sync.
@@ -61,7 +60,6 @@ open class HealthApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig) 
         handleResponse(api.getCurrentBackendTime())
     }
 
-
     /**
      * Backend health status
      * Return backend status as a boolean. Your application     should handle situations when backend for the given chain is unavailable.
@@ -74,6 +72,5 @@ open class HealthApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig) 
     open suspend fun getHealth(): Health? = withContext(Dispatchers.IO) {
         handleResponse(api.getHealth())
     }
-
 
 }

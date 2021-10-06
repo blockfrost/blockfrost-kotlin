@@ -49,5 +49,4 @@ open class IPFSGatewayApi(config: BlockfrostConfig = BlockfrostConfig.defaultCon
         handleResponse(api.get(ipFSPath = ipFSPath))
     }
 
-
 }

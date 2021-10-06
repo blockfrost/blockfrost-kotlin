@@ -49,7 +49,6 @@ open class CardanoBlocksApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         handleResponse(api.getBlock(hashOrNumber = hashOrNumber))
     }
 
-
     /**
      * Specific block in a slot in an epoch
      * Return the content of a requested block for a specific slot in an epoch.
@@ -67,7 +66,6 @@ open class CardanoBlocksApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         handleResponse(api.getBlockInEpochInSlot(epochNumber = epochNumber, slotNumber = slotNumber))
     }
 
-
     /**
      * Specific block in a slot
      * Return the content of a requested block for a specific slot.
@@ -83,7 +81,6 @@ open class CardanoBlocksApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
     ): BlockContent? = withContext(Dispatchers.IO) {
         handleResponse(api.getBlockInSlot(slotNumber = slotNumber))
     }
-
 
     /**
      * Block transactions
@@ -166,7 +163,6 @@ open class CardanoBlocksApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
     ): BlockContent? = withContext(Dispatchers.IO) {
         handleResponse(api.getLatestBlock())
     }
-
 
     /**
      * Listing of next blocks

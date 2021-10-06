@@ -52,7 +52,6 @@ open class NutLinkApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
         handleResponse(api.getAddress(address = address))
     }
 
-
     /**
      *
      * List tickers for a specific metadata oracle

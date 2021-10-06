@@ -49,5 +49,4 @@ open class CardanoNetworkApi(config: BlockfrostConfig = BlockfrostConfig.default
         handleResponse(api.getNetwork())
     }
 
-
 }

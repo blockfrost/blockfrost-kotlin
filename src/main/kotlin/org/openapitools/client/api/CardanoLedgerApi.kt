@@ -49,5 +49,4 @@ open class CardanoLedgerApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         handleResponse(api.getGenesis())
     }
 
-
 }

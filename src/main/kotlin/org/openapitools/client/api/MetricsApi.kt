@@ -50,7 +50,6 @@ open class MetricsApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
         handleListResponse(api.getMetrics())
     }
 
-
     /**
      * Blockfrost endpoint usage metrics
      * History of your Blockfrost usage metrics per endpoint in the past 30 days.
@@ -65,6 +64,5 @@ open class MetricsApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
     ): kotlin.collections.List<MetricsEndpoint> = withContext(Dispatchers.IO) {
         handleListResponse(api.getMetricsEndpoints())
     }
-
 
 }

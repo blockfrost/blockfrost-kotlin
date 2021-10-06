@@ -51,7 +51,6 @@ open class CardanoScriptsApi(config: BlockfrostConfig = BlockfrostConfig.default
         handleResponse(api.getScript(scriptHash = scriptHash))
     }
 
-
     /**
      * Redeemers of a specific script
      * List of redeemers of a specific script
