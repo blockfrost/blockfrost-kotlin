@@ -11,6 +11,9 @@ import java.util.concurrent.atomic.AtomicInteger
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
+typealias PageListerResponse<T> = Response<List<T>>
+
+data class PagedResponse<T>(val page: Int, val response: PageListerResponse<T>? = null)
 
 class PageLister<T>(
     val countPerPage: Int = 100,
@@ -21,15 +24,15 @@ class PageLister<T>(
     private var genJob: Job? = null
 
     private var semWork: Semaphore? = null
-    private var outputChannel: Channel<Response<List<T>>?>? = null
+    private var outputChannel: Channel<PageListerResponse<T>?>? = null
     private var pageQueue: PriorityBlockingQueue<PagedResponse<T>>? = null
     private var numPages = 0
 
-    suspend fun load(loader: suspend (count: Int, page: Int) -> Response<List<T>>) : Flow<T> = flow { coroutineScope {
+    suspend fun load(loader: suspend (count: Int, page: Int) -> PageListerResponse<T>) : Flow<T> = flow { coroutineScope {
         val lowestEmptyPage = AtomicInteger(Int.MAX_VALUE - concurrentPages - 1)
         val semWorkers = Semaphore(concurrentPages, 0).also { this@PageLister.semWork = it }
 
-        val outputChannel = Channel<Response<List<T>>?>().also { this@PageLister.outputChannel = it }
+        val outputChannel = Channel<PageListerResponse<T>?>().also { this@PageLister.outputChannel = it }
         val pageQueue = PriorityBlockingQueue<PagedResponse<T>>(11, compareBy { it.page }).also { this@PageLister.pageQueue = it }
         val taskChannel = Channel<Int>()
 

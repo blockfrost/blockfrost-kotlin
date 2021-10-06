@@ -21,5 +21,3 @@ fun <T : Any?> toMultiValue(items: Iterable<T>, collectionFormat: String, map: (
         else -> listOf(items.joinToString(separator = collectionDelimiter(collectionFormat), transform = map))
     }
 }
-
-class PagedResponse<T>(val page: Int, val response: retrofit2.Response<List<T>>? = null)
