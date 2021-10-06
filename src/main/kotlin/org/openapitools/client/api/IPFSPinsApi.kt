@@ -25,10 +25,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.withContext
 import org.openapitools.client.infrastructure.*
-import org.openapitools.client.models.InlineResponse2004
-import org.openapitools.client.models.InlineResponse2005
-import org.openapitools.client.models.InlineResponse2006
-import org.openapitools.client.models.InlineResponse2007
+import org.openapitools.client.models.ipfs.PinItem
+import org.openapitools.client.models.ipfs.PinResponse
 import org.openapitools.client.retrofit.IPFSPinsApi as IPFSPinsApiRetrofit
 
 open class IPFSPinsApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig) : ApiClient(config) {
@@ -42,7 +40,7 @@ open class IPFSPinsApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig
      * @param count The number of results displayed on one page. (optional, default to null)
      * @param page The page number for listing the results. (optional, default to null)
      * @param order The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
-     * @return kotlin.collections.List<InlineResponse2005>
+     * @return kotlin.collections.List<PinItem>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -50,7 +48,7 @@ open class IPFSPinsApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
     open suspend fun getPinList(
         count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
-    ): kotlin.collections.List<InlineResponse2005> = withContext(Dispatchers.IO) {
+    ): kotlin.collections.List<PinItem> = withContext(Dispatchers.IO) {
         handleListResponse(api.getPinList(count = count, page = page, order = order?.toString()))
     }
 
@@ -59,7 +57,7 @@ open class IPFSPinsApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig
      * List objects pinned to local storage
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return Flow<kotlin.collections.List<InlineResponse2005>>
+     * @return Flow<kotlin.collections.List<PinItem>>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -73,8 +71,8 @@ open class IPFSPinsApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig
     open suspend fun getPinListAll(
         order: SortOrder? = null,
         batchSize: Int? = null,
-    ): Flow<InlineResponse2005> {
-        val pager = PageLister<InlineResponse2005>(concurrentPages = batchSize ?: config.batchSize)
+    ): Flow<PinItem> {
+        val pager = PageLister<PinItem>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getPinList(count = count, page = page, order = order)
         }
@@ -85,7 +83,7 @@ open class IPFSPinsApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig
      * List objects pinned to local storage
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<InlineResponse2005>>
+     * @return List<kotlin.collections.List<PinItem>>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -99,7 +97,7 @@ open class IPFSPinsApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig
     open suspend fun getPinListAllList(
         order: SortOrder? = null,
         batchSize: Int? = null,
-    ): List<InlineResponse2005> {
+    ): List<PinItem> {
         return getPinListAll(order = order, batchSize = batchSize).toList()
     }
 
@@ -107,7 +105,7 @@ open class IPFSPinsApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig
      * Get details about pinned object
      * Get information about locally pinned IPFS object
      * @param ipFSPath
-     * @return InlineResponse2006
+     * @return PinItem
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -115,7 +113,7 @@ open class IPFSPinsApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
     open suspend fun getPinListByIpfsPath(
         ipFSPath: kotlin.String
-    ): InlineResponse2006? = withContext(Dispatchers.IO) {
+    ): PinItem? = withContext(Dispatchers.IO) {
         handleResponse(api.getPinListByIpfsPath(ipFSPath = ipFSPath))
     }
 
@@ -123,7 +121,7 @@ open class IPFSPinsApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig
      * Pin an object
      * Pinned objects are counted in your user storage quota.
      * @param ipFSPath
-     * @return InlineResponse2004
+     * @return PinResponse
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -131,7 +129,7 @@ open class IPFSPinsApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
     open suspend fun pinAdd(
         ipFSPath: kotlin.String
-    ): InlineResponse2004? = withContext(Dispatchers.IO) {
+    ): PinResponse? = withContext(Dispatchers.IO) {
         handleResponse(api.pinAdd(ipFSPath = ipFSPath))
     }
 
@@ -139,7 +137,7 @@ open class IPFSPinsApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig
      *
      * Remove pinned objects from local storage
      * @param ipFSPath
-     * @return InlineResponse2007
+     * @return PinResponse
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -147,7 +145,7 @@ open class IPFSPinsApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
     open suspend fun removePin(
         ipFSPath: kotlin.String
-    ): InlineResponse2007? = withContext(Dispatchers.IO) {
+    ): PinResponse? = withContext(Dispatchers.IO) {
         handleResponse(api.removePin(ipFSPath = ipFSPath))
     }
 

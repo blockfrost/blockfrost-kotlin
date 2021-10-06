@@ -22,11 +22,20 @@ package org.openapitools.client.api
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.ResponseBody.Companion.toResponseBody
+import okio.BufferedSink
 import org.openapitools.client.infrastructure.ApiClient
 import org.openapitools.client.infrastructure.BlockfrostConfig
 import org.openapitools.client.infrastructure.ClientException
 import org.openapitools.client.infrastructure.ServerException
-import org.openapitools.client.models.InlineResponse2003
+import org.openapitools.client.models.ipfs.IPFSObject
+import java.io.File
+import java.io.FileInputStream
 import org.openapitools.client.retrofit.IPFSAddApi as IPFSAddApiRetrofit
 
 open class IPFSAddApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig) : ApiClient(config) {
@@ -34,19 +43,53 @@ open class IPFSAddApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
         createService(IPFSAddApiRetrofit::class.java)
     }
 
+    companion object {
+        const val FTYPE = "application/octet-stream"
+    }
+
     /**
      * Add a file to IPFS
      * You need to &#x60;/ipfs/pin/add&#x60; an object to avoid it being garbage collected. This usage is being counted in your user account quota.
-     * @return InlineResponse2003
+     * @return IPFSObject
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    open suspend fun add(
+    open suspend fun add(body: ByteArray, fname: String? = null): IPFSObject? = withContext(Dispatchers.IO) {
+        handleResponse(api.addFile(MultipartBody.Part.createFormData("file", fname, body.toRequestBody(FTYPE.toMediaType()))))
+    }
 
-    ): InlineResponse2003? = withContext(Dispatchers.IO) {
-        handleResponse(api.add())
+    /**
+     * Add a file to IPFS
+     * You need to &#x60;/ipfs/pin/add&#x60; an object to avoid it being garbage collected. This usage is being counted in your user account quota.
+     * @return IPFSObject
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    open suspend fun add(file: File): IPFSObject? = withContext(Dispatchers.IO) {
+        val body = MultipartBody.Part.create(object : RequestBody() {
+            override fun contentType(): MediaType? {
+                return FTYPE.toMediaType()
+            }
+
+            override fun writeTo(sink: BufferedSink) {
+                FileInputStream(file).use { fis ->
+                    val buff = ByteArray(8192)
+                    var idx = 0
+
+                    do {
+                        idx = fis.read(buff)
+                        if (idx >= 0) {
+                            sink.write(buff, 0, idx)
+                        }
+                    } while (idx >= 0)
+                }
+            }
+        })
+        handleResponse(api.addFile(body))
     }
 
 }
