@@ -35,10 +35,10 @@ class PageLister<T>(
 
         val taskProcessor: suspend (PagedResponse<T>) -> Unit = process@{ cpr ->
             val cr = cpr.response
-            logger.info("Finished page load ${cpr.page} res: ${cr?.code()}, size: ${cr?.body()?.size ?: -1}, avail works ${semWorkers.availablePermits}")
+            logger.debug("Finished page load ${cpr.page} res: ${cr?.code()}, size: ${cr?.body()?.size ?: -1}, avail works ${semWorkers.availablePermits}")
 
             if (cr == null || !cr.isSuccessful){
-                logger.info("Page loading error ${cpr.page}")
+                logger.debug("Page loading error ${cpr.page}")
                 semWorkers.release()
 
                 if (cpr.page >= lowestEmptyPage.get()) {
@@ -54,7 +54,7 @@ class PageLister<T>(
             if ((cr.body()?.size ?: 0) == 0){
                 val origLastPage = lowestEmptyPage.get()
                 val newLast = ensureMinAndGet(lowestEmptyPage, cpr.page).also { numPages = it }
-                logger.info("Handling empty page ${cpr.page}, orig last: $origLastPage, newLast: $newLast")
+                logger.debug("Handling empty page ${cpr.page}, orig last: $origLastPage, newLast: $newLast")
 
                 outputChannel.trySend(null)  // can fail, have to insert null as order can be permuted
                 semWorkers.release()
@@ -70,11 +70,11 @@ class PageLister<T>(
             }
 
             semWorkers.release()
-            logger.info("Released, avail ${semWorkers.availablePermits}")
+            logger.debug("Released, avail ${semWorkers.availablePermits}")
         }
 
         val pageLoader: suspend (Int) -> Unit = { page ->
-            logger.info("Starting async page load for page $page")
+            logger.debug("Starting async page load for page $page")
             try {
                 val rr = loader(countPerPage, page)
                 taskProcessor(PagedResponse(page, rr))
@@ -96,7 +96,7 @@ class PageLister<T>(
         genJob = launch {
             for(page in generateSequence(1) { it + 1 }){
                 if (page >= lowestEmptyPage.get()){
-                    logger.info("Paging stopped at $page")
+                    logger.debug("Paging stopped at $page")
                     break
                 }
 
@@ -113,7 +113,7 @@ class PageLister<T>(
             while (!pageQueue.isEmpty() && lastQueuePage + 1 == pageQueue.peek().page){
                 val toReturn = pageQueue.poll()
                 lastQueuePage = toReturn.page
-                logger.info(".. Sorted page: ${toReturn.page} in cycle $ix")
+                logger.debug(".. Sorted page: ${toReturn.page} in cycle $ix")
                 for (elem in toReturn?.response?.body()?: emptyList()){
                     elem?.let { emit(it) }
                 }
@@ -123,7 +123,7 @@ class PageLister<T>(
         var nread = 0
         var nNotNull = 0
         for(res in outputChannel){
-            logger.info("output[$nread]: $res")
+            logger.debug("output[$nread]: $res")
             if (res != null){
                 nNotNull += 1
             }
@@ -132,7 +132,7 @@ class PageLister<T>(
             queueDrainer(nread)
             val firstEmpty = lowestEmptyPage.get()
             if ((nNotNull + 1) >= firstEmpty){
-                logger.info("Closing channel, processed $nread, nnull $nNotNull, last ${lowestEmptyPage.get()}")
+                logger.debug("Closing channel, processed $nread, nnull $nNotNull, last ${lowestEmptyPage.get()}")
                 outputChannel.close()
                 taskChannel.close()
                 break
@@ -141,7 +141,7 @@ class PageLister<T>(
 
         queueDrainer(nread)
 
-        logger.info("Finished, perms: ${semWorkers.availablePermits}")
+        logger.debug("Finished, perms: ${semWorkers.availablePermits}")
         if (nNotNull + 1 != lowestEmptyPage.get()){
             logger.error("nread: $nread, nNotNull: $nNotNull, lowest empty: ${lowestEmptyPage.get()}")
             throw RuntimeException("Page loader error - pages missing")
