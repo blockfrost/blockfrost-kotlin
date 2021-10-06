@@ -1,12 +1,11 @@
 package org.openapitools.client.retrofit
 
 import okhttp3.MultipartBody
-import org.openapitools.client.infrastructure.CollectionFormats.*
-import retrofit2.http.*
-import retrofit2.Response
-import okhttp3.RequestBody
-
 import org.openapitools.client.models.ipfs.IPFSObject
+import retrofit2.Response
+import retrofit2.http.Multipart
+import retrofit2.http.POST
+import retrofit2.http.Part
 
 interface IPFSAddApi {
     /**

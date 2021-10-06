@@ -1,12 +1,12 @@
 package org.openapitools.client.retrofit
 
-import org.openapitools.client.infrastructure.CollectionFormats.*
-import retrofit2.http.*
-import retrofit2.Response
-import okhttp3.RequestBody
-
 import org.openapitools.client.models.ipfs.PinItem
 import org.openapitools.client.models.ipfs.PinResponse
+import retrofit2.Response
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface IPFSPinsApi {
     /**

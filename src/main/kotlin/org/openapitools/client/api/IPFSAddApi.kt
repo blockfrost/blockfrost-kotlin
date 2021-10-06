@@ -28,7 +28,6 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import okio.BufferedSink
-import org.openapitools.client.exception.APIException
 import org.openapitools.client.infrastructure.*
 import org.openapitools.client.models.ipfs.IPFSObject
 import java.io.BufferedInputStream

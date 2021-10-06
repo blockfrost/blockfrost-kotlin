@@ -1,15 +1,16 @@
 package org.openapitools.client.infrastructure
 
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Semaphore
-import retrofit2.Response
-import java.util.concurrent.PriorityBlockingQueue
-import java.util.concurrent.atomic.AtomicInteger
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import java.util.concurrent.PriorityBlockingQueue
+import java.util.concurrent.atomic.AtomicInteger
 
 // Enables easy conversion of Response<List<T>> to List<T> in PageLister
 typealias PageListerResponse<T> = List<T>

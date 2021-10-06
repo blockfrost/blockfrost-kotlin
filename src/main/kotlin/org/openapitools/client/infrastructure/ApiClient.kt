@@ -1,7 +1,7 @@
 package org.openapitools.client.infrastructure
 
-import okhttp3.*
-import org.openapitools.client.models.AccountAddressesContent
+import okhttp3.OkHttpClient
+import okhttp3.ResponseBody
 import retrofit2.Retrofit
 import java.io.File
 import java.net.URLConnection

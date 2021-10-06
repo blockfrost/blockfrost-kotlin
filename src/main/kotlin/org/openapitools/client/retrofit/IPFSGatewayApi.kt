@@ -1,17 +1,9 @@
 package org.openapitools.client.retrofit
 
-import org.openapitools.client.infrastructure.CollectionFormats.*
-import retrofit2.http.*
-import retrofit2.Response
-import okhttp3.RequestBody
 import okhttp3.ResponseBody
-
-import org.openapitools.client.models.InlineResponse400
-import org.openapitools.client.models.InlineResponse403
-import org.openapitools.client.models.InlineResponse404
-import org.openapitools.client.models.InlineResponse418
-import org.openapitools.client.models.InlineResponse429
-import org.openapitools.client.models.InlineResponse500
+import retrofit2.Response
+import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface IPFSGatewayApi {
     /**

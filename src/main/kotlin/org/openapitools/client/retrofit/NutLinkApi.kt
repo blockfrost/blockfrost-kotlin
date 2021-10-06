@@ -1,20 +1,13 @@
 package org.openapitools.client.retrofit
 
-import org.openapitools.client.infrastructure.CollectionFormats.*
-import retrofit2.http.*
-import retrofit2.Response
-import okhttp3.RequestBody
-
-import org.openapitools.client.models.InlineResponse400
-import org.openapitools.client.models.InlineResponse403
-import org.openapitools.client.models.InlineResponse404
-import org.openapitools.client.models.InlineResponse418
-import org.openapitools.client.models.InlineResponse429
-import org.openapitools.client.models.InlineResponse500
 import org.openapitools.client.models.NutlinkAddress
 import org.openapitools.client.models.NutlinkAddressTicker
 import org.openapitools.client.models.NutlinkAddressTickers
 import org.openapitools.client.models.NutlinkTickersTicker
+import retrofit2.Response
+import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface NutLinkApi {
     /**

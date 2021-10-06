@@ -1,10 +1,10 @@
 package org.openapitools.client.retrofit
 
-import org.openapitools.client.infrastructure.CollectionFormats.*
-import retrofit2.http.*
+import org.openapitools.client.models.ApiRoot
+import org.openapitools.client.models.Clock
+import org.openapitools.client.models.Health
 import retrofit2.Response
-import okhttp3.RequestBody
-import org.openapitools.client.models.*
+import retrofit2.http.GET
 
 interface HealthApi {
     /**

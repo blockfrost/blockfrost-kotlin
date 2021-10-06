@@ -1,22 +1,10 @@
 package org.openapitools.client.retrofit
 
-import org.openapitools.client.infrastructure.CollectionFormats.*
-import retrofit2.http.*
+import org.openapitools.client.models.*
 import retrofit2.Response
-import okhttp3.RequestBody
-
-import org.openapitools.client.models.Asset
-import org.openapitools.client.models.AssetAddress
-import org.openapitools.client.models.AssetHistory
-import org.openapitools.client.models.AssetPolicy
-import org.openapitools.client.models.AssetTransaction
-import org.openapitools.client.models.Assets
-import org.openapitools.client.models.InlineResponse400
-import org.openapitools.client.models.InlineResponse403
-import org.openapitools.client.models.InlineResponse404
-import org.openapitools.client.models.InlineResponse418
-import org.openapitools.client.models.InlineResponse429
-import org.openapitools.client.models.InlineResponse500
+import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface CardanoAssetsApi {
     /**

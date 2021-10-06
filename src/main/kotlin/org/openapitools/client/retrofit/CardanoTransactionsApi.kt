@@ -1,27 +1,11 @@
 package org.openapitools.client.retrofit
 
-import org.openapitools.client.infrastructure.CollectionFormats.*
-import retrofit2.http.*
+import org.openapitools.client.models.*
 import retrofit2.Response
-import okhttp3.RequestBody
-
-import org.openapitools.client.models.InlineResponse400
-import org.openapitools.client.models.InlineResponse403
-import org.openapitools.client.models.InlineResponse404
-import org.openapitools.client.models.InlineResponse418
-import org.openapitools.client.models.InlineResponse429
-import org.openapitools.client.models.InlineResponse500
-import org.openapitools.client.models.TxContent
-import org.openapitools.client.models.TxContentDelegation
-import org.openapitools.client.models.TxContentMetadata
-import org.openapitools.client.models.TxContentMetadataCbor
-import org.openapitools.client.models.TxContentMir
-import org.openapitools.client.models.TxContentPoolCert
-import org.openapitools.client.models.TxContentPoolRetire
-import org.openapitools.client.models.TxContentRedeemer
-import org.openapitools.client.models.TxContentStakeAddr
-import org.openapitools.client.models.TxContentUtxo
-import org.openapitools.client.models.TxContentWithdrawal
+import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface CardanoTransactionsApi {
     /**
