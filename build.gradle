@@ -1,0 +1,185 @@
+group 'org.openapitools'
+version '1.0.0'
+
+wrapper {
+    gradleVersion = '6.8.3'
+    distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
+}
+
+buildscript {
+    ext.kotlinVersion = '1.5.10'
+    ext.kotlinVersionCoro = '1.5.1'
+    ext.resilience4jVersion = '1.7.1'
+    ext.retrofitVersion = '2.9.0'
+    ext.kotestVersion = '4.6.3'
+
+    repositories {
+        maven { url "https://repo1.maven.org/maven2" }
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+    }
+}
+
+apply plugin: 'kotlin'
+
+repositories {
+    maven { url "https://repo1.maven.org/maven2" }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:$kotlinVersionCoro"
+
+    implementation "com.squareup.moshi:moshi-kotlin:1.12.0"
+    implementation "com.squareup.okhttp3:okhttp:4.9.1"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.1"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-scalars:$retrofitVersion"
+    implementation 'org.slf4j:slf4j-api:1.7.12'
+    // implementation 'org.json:json:20210307'
+    implementation("com.beust:klaxon:5.5") {
+        exclude group: "org.jetbrains.kotlin", module: "kotlin-stdlib"
+        exclude group: "org.jetbrains.kotlin", module: "kotlin-reflect"
+    }
+
+    implementation "io.github.resilience4j:resilience4j-kotlin:$resilience4jVersion"
+    implementation "io.github.resilience4j:resilience4j-retry:$resilience4jVersion"
+    implementation "io.github.resilience4j:resilience4j-circuitbreaker:$resilience4jVersion"
+    implementation "io.github.resilience4j:resilience4j-bulkhead:$resilience4jVersion"
+    implementation "io.github.resilience4j:resilience4j-retrofit:$resilience4jVersion"
+
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinVersionCoro"
+    testImplementation 'org.hamcrest:hamcrest-library:2.2'
+    testImplementation 'org.exparity:hamcrest-date:2.0.0'
+    testImplementation 'org.mockito:mockito-inline:3.7.7'
+    testImplementation 'org.mockito:mockito-junit-jupiter:3.7.7'
+    testImplementation 'org.slf4j:slf4j-simple:1.7.12'
+    testImplementation "io.kotest:kotest-runner-junit5:$kotestVersion"
+    testImplementation "io.kotest:kotest-assertions-core:$kotestVersion"
+    testImplementation "io.kotest:kotest-property:$kotestVersion"
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs "src/main/resources", "native"
+        }
+    }
+    integrationTest {
+        java {
+            configurations.testImplementation.setCanBeResolved(true)
+            configurations.testRuntimeOnly.setCanBeResolved(true)
+            compileClasspath += main.output + test.output + configurations.testImplementation
+            runtimeClasspath += main.output + test.output + compileClasspath + configurations.testRuntimeOnly
+            srcDir file('src/integration-test/kotlin')
+        }
+        resources.srcDir file('src/integration-test/resources')
+    }
+}
+
+configurations {
+    integrationTestCompile.extendsFrom testCompile
+    integrationTestImplementation.extendsFrom testImplementation
+    integrationTestRuntime.extendsFrom testRuntime
+    integrationTestRuntimeOnly.extendsFrom testRuntimeOnly
+}
+
+compileJava {
+    options.compilerArgs += ["-Aproject=${project.group}/${project.name}"]
+}
+
+task sourceJar(type: Jar) {
+    classifier "sources"
+    from sourceSets.main.allJava
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier "javadoc"
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives jar
+    archives sourceJar
+    archives javadocJar
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        showStandardStreams = true
+    }
+}
+
+//publishing {
+//    publications {
+//        mavenJava(MavenPublication) {
+//            from components.java
+//            artifact(sourceJar) {
+//                classifier = 'sources'
+//            }
+//            artifact(javadocJar) {
+//                classifier = 'javadoc'
+//            }
+//            pom {
+//                name = 'Blockfrost.io Java SDK'
+//                description = 'Java SDK for the Blockfrost.io API'
+//                url = 'https://github.com/blockfrost/blockfrost-java'
+//                licenses {
+//                    license {
+//                        name = 'Apache License, Version 2.0'
+//                        url = 'https://opensource.org/licenses/Apache-2.0'
+//                    }
+//                }
+//                developers {
+//                    developer {
+//                        id = 'satran004'
+//                        name = 'Satya'
+//                        email = 'satran004@gmail.com'
+//                    }
+//                    developer {
+//                        id = 'cryptofervid'
+//                        name = 'Cryptofervid'
+//                        email = 'cryptofervid@gmail.com'
+//                    }
+//                }
+//                scm {
+//                    connection = 'scm:git:git://github.com/blockfrost/blockfrost-java.git'
+//                    developerConnection = 'scm:git:ssh://git@github.com/blockfrost/blockfrost-java.git'
+//                    url = 'https://github.com/blockfrost/blockfrost-java'
+//                }
+//            }
+//        }
+//    }
+//
+//    repositories {
+//        String ossrhUsername = System.getenv('MAVEN_USER')
+//        String ossrhPassword = System.getenv('MAVEN_PASSWORD')
+//
+//        maven {
+//            def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+//            def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
+//            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+//            credentials {
+//                username ossrhUsername
+//                password ossrhPassword
+//            }
+//        }
+//    }
+//}
+
+ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
+
+//if (isReleaseVersion && !project.hasProperty("skipSigning")) {
+//    signing {
+////        sign configurations.archives
+//        sign publishing.publications
+//    }
+//}
