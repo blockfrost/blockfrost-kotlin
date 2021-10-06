@@ -27,15 +27,14 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import okhttp3.ResponseBody.Companion.toResponseBody
 import okio.BufferedSink
-import org.openapitools.client.infrastructure.ApiClient
-import org.openapitools.client.infrastructure.BlockfrostConfig
-import org.openapitools.client.infrastructure.ClientException
-import org.openapitools.client.infrastructure.ServerException
+import org.openapitools.client.exception.APIException
+import org.openapitools.client.infrastructure.*
 import org.openapitools.client.models.ipfs.IPFSObject
+import java.io.BufferedInputStream
 import java.io.File
 import java.io.FileInputStream
+import java.io.InputStream
 import org.openapitools.client.retrofit.IPFSAddApi as IPFSAddApiRetrofit
 
 open class IPFSAddApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig) : ApiClient(config) {
@@ -43,10 +42,6 @@ open class IPFSAddApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
         createService(IPFSAddApiRetrofit::class.java)
     }
 
-    companion object {
-        const val FTYPE = "application/octet-stream"
-    }
-
     /**
      * Add a file to IPFS
      * You need to &#x60;/ipfs/pin/add&#x60; an object to avoid it being garbage collected. This usage is being counted in your user account quota.
@@ -56,12 +51,13 @@ open class IPFSAddApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
      * @throws ServerException If the API returns a server error response
      */
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    open suspend fun add(body: ByteArray, fname: String? = null): IPFSObject? = withContext(Dispatchers.IO) {
-        handleResponse(api.addFile(MultipartBody.Part.createFormData("file", fname, body.toRequestBody(FTYPE.toMediaType()))))
+    open suspend fun add(body: ByteArray, fname: String? = null, mediaType: MediaType? = null): IPFSObject? = withContext(Dispatchers.IO) {
+        handleResponse(api.addFile(MultipartBody.Part.createFormData("file", fname, body.toRequestBody(mediaType ?: DefaultMediaType.toMediaType()))))
     }
 
     /**
-     * Add a file to IPFS
+     * Add a file to IPFS. Streaming version.
+     *
      * You need to &#x60;/ipfs/pin/add&#x60; an object to avoid it being garbage collected. This usage is being counted in your user account quota.
      * @return IPFSObject
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -69,27 +65,75 @@ open class IPFSAddApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
      * @throws ServerException If the API returns a server error response
      */
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    open suspend fun add(file: File): IPFSObject? = withContext(Dispatchers.IO) {
-        val body = MultipartBody.Part.create(object : RequestBody() {
+    open suspend fun add(file: File, name: String? = null, mediaType: MediaType? = null): IPFSObject? = withContext(Dispatchers.IO) {
+        val body = MultipartBody.Part.createFormData("file", name, object : RequestBody() {
+
             override fun contentType(): MediaType? {
-                return FTYPE.toMediaType()
+                return mediaType ?: DefaultMediaType.toMediaType()
             }
 
             override fun writeTo(sink: BufferedSink) {
-                FileInputStream(file).use { fis ->
-                    val buff = ByteArray(8192)
-                    var idx = 0
-
-                    do {
-                        idx = fis.read(buff)
-                        if (idx >= 0) {
-                            sink.write(buff, 0, idx)
-                        }
-                    } while (idx >= 0)
+                FileInputStream(file).use { stream ->
+                    dumpToSink(stream, sink)
                 }
             }
         })
         handleResponse(api.addFile(body))
+    }
+
+    /**
+     * Add a file to IPFS. Streaming version.
+     *
+     * You need to &#x60;/ipfs/pin/add&#x60; an object to avoid it being garbage collected. This usage is being counted in your user account quota.
+     * @return IPFSObject
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    open suspend fun add(stream: BufferedInputStream, name: String? = null, mediaType: MediaType? = null, markLimit: Int = DefaultMarkLimit): IPFSObject? = withContext(Dispatchers.IO) {
+        // Using stream here is not working properly, we would have to have marking & resettable stream
+        if (!stream.markSupported()){
+            throw APIRuntimeException("Input stream has to support marking")
+        }
+        stream.mark(markLimit)
+
+        val body = MultipartBody.Part.createFormData("file", name, object : RequestBody() {
+
+            override fun contentType(): MediaType? {
+                return mediaType ?: DefaultMediaType.toMediaType()
+            }
+
+            override fun writeTo(sink: BufferedSink) {
+                stream.reset()
+                val written = dumpToSink(stream, sink)
+                if (written > markLimit){
+                    throw APIRuntimeException("Stream cannot buffer enough data, needed: $written, limit: $markLimit")
+                }
+            }
+        })
+        handleResponse(api.addFile(body))
+    }
+
+    companion object {
+        const val DefaultMediaType = "application/octet-stream"
+        const val DefaultMarkLimit = 1024 * 1024 * 4
+
+        protected fun dumpToSink(stream: InputStream, sink: BufferedSink): Long {
+            val buff = ByteArray(8192)
+            var idx = 0
+            var acc = 0L
+            do {
+                idx = stream.read(buff)
+                if (idx > 0) {
+                    sink.write(buff, 0, idx)
+                    acc += idx
+                }
+                sink.flush()
+            } while (idx >= 0)
+            sink.emit()
+            return acc
+        }
     }
 
 }

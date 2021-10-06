@@ -22,6 +22,7 @@ package org.openapitools.client.api
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.ResponseBody
 import org.openapitools.client.infrastructure.ApiClient
 import org.openapitools.client.infrastructure.BlockfrostConfig
 import org.openapitools.client.infrastructure.ClientException
@@ -45,8 +46,28 @@ open class IPFSGatewayApi(config: BlockfrostConfig = BlockfrostConfig.defaultCon
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
     open suspend fun get(
         ipFSPath: kotlin.String
-    ): Unit = withContext(Dispatchers.IO) {
-        handleResponse(api.get(ipFSPath = ipFSPath))
+    ): ResponseBody? = withContext(Dispatchers.IO) {
+        handleResponse(
+            api.get(ipFSPath = ipFSPath)
+        )
+    }
+
+    /**
+     * Relay to an IPFS gateway
+     * Retrieve an object from the IFPS gateway (useful if you do not want to rely on a public gateway, such as &#x60;ipfs.blockfrost.dev&#x60;).
+     * @param ipFSPath
+     * @return void
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    open suspend fun getData(
+        ipFSPath: kotlin.String
+    ): ByteArray? = withContext(Dispatchers.IO) {
+        handleDataResponse(
+            api.get(ipFSPath = ipFSPath)
+        )
     }
 
 }

@@ -4,6 +4,7 @@ import org.openapitools.client.infrastructure.CollectionFormats.*
 import retrofit2.http.*
 import retrofit2.Response
 import okhttp3.RequestBody
+import okhttp3.ResponseBody
 
 import org.openapitools.client.models.InlineResponse400
 import org.openapitools.client.models.InlineResponse403
@@ -29,6 +30,6 @@ interface IPFSGatewayApi {
      * @return [Unit]
      */
     @GET("ipfs/gateway/{IPFS_path}")
-    suspend fun get(@Path("IPFS_path") ipFSPath: kotlin.String): Response<Unit>
+    suspend fun get(@Path("IPFS_path") ipFSPath: kotlin.String): Response<ResponseBody>
 
 }

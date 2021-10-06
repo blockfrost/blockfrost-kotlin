@@ -1,7 +1,11 @@
 @file:Suppress("unused")
 package org.openapitools.client.infrastructure
 
-import java.lang.RuntimeException
+open class APIRuntimeException(message: String? = null, cause: Throwable? = null) : RuntimeException(message, cause) {
+    companion object {
+        private const val serialVersionUID: Long = 121L
+    }
+}
 
 open class ClientException(message: String? = null, val statusCode: Int = -1, val response: retrofit2.Response<*>? = null) : RuntimeException(message) {
 

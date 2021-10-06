@@ -100,6 +100,11 @@ open class ApiClient(val config: BlockfrostConfig) {
         return res.body()
     }
 
+    open fun handleDataResponse(res: retrofit2.Response<ResponseBody>): ByteArray? {
+        handleError(res)
+        return res.body()?.bytes()
+    }
+
 //    protected fun parameterToString(value: Any?): String = when (value) {
 //        null -> ""
 //        is Array<*> -> toMultiValue(value, "csv").toString()
