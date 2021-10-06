@@ -74,8 +74,10 @@ sourceSets {
     }
     integrationTest {
         java {
-            compileClasspath += main.output + test.output + configurations.testCompile
-            runtimeClasspath += main.output + test.output + compileClasspath + configurations.testRuntime
+            configurations.testImplementation.setCanBeResolved(true)
+            configurations.testRuntimeOnly.setCanBeResolved(true)
+            compileClasspath += main.output + test.output + configurations.testImplementation
+            runtimeClasspath += main.output + test.output + compileClasspath + configurations.testRuntimeOnly
             srcDir file('src/integration-test/kotlin')
         }
         resources.srcDir file('src/integration-test/resources')

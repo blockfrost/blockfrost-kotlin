@@ -88,8 +88,8 @@ open class CardanoAddressesApi(config: BlockfrostConfig = BlockfrostConfig.defau
         count: kotlin.Int? = null,
         page: kotlin.Int? = null,
         order: SortOrder? = null,
-        from: kotlin.String?,
-        to: kotlin.String?
+        from: kotlin.String? = null,
+        to: kotlin.String? = null
     ): kotlin.collections.List<AddressTransactionsContent> = withContext(Dispatchers.IO) {
         handleListResponse(
             api.getAddressTransactions(

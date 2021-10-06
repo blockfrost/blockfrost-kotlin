@@ -6,10 +6,6 @@ import io.kotest.matchers.collections.shouldNotBeEmpty
 import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.TestCoroutineDispatcher
 import org.openapitools.client.api.CardanoAccountsApi
 import org.openapitools.client.infrastructure.BlockfrostConfig
 import org.openapitools.client.models.*
@@ -20,10 +16,9 @@ import kotlin.time.Duration
 import kotlin.time.ExperimentalTime
 
 @OptIn(ExperimentalTime::class)
-class AccountServiceTest : DescribeSpec({
+class AccountsTest : DescribeSpec({
     val logger: Logger = LoggerFactory.getLogger(javaClass)
     var api: CardanoAccountsApi by Delegates.notNull()
-
     System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "TRACE")
 
     describe("load accounts"){
@@ -108,11 +103,5 @@ class AccountServiceTest : DescribeSpec({
                 it.unit.shouldNotBeNull()
             }
         }
-
-
-
-
     }
-
-
 })
