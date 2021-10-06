@@ -222,7 +222,7 @@ open class CardanoTransactionsApi(config: BlockfrostConfig = BlockfrostConfig.de
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
     open suspend fun submitTransaction(
         data: ByteArray,
-        contentType: kotlin.String? = null
+        contentType: kotlin.String? = "application/cbor"
     ): kotlin.String? = withContext(Dispatchers.IO) {
         handleResponse(api.submitTransaction(data = data, contentType = contentType))
     }
