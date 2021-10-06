@@ -51,7 +51,7 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
     open suspend fun getActiveStakesForEpoch(
         number: kotlin.Int, count: kotlin.Int? = null, page: kotlin.Int? = null
     ): kotlin.collections.List<EpochStakeContent> = withContext(Dispatchers.IO) {
-        api.getActiveStakesForEpoch(number = number, count = count, page = page).body() ?: emptyList()
+        handleListResponse(api.getActiveStakesForEpoch(number = number, count = count, page = page))
     }
 
     /**
@@ -93,7 +93,6 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         return getActiveStakesForEpochAll(number = number, batchSize = batchSize).toList()
     }
 
-
     /**
      * Stake distribution by pool
      * Return the active stake distribution for the epoch specified by stake pool.
@@ -110,8 +109,14 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
     open suspend fun getActiveStakesForEpochAndPool(
         number: kotlin.Int, poolId: kotlin.String, count: kotlin.Int? = null, page: kotlin.Int? = null
     ): kotlin.collections.List<EpochStakePoolContent> = withContext(Dispatchers.IO) {
-        api.getActiveStakesForEpochAndPool(number = number, poolId = poolId, count = count, page = page).body()
-            ?: emptyList()
+        handleListResponse(
+            api.getActiveStakesForEpochAndPool(
+                number = number,
+                poolId = poolId,
+                count = count,
+                page = page
+            )
+        )
     }
 
     /**
@@ -155,7 +160,6 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         return getActiveStakesForEpochAndPoolAll(number = number, poolId = poolId, batchSize = batchSize).toList()
     }
 
-
     /**
      * Block distribution
      * Return the blocks minted for the epoch specified.
@@ -172,8 +176,14 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
     open suspend fun getBlocksForEpoch(
         number: kotlin.Int, count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<kotlin.String> = withContext(Dispatchers.IO) {
-        api.getBlocksForEpoch(number = number, count = count, page = page, order = order?.toString()).body()
-            ?: emptyList()
+        handleListResponse(
+            api.getBlocksForEpoch(
+                number = number,
+                count = count,
+                page = page,
+                order = order?.toString()
+            )
+        )
     }
 
     /**
@@ -217,7 +227,6 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         return getBlocksForEpochAll(number = number, order = order, batchSize = batchSize).toList()
     }
 
-
     /**
      * Block distribution by pool
      * Return the block minted for the epoch specified by stake pool.
@@ -239,13 +248,15 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         page: kotlin.Int? = null,
         order: SortOrder? = null
     ): kotlin.collections.List<kotlin.String> = withContext(Dispatchers.IO) {
-        api.getBlocksForEpochAndPool(
-            number = number,
-            poolId = poolId,
-            count = count,
-            page = page,
-            order = order?.toString()
-        ).body() ?: emptyList()
+        handleListResponse(
+            api.getBlocksForEpochAndPool(
+                number = number,
+                poolId = poolId,
+                count = count,
+                page = page,
+                order = order?.toString()
+            )
+        )
     }
 
     /**
@@ -302,7 +313,6 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         ).toList()
     }
 
-
     /**
      * Specific epoch
      * Return the content of the requested epoch.
@@ -316,7 +326,7 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
     open suspend fun getEpoch(
         number: kotlin.Int
     ): EpochContent? = withContext(Dispatchers.IO) {
-        api.getEpoch(number = number).body()
+        handleResponse(api.getEpoch(number = number))
     }
 
 
@@ -333,7 +343,7 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
     open suspend fun getEpochParam(
         number: kotlin.Int
     ): EpochParamContent? = withContext(Dispatchers.IO) {
-        api.getEpochParam(number = number).body()
+        handleResponse(api.getEpochParam(number = number))
     }
 
 
@@ -349,7 +359,7 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
     open suspend fun getLatestEpoch(
 
     ): EpochContent? = withContext(Dispatchers.IO) {
-        api.getLatestEpoch().body()
+        handleResponse(api.getLatestEpoch())
     }
 
 
@@ -365,7 +375,7 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
     open suspend fun getLatestEpochParam(
 
     ): EpochParamContent? = withContext(Dispatchers.IO) {
-        api.getLatestEpochParam().body()
+        handleResponse(api.getLatestEpochParam())
     }
 
 
@@ -384,7 +394,7 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
     open suspend fun getNextEpochs(
         number: kotlin.Int, count: kotlin.Int? = null, page: kotlin.Int? = null
     ): kotlin.collections.List<EpochContent> = withContext(Dispatchers.IO) {
-        api.getNextEpochs(number = number, count = count, page = page).body() ?: emptyList()
+        handleListResponse(api.getNextEpochs(number = number, count = count, page = page))
     }
 
     /**
@@ -426,7 +436,6 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         return getNextEpochsAll(number = number, batchSize = batchSize).toList()
     }
 
-
     /**
      * Listing of previous epochs
      * Return the list of epochs preceding a specific epoch.
@@ -442,7 +451,7 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
     open suspend fun getPreviousEpochs(
         number: kotlin.Int, count: kotlin.Int? = null, page: kotlin.Int? = null
     ): kotlin.collections.List<EpochContent> = withContext(Dispatchers.IO) {
-        api.getPreviousEpochs(number = number, count = count, page = page).body() ?: emptyList()
+        handleListResponse(api.getPreviousEpochs(number = number, count = count, page = page))
     }
 
     /**
@@ -483,6 +492,5 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
     ): List<EpochContent> {
         return getPreviousEpochsAll(number = number, batchSize = batchSize).toList()
     }
-
 
 }

@@ -51,7 +51,7 @@ open class IPFSPinsApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig
     open suspend fun getPinList(
         count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<InlineResponse2005> = withContext(Dispatchers.IO) {
-        api.getPinList(count = count, page = page, order = order?.toString()).body() ?: emptyList()
+        handleListResponse(api.getPinList(count = count, page = page, order = order?.toString()))
     }
 
     /**
@@ -93,7 +93,6 @@ open class IPFSPinsApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig
         return getPinListAll(order = order, batchSize = batchSize).toList()
     }
 
-
     /**
      * Get details about pinned object
      * Get information about locally pinned IPFS object
@@ -107,7 +106,7 @@ open class IPFSPinsApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig
     open suspend fun getPinListByIpfsPath(
         ipFSPath: kotlin.String
     ): InlineResponse2006? = withContext(Dispatchers.IO) {
-        api.getPinListByIpfsPath(ipFSPath = ipFSPath).body()
+        handleResponse(api.getPinListByIpfsPath(ipFSPath = ipFSPath))
     }
 
 
@@ -124,7 +123,7 @@ open class IPFSPinsApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig
     open suspend fun pinAdd(
         ipFSPath: kotlin.String
     ): InlineResponse2004? = withContext(Dispatchers.IO) {
-        api.pinAdd(ipFSPath = ipFSPath).body()
+        handleResponse(api.pinAdd(ipFSPath = ipFSPath))
     }
 
 
@@ -141,7 +140,7 @@ open class IPFSPinsApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig
     open suspend fun removePin(
         ipFSPath: kotlin.String
     ): InlineResponse2007? = withContext(Dispatchers.IO) {
-        api.removePin(ipFSPath = ipFSPath).body()
+        handleResponse(api.removePin(ipFSPath = ipFSPath))
     }
 
 

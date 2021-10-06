@@ -46,7 +46,7 @@ open class CardanoLedgerApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
     open suspend fun getGenesis(
 
     ): GenesisContent? = withContext(Dispatchers.IO) {
-        api.getGenesis().body()
+        handleResponse(api.getGenesis())
     }
 
 

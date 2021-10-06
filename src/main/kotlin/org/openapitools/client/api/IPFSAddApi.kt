@@ -46,7 +46,7 @@ open class IPFSAddApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
     open suspend fun add(
 
     ): InlineResponse2003? = withContext(Dispatchers.IO) {
-        api.add().body()
+        handleResponse(api.add())
     }
 
 

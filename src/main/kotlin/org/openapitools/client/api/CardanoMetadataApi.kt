@@ -51,8 +51,14 @@ open class CardanoMetadataApi(config: BlockfrostConfig = BlockfrostConfig.defaul
     open suspend fun getTransactionMetadataCborForLabel(
         label: kotlin.String, count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<TxMetadataLabelCbor> = withContext(Dispatchers.IO) {
-        api.getTransactionMetadataCborForLabel(label = label, count = count, page = page, order = order?.toString())
-            .body() ?: emptyList()
+        handleListResponse(
+            api.getTransactionMetadataCborForLabel(
+                label = label,
+                count = count,
+                page = page,
+                order = order?.toString()
+            )
+        )
     }
 
     /**
@@ -96,7 +102,6 @@ open class CardanoMetadataApi(config: BlockfrostConfig = BlockfrostConfig.defaul
         return getTransactionMetadataCborForLabelAll(label = label, order = order, batchSize = batchSize).toList()
     }
 
-
     /**
      * Transaction metadata content in JSON
      * Transaction metadata per label.
@@ -113,8 +118,14 @@ open class CardanoMetadataApi(config: BlockfrostConfig = BlockfrostConfig.defaul
     open suspend fun getTransactionMetadataJsonForLabel(
         label: kotlin.String, count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<TxMetadataLabelJson> = withContext(Dispatchers.IO) {
-        api.getTransactionMetadataJsonForLabel(label = label, count = count, page = page, order = order?.toString())
-            .body() ?: emptyList()
+        handleListResponse(
+            api.getTransactionMetadataJsonForLabel(
+                label = label,
+                count = count,
+                page = page,
+                order = order?.toString()
+            )
+        )
     }
 
     /**
@@ -158,7 +169,6 @@ open class CardanoMetadataApi(config: BlockfrostConfig = BlockfrostConfig.defaul
         return getTransactionMetadataJsonForLabelAll(label = label, order = order, batchSize = batchSize).toList()
     }
 
-
     /**
      * Transaction metadata labels
      * List of all used transaction metadata labels.
@@ -174,7 +184,7 @@ open class CardanoMetadataApi(config: BlockfrostConfig = BlockfrostConfig.defaul
     open suspend fun getTransactionMetadataLabels(
         count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<TxMetadataLabel> = withContext(Dispatchers.IO) {
-        api.getTransactionMetadataLabels(count = count, page = page, order = order?.toString()).body() ?: emptyList()
+        handleListResponse(api.getTransactionMetadataLabels(count = count, page = page, order = order?.toString()))
     }
 
     /**
@@ -215,6 +225,5 @@ open class CardanoMetadataApi(config: BlockfrostConfig = BlockfrostConfig.defaul
     ): List<TxMetadataLabel> {
         return getTransactionMetadataLabelsAll(order = order, batchSize = batchSize).toList()
     }
-
 
 }

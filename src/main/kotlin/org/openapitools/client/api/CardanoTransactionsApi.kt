@@ -47,7 +47,7 @@ open class CardanoTransactionsApi(config: BlockfrostConfig = BlockfrostConfig.de
     open suspend fun getTransaction(
         hash: kotlin.String
     ): TxContent? = withContext(Dispatchers.IO) {
-        api.getTransaction(hash = hash).body()
+        handleResponse(api.getTransaction(hash = hash))
     }
 
 
@@ -64,7 +64,7 @@ open class CardanoTransactionsApi(config: BlockfrostConfig = BlockfrostConfig.de
     open suspend fun getTransactionDelegations(
         hash: kotlin.String
     ): kotlin.collections.List<TxContentDelegation> = withContext(Dispatchers.IO) {
-        api.getTransactionDelegations(hash = hash).body() ?: emptyList()
+        handleListResponse(api.getTransactionDelegations(hash = hash))
     }
 
 
@@ -81,7 +81,7 @@ open class CardanoTransactionsApi(config: BlockfrostConfig = BlockfrostConfig.de
     open suspend fun getTransactionMetadata(
         hash: kotlin.String
     ): kotlin.collections.List<TxContentMetadata> = withContext(Dispatchers.IO) {
-        api.getTransactionMetadata(hash = hash).body() ?: emptyList()
+        handleListResponse(api.getTransactionMetadata(hash = hash))
     }
 
 
@@ -98,7 +98,7 @@ open class CardanoTransactionsApi(config: BlockfrostConfig = BlockfrostConfig.de
     open suspend fun getTransactionMetadataCbor(
         hash: kotlin.String
     ): kotlin.collections.List<TxContentMetadataCbor> = withContext(Dispatchers.IO) {
-        api.getTransactionMetadataCbor(hash = hash).body() ?: emptyList()
+        handleListResponse(api.getTransactionMetadataCbor(hash = hash))
     }
 
 
@@ -115,7 +115,7 @@ open class CardanoTransactionsApi(config: BlockfrostConfig = BlockfrostConfig.de
     open suspend fun getTransactionMirs(
         hash: kotlin.String
     ): kotlin.collections.List<TxContentMir> = withContext(Dispatchers.IO) {
-        api.getTransactionMirs(hash = hash).body() ?: emptyList()
+        handleListResponse(api.getTransactionMirs(hash = hash))
     }
 
 
@@ -132,7 +132,7 @@ open class CardanoTransactionsApi(config: BlockfrostConfig = BlockfrostConfig.de
     open suspend fun getTransactionPoolRetires(
         hash: kotlin.String
     ): kotlin.collections.List<TxContentPoolRetire> = withContext(Dispatchers.IO) {
-        api.getTransactionPoolRetires(hash = hash).body() ?: emptyList()
+        handleListResponse(api.getTransactionPoolRetires(hash = hash))
     }
 
 
@@ -149,7 +149,7 @@ open class CardanoTransactionsApi(config: BlockfrostConfig = BlockfrostConfig.de
     open suspend fun getTransactionPoolUpdates(
         hash: kotlin.String
     ): kotlin.collections.List<TxContentPoolCert> = withContext(Dispatchers.IO) {
-        api.getTransactionPoolUpdates(hash = hash).body() ?: emptyList()
+        handleListResponse(api.getTransactionPoolUpdates(hash = hash))
     }
 
 
@@ -166,7 +166,7 @@ open class CardanoTransactionsApi(config: BlockfrostConfig = BlockfrostConfig.de
     open suspend fun getTransactionRedeemers(
         hash: kotlin.String
     ): kotlin.collections.List<TxContentRedeemer> = withContext(Dispatchers.IO) {
-        api.getTransactionRedeemers(hash = hash).body() ?: emptyList()
+        handleListResponse(api.getTransactionRedeemers(hash = hash))
     }
 
 
@@ -183,7 +183,7 @@ open class CardanoTransactionsApi(config: BlockfrostConfig = BlockfrostConfig.de
     open suspend fun getTransactionStakes(
         hash: kotlin.String
     ): kotlin.collections.List<TxContentStakeAddr> = withContext(Dispatchers.IO) {
-        api.getTransactionStakes(hash = hash).body() ?: emptyList()
+        handleListResponse(api.getTransactionStakes(hash = hash))
     }
 
 
@@ -200,7 +200,7 @@ open class CardanoTransactionsApi(config: BlockfrostConfig = BlockfrostConfig.de
     open suspend fun getTransactionUtxos(
         hash: kotlin.String
     ): TxContentUtxo? = withContext(Dispatchers.IO) {
-        api.getTransactionUtxos(hash = hash).body()
+        handleResponse(api.getTransactionUtxos(hash = hash))
     }
 
 
@@ -217,7 +217,7 @@ open class CardanoTransactionsApi(config: BlockfrostConfig = BlockfrostConfig.de
     open suspend fun getTransactionWithdrawals(
         hash: kotlin.String
     ): kotlin.collections.List<TxContentWithdrawal> = withContext(Dispatchers.IO) {
-        api.getTransactionWithdrawals(hash = hash).body() ?: emptyList()
+        handleListResponse(api.getTransactionWithdrawals(hash = hash))
     }
 
 
@@ -234,7 +234,7 @@ open class CardanoTransactionsApi(config: BlockfrostConfig = BlockfrostConfig.de
     open suspend fun submitTransaction(
         contentType: kotlin.String
     ): kotlin.String? = withContext(Dispatchers.IO) {
-        api.submitTransaction(contentType = contentType).body()
+        handleResponse(api.submitTransaction(contentType = contentType))
     }
 
 

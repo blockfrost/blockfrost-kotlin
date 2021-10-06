@@ -46,7 +46,7 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
     open suspend fun getAsset(
         asset: kotlin.String
     ): Asset? = withContext(Dispatchers.IO) {
-        api.getAsset(asset = asset).body()
+        handleResponse(api.getAsset(asset = asset))
     }
 
 
@@ -66,8 +66,7 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
     open suspend fun getAssetAddresses(
         asset: kotlin.String, count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<AssetAddress> = withContext(Dispatchers.IO) {
-        api.getAssetAddresses(asset = asset, count = count, page = page, order = order?.toString()).body()
-            ?: emptyList()
+        handleListResponse(api.getAssetAddresses(asset = asset, count = count, page = page, order = order?.toString()))
     }
 
     /**
@@ -111,7 +110,6 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         return getAssetAddressesAll(asset = asset, order = order, batchSize = batchSize).toList()
     }
 
-
     /**
      * Asset history
      * History of a specific asset
@@ -128,7 +126,7 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
     open suspend fun getAssetHistory(
         asset: kotlin.String, count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<AssetHistory> = withContext(Dispatchers.IO) {
-        api.getAssetHistory(asset = asset, count = count, page = page, order = order?.toString()).body() ?: emptyList()
+        handleListResponse(api.getAssetHistory(asset = asset, count = count, page = page, order = order?.toString()))
     }
 
     /**
@@ -172,7 +170,6 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         return getAssetHistoryAll(asset = asset, order = order, batchSize = batchSize).toList()
     }
 
-
     /**
      * Asset transactions
      * List of a specific asset transactions
@@ -189,8 +186,14 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
     open suspend fun getAssetTransactions(
         asset: kotlin.String, count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<AssetTransaction> = withContext(Dispatchers.IO) {
-        api.getAssetTransactions(asset = asset, count = count, page = page, order = order?.toString()).body()
-            ?: emptyList()
+        handleListResponse(
+            api.getAssetTransactions(
+                asset = asset,
+                count = count,
+                page = page,
+                order = order?.toString()
+            )
+        )
     }
 
     /**
@@ -234,7 +237,6 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         return getAssetTransactionsAll(asset = asset, order = order, batchSize = batchSize).toList()
     }
 
-
     /**
      * Asset transactions
      * List of a specific asset transactions
@@ -253,7 +255,7 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         asset: kotlin.String, count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<kotlin.String> = withContext(Dispatchers.IO) {
         @Suppress("DEPRECATION")
-        api.getAssetTxs(asset = asset, count = count, page = page, order = order?.toString()).body() ?: emptyList()
+        handleListResponse(api.getAssetTxs(asset = asset, count = count, page = page, order = order?.toString()))
     }
 
     /**
@@ -297,7 +299,6 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         return getAssetTxsAll(asset = asset, order = order, batchSize = batchSize).toList()
     }
 
-
     /**
      * Assets
      * List of assets.
@@ -313,7 +314,7 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
     open suspend fun getAssets(
         count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<Assets> = withContext(Dispatchers.IO) {
-        api.getAssets(count = count, page = page, order = order?.toString()).body() ?: emptyList()
+        handleListResponse(api.getAssets(count = count, page = page, order = order?.toString()))
     }
 
     /**
@@ -355,7 +356,6 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         return getAssetsAll(order = order, batchSize = batchSize).toList()
     }
 
-
     /**
      * Assets of a specific policy
      * List of asset minted under a specific policy
@@ -372,8 +372,14 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
     open suspend fun getPolicyAssets(
         policyId: kotlin.String, count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<AssetPolicy> = withContext(Dispatchers.IO) {
-        api.getPolicyAssets(policyId = policyId, count = count, page = page, order = order?.toString()).body()
-            ?: emptyList()
+        handleListResponse(
+            api.getPolicyAssets(
+                policyId = policyId,
+                count = count,
+                page = page,
+                order = order?.toString()
+            )
+        )
     }
 
     /**
@@ -416,6 +422,5 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
     ): List<AssetPolicy> {
         return getPolicyAssetsAll(policyId = policyId, order = order, batchSize = batchSize).toList()
     }
-
 
 }

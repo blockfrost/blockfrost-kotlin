@@ -48,7 +48,7 @@ open class CardanoScriptsApi(config: BlockfrostConfig = BlockfrostConfig.default
     open suspend fun getScript(
         scriptHash: kotlin.String
     ): Script? = withContext(Dispatchers.IO) {
-        api.getScript(scriptHash = scriptHash).body()
+        handleResponse(api.getScript(scriptHash = scriptHash))
     }
 
 
@@ -68,8 +68,14 @@ open class CardanoScriptsApi(config: BlockfrostConfig = BlockfrostConfig.default
     open suspend fun getScriptRedeemers(
         scriptHash: kotlin.String, count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<ScriptRedeemer> = withContext(Dispatchers.IO) {
-        api.getScriptRedeemers(scriptHash = scriptHash, count = count, page = page, order = order?.toString()).body()
-            ?: emptyList()
+        handleListResponse(
+            api.getScriptRedeemers(
+                scriptHash = scriptHash,
+                count = count,
+                page = page,
+                order = order?.toString()
+            )
+        )
     }
 
     /**
@@ -113,7 +119,6 @@ open class CardanoScriptsApi(config: BlockfrostConfig = BlockfrostConfig.default
         return getScriptRedeemersAll(scriptHash = scriptHash, order = order, batchSize = batchSize).toList()
     }
 
-
     /**
      * Scripts
      * List of scripts.
@@ -129,7 +134,7 @@ open class CardanoScriptsApi(config: BlockfrostConfig = BlockfrostConfig.default
     open suspend fun getScripts(
         count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<Scripts> = withContext(Dispatchers.IO) {
-        api.getScripts(count = count, page = page, order = order?.toString()).body() ?: emptyList()
+        handleListResponse(api.getScripts(count = count, page = page, order = order?.toString()))
     }
 
     /**
@@ -170,6 +175,5 @@ open class CardanoScriptsApi(config: BlockfrostConfig = BlockfrostConfig.default
     ): List<Scripts> {
         return getScriptsAll(order = order, batchSize = batchSize).toList()
     }
-
 
 }

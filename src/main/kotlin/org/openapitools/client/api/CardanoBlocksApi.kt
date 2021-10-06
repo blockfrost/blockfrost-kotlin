@@ -46,7 +46,7 @@ open class CardanoBlocksApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
     open suspend fun getBlock(
         hashOrNumber: kotlin.String
     ): BlockContent? = withContext(Dispatchers.IO) {
-        api.getBlock(hashOrNumber = hashOrNumber).body()
+        handleResponse(api.getBlock(hashOrNumber = hashOrNumber))
     }
 
 
@@ -64,7 +64,7 @@ open class CardanoBlocksApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
     open suspend fun getBlockInEpochInSlot(
         epochNumber: kotlin.Int, slotNumber: kotlin.Int
     ): BlockContent? = withContext(Dispatchers.IO) {
-        api.getBlockInEpochInSlot(epochNumber = epochNumber, slotNumber = slotNumber).body()
+        handleResponse(api.getBlockInEpochInSlot(epochNumber = epochNumber, slotNumber = slotNumber))
     }
 
 
@@ -81,7 +81,7 @@ open class CardanoBlocksApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
     open suspend fun getBlockInSlot(
         slotNumber: kotlin.Int
     ): BlockContent? = withContext(Dispatchers.IO) {
-        api.getBlockInSlot(slotNumber = slotNumber).body()
+        handleResponse(api.getBlockInSlot(slotNumber = slotNumber))
     }
 
 
@@ -101,8 +101,14 @@ open class CardanoBlocksApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
     open suspend fun getBlockTransactions(
         hashOrNumber: kotlin.String, count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<kotlin.String> = withContext(Dispatchers.IO) {
-        api.getBlockTransactions(hashOrNumber = hashOrNumber, count = count, page = page, order = order?.toString())
-            .body() ?: emptyList()
+        handleListResponse(
+            api.getBlockTransactions(
+                hashOrNumber = hashOrNumber,
+                count = count,
+                page = page,
+                order = order?.toString()
+            )
+        )
     }
 
     /**
@@ -146,7 +152,6 @@ open class CardanoBlocksApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         return getBlockTransactionsAll(hashOrNumber = hashOrNumber, order = order, batchSize = batchSize).toList()
     }
 
-
     /**
      * Latest block
      * Return the latest block available to the backends, also known as the tip of the blockchain.
@@ -159,7 +164,7 @@ open class CardanoBlocksApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
     open suspend fun getLatestBlock(
 
     ): BlockContent? = withContext(Dispatchers.IO) {
-        api.getLatestBlock().body()
+        handleResponse(api.getLatestBlock())
     }
 
 
@@ -178,7 +183,7 @@ open class CardanoBlocksApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
     open suspend fun getNextBlocks(
         hashOrNumber: kotlin.String, count: kotlin.Int? = null, page: kotlin.Int? = null
     ): kotlin.collections.List<BlockContent> = withContext(Dispatchers.IO) {
-        api.getNextBlocks(hashOrNumber = hashOrNumber, count = count, page = page).body() ?: emptyList()
+        handleListResponse(api.getNextBlocks(hashOrNumber = hashOrNumber, count = count, page = page))
     }
 
     /**
@@ -220,7 +225,6 @@ open class CardanoBlocksApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         return getNextBlocksAll(hashOrNumber = hashOrNumber, batchSize = batchSize).toList()
     }
 
-
     /**
      * Listing of previous blocks
      * Return the list of blocks preceding a specific block.
@@ -236,7 +240,7 @@ open class CardanoBlocksApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
     open suspend fun getPreviousBlocks(
         hashOrNumber: kotlin.String, count: kotlin.Int? = null, page: kotlin.Int? = null
     ): kotlin.collections.List<BlockContent> = withContext(Dispatchers.IO) {
-        api.getPreviousBlocks(hashOrNumber = hashOrNumber, count = count, page = page).body() ?: emptyList()
+        handleListResponse(api.getPreviousBlocks(hashOrNumber = hashOrNumber, count = count, page = page))
     }
 
     /**
@@ -278,7 +282,6 @@ open class CardanoBlocksApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         return getPreviousBlocksAll(hashOrNumber = hashOrNumber, batchSize = batchSize).toList()
     }
 
-
     /**
      * Latest block transactions
      * Return the transactions within the latest block.
@@ -294,7 +297,7 @@ open class CardanoBlocksApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
     open suspend fun getTransactionsInLatestBlock(
         count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<kotlin.String> = withContext(Dispatchers.IO) {
-        api.getTransactionsInLatestBlock(count = count, page = page, order = order?.toString()).body() ?: emptyList()
+        handleListResponse(api.getTransactionsInLatestBlock(count = count, page = page, order = order?.toString()))
     }
 
     /**
@@ -335,6 +338,5 @@ open class CardanoBlocksApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
     ): List<kotlin.String> {
         return getTransactionsInLatestBlockAll(order = order, batchSize = batchSize).toList()
     }
-
 
 }

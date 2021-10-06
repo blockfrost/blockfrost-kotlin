@@ -49,7 +49,7 @@ open class NutLinkApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
     open suspend fun getAddress(
         address: kotlin.String
     ): NutlinkAddress? = withContext(Dispatchers.IO) {
-        api.getAddress(address = address).body()
+        handleResponse(api.getAddress(address = address))
     }
 
 
@@ -69,8 +69,14 @@ open class NutLinkApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
     open suspend fun getAddressTickers(
         address: kotlin.String, count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<NutlinkAddressTickers> = withContext(Dispatchers.IO) {
-        api.getAddressTickers(address = address, count = count, page = page, order = order?.toString()).body()
-            ?: emptyList()
+        handleListResponse(
+            api.getAddressTickers(
+                address = address,
+                count = count,
+                page = page,
+                order = order?.toString()
+            )
+        )
     }
 
     /**
@@ -114,7 +120,6 @@ open class NutLinkApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
         return getAddressTickersAll(address = address, order = order, batchSize = batchSize).toList()
     }
 
-
     /**
      *
      * List of records of a specific ticker
@@ -136,13 +141,15 @@ open class NutLinkApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
         page: kotlin.Int? = null,
         order: SortOrder? = null
     ): kotlin.collections.List<NutlinkAddressTicker> = withContext(Dispatchers.IO) {
-        api.getTickerRecordsByAddressAndTicker(
-            address = address,
-            ticker = ticker,
-            count = count,
-            page = page,
-            order = order?.toString()
-        ).body() ?: emptyList()
+        handleListResponse(
+            api.getTickerRecordsByAddressAndTicker(
+                address = address,
+                ticker = ticker,
+                count = count,
+                page = page,
+                order = order?.toString()
+            )
+        )
     }
 
     /**
@@ -199,7 +206,6 @@ open class NutLinkApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
         ).toList()
     }
 
-
     /**
      *
      * List of records of a specific ticker
@@ -216,8 +222,14 @@ open class NutLinkApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
     open suspend fun getTickerRecordsByTicker(
         ticker: kotlin.String, count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<NutlinkTickersTicker> = withContext(Dispatchers.IO) {
-        api.getTickerRecordsByTicker(ticker = ticker, count = count, page = page, order = order?.toString()).body()
-            ?: emptyList()
+        handleListResponse(
+            api.getTickerRecordsByTicker(
+                ticker = ticker,
+                count = count,
+                page = page,
+                order = order?.toString()
+            )
+        )
     }
 
     /**
@@ -260,6 +272,5 @@ open class NutLinkApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
     ): List<NutlinkTickersTicker> {
         return getTickerRecordsByTickerAll(ticker = ticker, order = order, batchSize = batchSize).toList()
     }
-
 
 }

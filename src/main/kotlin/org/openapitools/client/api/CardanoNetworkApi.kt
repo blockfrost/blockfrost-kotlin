@@ -46,7 +46,7 @@ open class CardanoNetworkApi(config: BlockfrostConfig = BlockfrostConfig.default
     open suspend fun getNetwork(
 
     ): Network? = withContext(Dispatchers.IO) {
-        api.getNetwork().body()
+        handleResponse(api.getNetwork())
     }
 
 

@@ -26,9 +26,7 @@ import org.openapitools.client.infrastructure.ApiClient
 import org.openapitools.client.infrastructure.BlockfrostConfig
 import org.openapitools.client.infrastructure.ClientException
 import org.openapitools.client.infrastructure.ServerException
-import org.openapitools.client.models.ApiRoot
-import org.openapitools.client.models.Clock
-import org.openapitools.client.models.Health
+import org.openapitools.client.models.*
 import org.openapitools.client.retrofit.HealthApi as HealthApiRetrofit
 
 open class HealthApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig) : ApiClient(config) {
@@ -46,7 +44,7 @@ open class HealthApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig) 
      */
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
     open suspend fun getApiRoot(): ApiRoot? = withContext(Dispatchers.IO) {
-        api.getApiRoot().body()
+        handleResponse(api.getApiRoot())
     }
 
 
@@ -60,7 +58,7 @@ open class HealthApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig) 
      */
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
     open suspend fun getCurrentBackendTime(): Clock? = withContext(Dispatchers.IO) {
-        api.getCurrentBackendTime().body()
+        handleResponse(api.getCurrentBackendTime())
     }
 
 
@@ -74,7 +72,7 @@ open class HealthApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig) 
      */
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
     open suspend fun getHealth(): Health? = withContext(Dispatchers.IO) {
-        api.getHealth().body()
+        handleResponse(api.getHealth())
     }
 
 

@@ -46,7 +46,7 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
     open suspend fun getPool(
         poolId: kotlin.String
     ): Pool? = withContext(Dispatchers.IO) {
-        api.getPool(poolId = poolId).body()
+        handleResponse(api.getPool(poolId = poolId))
     }
 
 
@@ -66,7 +66,7 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
     open suspend fun getPoolBlocks(
         poolId: kotlin.String, count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<kotlin.String> = withContext(Dispatchers.IO) {
-        api.getPoolBlocks(poolId = poolId, count = count, page = page, order = order?.toString()).body() ?: emptyList()
+        handleListResponse(api.getPoolBlocks(poolId = poolId, count = count, page = page, order = order?.toString()))
     }
 
     /**
@@ -110,7 +110,6 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
         return getPoolBlocksAll(poolId = poolId, order = order, batchSize = batchSize).toList()
     }
 
-
     /**
      * Stake pool delegators
      * List of current stake pools delegators.
@@ -127,8 +126,14 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
     open suspend fun getPoolDelegators(
         poolId: kotlin.String, count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<PoolDelegator> = withContext(Dispatchers.IO) {
-        api.getPoolDelegators(poolId = poolId, count = count, page = page, order = order?.toString()).body()
-            ?: emptyList()
+        handleListResponse(
+            api.getPoolDelegators(
+                poolId = poolId,
+                count = count,
+                page = page,
+                order = order?.toString()
+            )
+        )
     }
 
     /**
@@ -172,7 +177,6 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
         return getPoolDelegatorsAll(poolId = poolId, order = order, batchSize = batchSize).toList()
     }
 
-
     /**
      * Stake pool history
      * History of stake pool parameters over epochs.
@@ -189,7 +193,7 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
     open suspend fun getPoolHistory(
         poolId: kotlin.String, count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<PoolHistory> = withContext(Dispatchers.IO) {
-        api.getPoolHistory(poolId = poolId, count = count, page = page, order = order?.toString()).body() ?: emptyList()
+        handleListResponse(api.getPoolHistory(poolId = poolId, count = count, page = page, order = order?.toString()))
     }
 
     /**
@@ -233,7 +237,6 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
         return getPoolHistoryAll(poolId = poolId, order = order, batchSize = batchSize).toList()
     }
 
-
     /**
      * Stake pool metadata
      * Stake pool registration metadata.
@@ -247,7 +250,7 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
     open suspend fun getPoolMetadata(
         poolId: kotlin.String
     ): PoolMetadata? = withContext(Dispatchers.IO) {
-        api.getPoolMetadata(poolId = poolId).body()
+        handleResponse(api.getPoolMetadata(poolId = poolId))
     }
 
 
@@ -264,7 +267,7 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
     open suspend fun getPoolRelays(
         poolId: kotlin.String
     ): kotlin.collections.List<PoolRelay> = withContext(Dispatchers.IO) {
-        api.getPoolRelays(poolId = poolId).body() ?: emptyList()
+        handleListResponse(api.getPoolRelays(poolId = poolId))
     }
 
 
@@ -284,7 +287,7 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
     open suspend fun getPoolUpdates(
         poolId: kotlin.String, count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<PoolUpdate> = withContext(Dispatchers.IO) {
-        api.getPoolUpdates(poolId = poolId, count = count, page = page, order = order?.toString()).body() ?: emptyList()
+        handleListResponse(api.getPoolUpdates(poolId = poolId, count = count, page = page, order = order?.toString()))
     }
 
     /**
@@ -328,7 +331,6 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
         return getPoolUpdatesAll(poolId = poolId, order = order, batchSize = batchSize).toList()
     }
 
-
     /**
      * List of stake pools
      * List of registered stake pools.
@@ -344,7 +346,7 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
     open suspend fun getPools(
         count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<kotlin.String> = withContext(Dispatchers.IO) {
-        api.getPools(count = count, page = page, order = order?.toString()).body() ?: emptyList()
+        handleListResponse(api.getPools(count = count, page = page, order = order?.toString()))
     }
 
     /**
@@ -386,7 +388,6 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
         return getPoolsAll(order = order, batchSize = batchSize).toList()
     }
 
-
     /**
      * List of retired stake pools
      * List of already retired pools.
@@ -402,7 +403,7 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
     open suspend fun getRetiredPools(
         count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<PoolListRetire> = withContext(Dispatchers.IO) {
-        api.getRetiredPools(count = count, page = page, order = order?.toString()).body() ?: emptyList()
+        handleListResponse(api.getRetiredPools(count = count, page = page, order = order?.toString()))
     }
 
     /**
@@ -444,7 +445,6 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
         return getRetiredPoolsAll(order = order, batchSize = batchSize).toList()
     }
 
-
     /**
      * List of retiring stake pools
      * List of stake pools retiring in the upcoming epochs
@@ -460,7 +460,7 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
     open suspend fun getRetiringPools(
         count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<PoolListRetire> = withContext(Dispatchers.IO) {
-        api.getRetiringPools(count = count, page = page, order = order?.toString()).body() ?: emptyList()
+        handleListResponse(api.getRetiringPools(count = count, page = page, order = order?.toString()))
     }
 
     /**
@@ -501,6 +501,5 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
     ): List<PoolListRetire> {
         return getRetiringPoolsAll(order = order, batchSize = batchSize).toList()
     }
-
 
 }

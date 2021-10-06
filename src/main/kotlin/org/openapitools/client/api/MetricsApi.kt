@@ -47,7 +47,7 @@ open class MetricsApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
     open suspend fun getMetrics(
 
     ): kotlin.collections.List<Metric> = withContext(Dispatchers.IO) {
-        api.getMetrics().body() ?: emptyList()
+        handleListResponse(api.getMetrics())
     }
 
 
@@ -63,7 +63,7 @@ open class MetricsApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
     open suspend fun getMetricsEndpoints(
 
     ): kotlin.collections.List<MetricsEndpoint> = withContext(Dispatchers.IO) {
-        api.getMetricsEndpoints().body() ?: emptyList()
+        handleListResponse(api.getMetricsEndpoints())
     }
 
 

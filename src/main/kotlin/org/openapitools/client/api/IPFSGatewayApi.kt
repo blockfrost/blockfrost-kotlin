@@ -46,7 +46,7 @@ open class IPFSGatewayApi(config: BlockfrostConfig = BlockfrostConfig.defaultCon
     open suspend fun get(
         ipFSPath: kotlin.String
     ): Unit = withContext(Dispatchers.IO) {
-        api.get(ipFSPath = ipFSPath).body()
+        handleResponse(api.get(ipFSPath = ipFSPath))
     }
 
 

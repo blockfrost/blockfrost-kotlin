@@ -49,7 +49,7 @@ open class CardanoAddressesApi(config: BlockfrostConfig = BlockfrostConfig.defau
     open suspend fun getAddress(
         address: kotlin.String
     ): AddressContent? = withContext(Dispatchers.IO) {
-        api.getAddress(address = address).body()
+        handleResponse(api.getAddress(address = address))
     }
 
 
@@ -66,7 +66,7 @@ open class CardanoAddressesApi(config: BlockfrostConfig = BlockfrostConfig.defau
     open suspend fun getAddressDetails(
         address: kotlin.String
     ): AddressContentTotal? = withContext(Dispatchers.IO) {
-        api.getAddressDetails(address = address).body()
+        handleResponse(api.getAddressDetails(address = address))
     }
 
 
@@ -93,14 +93,16 @@ open class CardanoAddressesApi(config: BlockfrostConfig = BlockfrostConfig.defau
         from: kotlin.String?,
         to: kotlin.String?
     ): kotlin.collections.List<AddressTransactionsContent> = withContext(Dispatchers.IO) {
-        api.getAddressTransactions(
-            address = address,
-            count = count,
-            page = page,
-            order = order?.toString(),
-            from = from,
-            to = to
-        ).body() ?: emptyList()
+        handleListResponse(
+            api.getAddressTransactions(
+                address = address,
+                count = count,
+                page = page,
+                order = order?.toString(),
+                from = from,
+                to = to
+            )
+        )
     }
 
     /**
@@ -161,7 +163,6 @@ open class CardanoAddressesApi(config: BlockfrostConfig = BlockfrostConfig.defau
         ).toList()
     }
 
-
     /**
      * Address transactions
      * Transactions on the address.
@@ -180,8 +181,7 @@ open class CardanoAddressesApi(config: BlockfrostConfig = BlockfrostConfig.defau
         address: kotlin.String, count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<kotlin.String> = withContext(Dispatchers.IO) {
         @Suppress("DEPRECATION")
-        api.getAddressTxs(address = address, count = count, page = page, order = order?.toString()).body()
-            ?: emptyList()
+        handleListResponse(api.getAddressTxs(address = address, count = count, page = page, order = order?.toString()))
     }
 
     /**
@@ -225,7 +225,6 @@ open class CardanoAddressesApi(config: BlockfrostConfig = BlockfrostConfig.defau
         return getAddressTxsAll(address = address, order = order, batchSize = batchSize).toList()
     }
 
-
     /**
      * Address UTXOs
      * UTXOs of the address.
@@ -242,8 +241,14 @@ open class CardanoAddressesApi(config: BlockfrostConfig = BlockfrostConfig.defau
     open suspend fun getAddressUtxos(
         address: kotlin.String, count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<AddressUtxoContent> = withContext(Dispatchers.IO) {
-        api.getAddressUtxos(address = address, count = count, page = page, order = order?.toString()).body()
-            ?: emptyList()
+        handleListResponse(
+            api.getAddressUtxos(
+                address = address,
+                count = count,
+                page = page,
+                order = order?.toString()
+            )
+        )
     }
 
     /**
@@ -286,6 +291,5 @@ open class CardanoAddressesApi(config: BlockfrostConfig = BlockfrostConfig.defau
     ): List<AddressUtxoContent> {
         return getAddressUtxosAll(address = address, order = order, batchSize = batchSize).toList()
     }
-
 
 }

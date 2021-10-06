@@ -49,8 +49,14 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
     open suspend fun getAccountAddresses(
         stakeAddress: kotlin.String, count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<AccountAddressesContent> = withContext(Dispatchers.IO) {
-        api.getAccountAddresses(stakeAddress = stakeAddress, count = count, page = page, order = order?.toString())
-            .body() ?: emptyList()
+        handleListResponse(
+            api.getAccountAddresses(
+                stakeAddress = stakeAddress,
+                count = count,
+                page = page,
+                order = order?.toString()
+            )
+        )
     }
 
     /**
@@ -94,7 +100,6 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
         return getAccountAddressesAll(stakeAddress = stakeAddress, order = order, batchSize = batchSize).toList()
     }
 
-
     /**
      * Assets associated with the account addresses
      * Obtain information about assets associated with addresses of a specific account.  &lt;b&gt;Be careful&lt;/b&gt;, as an account could be part of a mangled address and does not necessarily mean the addresses are owned by user as the account.
@@ -111,8 +116,14 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
     open suspend fun getAccountAssets(
         stakeAddress: kotlin.String, count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<AccountAddressesAsset> = withContext(Dispatchers.IO) {
-        api.getAccountAssets(stakeAddress = stakeAddress, count = count, page = page, order = order?.toString()).body()
-            ?: emptyList()
+        handleListResponse(
+            api.getAccountAssets(
+                stakeAddress = stakeAddress,
+                count = count,
+                page = page,
+                order = order?.toString()
+            )
+        )
     }
 
     /**
@@ -156,7 +167,6 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
         return getAccountAssetsAll(stakeAddress = stakeAddress, order = order, batchSize = batchSize).toList()
     }
 
-
     /**
      * Specific account address
      * Obtain information about a specific stake account.
@@ -170,7 +180,7 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
     open suspend fun getAccountByStakeAddress(
         stakeAddress: kotlin.String
     ): AccountContent? = withContext(Dispatchers.IO) {
-        api.getAccountByStakeAddress(stakeAddress = stakeAddress).body()
+        handleResponse(api.getAccountByStakeAddress(stakeAddress = stakeAddress))
     }
 
 
@@ -190,12 +200,14 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
     open suspend fun getAccountDelegationHistory(
         stakeAddress: kotlin.String, count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<AccountDelegationContent> = withContext(Dispatchers.IO) {
-        api.getAccountDelegationHistory(
-            stakeAddress = stakeAddress,
-            count = count,
-            page = page,
-            order = order?.toString()
-        ).body() ?: emptyList()
+        handleListResponse(
+            api.getAccountDelegationHistory(
+                stakeAddress = stakeAddress,
+                count = count,
+                page = page,
+                order = order?.toString()
+            )
+        )
     }
 
     /**
@@ -248,7 +260,6 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
         ).toList()
     }
 
-
     /**
      * Account history
      * Obtain information about the history of a specific account.
@@ -265,8 +276,14 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
     open suspend fun getAccountHistory(
         stakeAddress: kotlin.String, count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<AccountHistoryContent> = withContext(Dispatchers.IO) {
-        api.getAccountHistory(stakeAddress = stakeAddress, count = count, page = page, order = order?.toString()).body()
-            ?: emptyList()
+        handleListResponse(
+            api.getAccountHistory(
+                stakeAddress = stakeAddress,
+                count = count,
+                page = page,
+                order = order?.toString()
+            )
+        )
     }
 
     /**
@@ -310,7 +327,6 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
         return getAccountHistoryAll(stakeAddress = stakeAddress, order = order, batchSize = batchSize).toList()
     }
 
-
     /**
      * Account MIR history
      * Obtain information about the MIRs of a specific account.
@@ -327,8 +343,14 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
     open suspend fun getAccountMirHistory(
         stakeAddress: kotlin.String, count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<AccountMirContent> = withContext(Dispatchers.IO) {
-        api.getAccountMirHistory(stakeAddress = stakeAddress, count = count, page = page, order = order?.toString())
-            .body() ?: emptyList()
+        handleListResponse(
+            api.getAccountMirHistory(
+                stakeAddress = stakeAddress,
+                count = count,
+                page = page,
+                order = order?.toString()
+            )
+        )
     }
 
     /**
@@ -372,7 +394,6 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
         return getAccountMirHistoryAll(stakeAddress = stakeAddress, order = order, batchSize = batchSize).toList()
     }
 
-
     /**
      * Account registration history
      * Obtain information about the registrations and deregistrations of a specific account.
@@ -389,12 +410,14 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
     open suspend fun getAccountRegistrationHistory(
         stakeAddress: kotlin.String, count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<AccountRegistrationContent> = withContext(Dispatchers.IO) {
-        api.getAccountRegistrationHistory(
-            stakeAddress = stakeAddress,
-            count = count,
-            page = page,
-            order = order?.toString()
-        ).body() ?: emptyList()
+        handleListResponse(
+            api.getAccountRegistrationHistory(
+                stakeAddress = stakeAddress,
+                count = count,
+                page = page,
+                order = order?.toString()
+            )
+        )
     }
 
     /**
@@ -447,7 +470,6 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
         ).toList()
     }
 
-
     /**
      * Account reward history
      * Obtain information about the reward history of a specific account.
@@ -464,8 +486,14 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
     open suspend fun getAccountRewardHistory(
         stakeAddress: kotlin.String, count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<AccountRewardContent> = withContext(Dispatchers.IO) {
-        api.getAccountRewardHistory(stakeAddress = stakeAddress, count = count, page = page, order = order?.toString())
-            .body() ?: emptyList()
+        handleListResponse(
+            api.getAccountRewardHistory(
+                stakeAddress = stakeAddress,
+                count = count,
+                page = page,
+                order = order?.toString()
+            )
+        )
     }
 
     /**
@@ -514,7 +542,6 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
         return getAccountRewardHistoryAll(stakeAddress = stakeAddress, order = order, batchSize = batchSize).toList()
     }
 
-
     /**
      * Account withdrawal history
      * Obtain information about the withdrawals of a specific account.
@@ -531,12 +558,14 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
     open suspend fun getAccountWithdrawalHistory(
         stakeAddress: kotlin.String, count: kotlin.Int? = null, page: kotlin.Int? = null, order: SortOrder? = null
     ): kotlin.collections.List<AccountWithdrawalContent> = withContext(Dispatchers.IO) {
-        api.getAccountWithdrawalHistory(
-            stakeAddress = stakeAddress,
-            count = count,
-            page = page,
-            order = order?.toString()
-        ).body() ?: emptyList()
+        handleListResponse(
+            api.getAccountWithdrawalHistory(
+                stakeAddress = stakeAddress,
+                count = count,
+                page = page,
+                order = order?.toString()
+            )
+        )
     }
 
     /**
@@ -588,6 +617,5 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
             batchSize = batchSize
         ).toList()
     }
-
 
 }
