@@ -20,7 +20,7 @@ interface HealthApi {
      *
      * @return [ApiRoot]
      */
-    @GET("")
+    @GET(".")
     suspend fun getApiRoot(): Response<ApiRoot>
 
     /**
