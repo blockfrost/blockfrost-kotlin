@@ -1,5 +1,5 @@
 # blockfrost-kotlin
-Kotlin SDK for Blockfrost.io API
+*WIP* Kotlin SDK for Blockfrost.io API
 
 ## Requires
 
