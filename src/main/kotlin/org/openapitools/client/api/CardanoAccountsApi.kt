@@ -70,14 +70,19 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAccountAddressesAll(
         stakeAddress: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<AccountAddressesContent> {
         val pager = PageLister<AccountAddressesContent>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getAccountAddresses(stakeAddress = stakeAddress, count = count, page = page, order = order?.toString())
+            getAccountAddresses(stakeAddress = stakeAddress, count = count, page = page, order = order)
         }
     }
 
@@ -92,7 +97,12 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAccountAddressesAllList(
         stakeAddress: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
@@ -137,14 +147,19 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAccountAssetsAll(
         stakeAddress: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<AccountAddressesAsset> {
         val pager = PageLister<AccountAddressesAsset>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getAccountAssets(stakeAddress = stakeAddress, count = count, page = page, order = order?.toString())
+            getAccountAssets(stakeAddress = stakeAddress, count = count, page = page, order = order)
         }
     }
 
@@ -159,7 +174,12 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAccountAssetsAllList(
         stakeAddress: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
@@ -220,19 +240,19 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAccountDelegationHistoryAll(
         stakeAddress: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<AccountDelegationContent> {
         val pager = PageLister<AccountDelegationContent>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getAccountDelegationHistory(
-                stakeAddress = stakeAddress,
-                count = count,
-                page = page,
-                order = order?.toString()
-            )
+            getAccountDelegationHistory(stakeAddress = stakeAddress, count = count, page = page, order = order)
         }
     }
 
@@ -247,7 +267,12 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAccountDelegationHistoryAllList(
         stakeAddress: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
@@ -296,14 +321,19 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAccountHistoryAll(
         stakeAddress: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<AccountHistoryContent> {
         val pager = PageLister<AccountHistoryContent>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getAccountHistory(stakeAddress = stakeAddress, count = count, page = page, order = order?.toString())
+            getAccountHistory(stakeAddress = stakeAddress, count = count, page = page, order = order)
         }
     }
 
@@ -318,7 +348,12 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAccountHistoryAllList(
         stakeAddress: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
@@ -363,14 +398,19 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAccountMirHistoryAll(
         stakeAddress: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<AccountMirContent> {
         val pager = PageLister<AccountMirContent>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getAccountMirHistory(stakeAddress = stakeAddress, count = count, page = page, order = order?.toString())
+            getAccountMirHistory(stakeAddress = stakeAddress, count = count, page = page, order = order)
         }
     }
 
@@ -385,7 +425,12 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAccountMirHistoryAllList(
         stakeAddress: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
@@ -430,19 +475,19 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAccountRegistrationHistoryAll(
         stakeAddress: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<AccountRegistrationContent> {
         val pager = PageLister<AccountRegistrationContent>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getAccountRegistrationHistory(
-                stakeAddress = stakeAddress,
-                count = count,
-                page = page,
-                order = order?.toString()
-            )
+            getAccountRegistrationHistory(stakeAddress = stakeAddress, count = count, page = page, order = order)
         }
     }
 
@@ -457,7 +502,12 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAccountRegistrationHistoryAllList(
         stakeAddress: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
@@ -506,19 +556,19 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAccountRewardHistoryAll(
         stakeAddress: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<AccountRewardContent> {
         val pager = PageLister<AccountRewardContent>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getAccountRewardHistory(
-                stakeAddress = stakeAddress,
-                count = count,
-                page = page,
-                order = order?.toString()
-            )
+            getAccountRewardHistory(stakeAddress = stakeAddress, count = count, page = page, order = order)
         }
     }
 
@@ -533,7 +583,12 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAccountRewardHistoryAllList(
         stakeAddress: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
@@ -578,19 +633,19 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAccountWithdrawalHistoryAll(
         stakeAddress: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<AccountWithdrawalContent> {
         val pager = PageLister<AccountWithdrawalContent>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getAccountWithdrawalHistory(
-                stakeAddress = stakeAddress,
-                count = count,
-                page = page,
-                order = order?.toString()
-            )
+            getAccountWithdrawalHistory(stakeAddress = stakeAddress, count = count, page = page, order = order)
         }
     }
 
@@ -605,7 +660,12 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAccountWithdrawalHistoryAllList(
         stakeAddress: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,

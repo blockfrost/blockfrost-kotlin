@@ -11,9 +11,23 @@ import java.util.concurrent.atomic.AtomicInteger
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-typealias PageListerResponse<T> = Response<List<T>>
+// Enables easy conversion of Response<List<T>> to List<T> in PageLister
+typealias PageListerResponse<T> = List<T>
+fun PageListerResponse<*>.code(): Int {
+    return 200
+}
+val PageListerResponse<*>.isSuccessful: Boolean get() { return true }
+fun <T> PageListerResponse<T>.body(): List<T> {
+    return this
+}
 
 data class PagedResponse<T>(val page: Int, val response: PageListerResponse<T>? = null)
+
+open class PageListerException(message: String? = null, val page: Int? = null, cause: Throwable? = null) : RuntimeException(message, cause) {
+    companion object {
+        private const val serialVersionUID: Long = 23L
+    }
+}
 
 class PageLister<T>(
     val countPerPage: Int = 100,
@@ -36,25 +50,29 @@ class PageLister<T>(
         val pageQueue = PriorityBlockingQueue<PagedResponse<T>>(11, compareBy { it.page }).also { this@PageLister.pageQueue = it }
         val taskChannel = Channel<Int>()
 
+        val taskErrorProcessor: suspend (PagedResponse<T>, Exception?) -> Unit = process@{ cpr, exc ->
+            logger.debug("Page loading error ${cpr.page}")
+            semWorkers.release()
+
+            if (cpr.page >= lowestEmptyPage.get()) {
+                outputChannel.trySend(null)
+                return@process
+            }
+
+            val excNew = PageListerException("Page loader error - could not load the page ${cpr.page}", page=cpr.page, cause=exc)
+            outputChannel.close(excNew)
+            throw excNew
+        }
+
         val taskProcessor: suspend (PagedResponse<T>) -> Unit = process@{ cpr ->
             val cr = cpr.response
             logger.debug("Finished page load ${cpr.page} res: ${cr?.code()}, size: ${cr?.body()?.size ?: -1}, avail works ${semWorkers.availablePermits}")
 
             if (cr == null || !cr.isSuccessful){
-                logger.debug("Page loading error ${cpr.page}")
-                semWorkers.release()
-
-                if (cpr.page >= lowestEmptyPage.get()) {
-                    outputChannel.trySend(null)
-                    return@process
-                }
-
-                val exc = RuntimeException("Page loader error - could not load the page ${cpr.page}")
-                outputChannel.close(exc)
-                throw exc
+                taskErrorProcessor(cpr, null)
             }
 
-            if ((cr.body()?.size ?: 0) == 0){
+            if ((cr?.body()?.size ?: 0) == 0){
                 val origLastPage = lowestEmptyPage.get()
                 val newLast = ensureMinAndGet(lowestEmptyPage, cpr.page).also { numPages = it }
                 logger.debug("Handling empty page ${cpr.page}, orig last: $origLastPage, newLast: $newLast")
@@ -68,7 +86,7 @@ class PageLister<T>(
                 outputChannel.send(cr)
                 pageQueue.add(cpr)
             } catch(e: Exception){
-                logger.error("Exception adding page ${cpr.page}, results: ${cr.body()?.size}")
+                logger.error("Exception adding page ${cpr.page}, results: ${cr?.body()?.size}")
                 throw e
             }
 
@@ -82,6 +100,7 @@ class PageLister<T>(
                 val rr = loader(countPerPage, page)
                 taskProcessor(PagedResponse(page, rr))
             } catch (e: Exception){
+                taskErrorProcessor(PagedResponse(page, null), e)
                 logger.error("Exception in loader, page: $page", e)
             }
         }

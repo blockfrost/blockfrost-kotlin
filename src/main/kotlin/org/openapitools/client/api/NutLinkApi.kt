@@ -89,14 +89,19 @@ open class NutLinkApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAddressTickersAll(
         address: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<NutlinkAddressTickers> {
         val pager = PageLister<NutlinkAddressTickers>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getAddressTickers(address = address, count = count, page = page, order = order?.toString())
+            getAddressTickers(address = address, count = count, page = page, order = order)
         }
     }
 
@@ -111,7 +116,12 @@ open class NutLinkApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAddressTickersAllList(
         address: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
@@ -163,19 +173,24 @@ open class NutLinkApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getTickerRecordsByAddressAndTickerAll(
         address: kotlin.String, ticker: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<NutlinkAddressTicker> {
         val pager = PageLister<NutlinkAddressTicker>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getTickerRecordsByAddressAndTicker(
+            getTickerRecordsByAddressAndTicker(
                 address = address,
                 ticker = ticker,
                 count = count,
                 page = page,
-                order = order?.toString()
+                order = order
             )
         }
     }
@@ -192,7 +207,12 @@ open class NutLinkApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getTickerRecordsByAddressAndTickerAllList(
         address: kotlin.String, ticker: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
@@ -242,14 +262,19 @@ open class NutLinkApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getTickerRecordsByTickerAll(
         ticker: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<NutlinkTickersTicker> {
         val pager = PageLister<NutlinkTickersTicker>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getTickerRecordsByTicker(ticker = ticker, count = count, page = page, order = order?.toString())
+            getTickerRecordsByTicker(ticker = ticker, count = count, page = page, order = order)
         }
     }
 
@@ -264,7 +289,12 @@ open class NutLinkApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getTickerRecordsByTickerAllList(
         ticker: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,

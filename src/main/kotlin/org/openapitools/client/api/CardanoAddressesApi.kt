@@ -116,21 +116,19 @@ open class CardanoAddressesApi(config: BlockfrostConfig = BlockfrostConfig.defau
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAddressTransactionsAll(
         address: kotlin.String, order: SortOrder? = null, from: kotlin.String? = null, to: kotlin.String? = null,
         batchSize: Int? = null,
     ): Flow<AddressTransactionsContent> {
         val pager = PageLister<AddressTransactionsContent>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getAddressTransactions(
-                address = address,
-                count = count,
-                page = page,
-                order = order?.toString(),
-                from = from,
-                to = to
-            )
+            getAddressTransactions(address = address, count = count, page = page, order = order, from = from, to = to)
         }
     }
 
@@ -147,7 +145,12 @@ open class CardanoAddressesApi(config: BlockfrostConfig = BlockfrostConfig.defau
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAddressTransactionsAllList(
         address: kotlin.String, order: SortOrder? = null, from: kotlin.String? = null, to: kotlin.String? = null,
         batchSize: Int? = null,
@@ -193,14 +196,19 @@ open class CardanoAddressesApi(config: BlockfrostConfig = BlockfrostConfig.defau
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAddressTxsAll(
         address: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<kotlin.String> {
         val pager = PageLister<kotlin.String>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getAddressTxs(address = address, count = count, page = page, order = order?.toString())
+            getAddressTxs(address = address, count = count, page = page, order = order)
         }
     }
 
@@ -215,7 +223,12 @@ open class CardanoAddressesApi(config: BlockfrostConfig = BlockfrostConfig.defau
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAddressTxsAllList(
         address: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
@@ -260,14 +273,19 @@ open class CardanoAddressesApi(config: BlockfrostConfig = BlockfrostConfig.defau
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAddressUtxosAll(
         address: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<AddressUtxoContent> {
         val pager = PageLister<AddressUtxoContent>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getAddressUtxos(address = address, count = count, page = page, order = order?.toString())
+            getAddressUtxos(address = address, count = count, page = page, order = order)
         }
     }
 
@@ -282,7 +300,12 @@ open class CardanoAddressesApi(config: BlockfrostConfig = BlockfrostConfig.defau
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAddressUtxosAllList(
         address: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,

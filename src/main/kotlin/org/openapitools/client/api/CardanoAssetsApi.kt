@@ -79,14 +79,19 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAssetAddressesAll(
         asset: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<AssetAddress> {
         val pager = PageLister<AssetAddress>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getAssetAddresses(asset = asset, count = count, page = page, order = order?.toString())
+            getAssetAddresses(asset = asset, count = count, page = page, order = order)
         }
     }
 
@@ -101,7 +106,12 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAssetAddressesAllList(
         asset: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
@@ -139,14 +149,19 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAssetHistoryAll(
         asset: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<AssetHistory> {
         val pager = PageLister<AssetHistory>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getAssetHistory(asset = asset, count = count, page = page, order = order?.toString())
+            getAssetHistory(asset = asset, count = count, page = page, order = order)
         }
     }
 
@@ -161,7 +176,12 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAssetHistoryAllList(
         asset: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
@@ -206,14 +226,19 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAssetTransactionsAll(
         asset: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<AssetTransaction> {
         val pager = PageLister<AssetTransaction>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getAssetTransactions(asset = asset, count = count, page = page, order = order?.toString())
+            getAssetTransactions(asset = asset, count = count, page = page, order = order)
         }
     }
 
@@ -228,7 +253,12 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAssetTransactionsAllList(
         asset: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
@@ -268,14 +298,19 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAssetTxsAll(
         asset: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<kotlin.String> {
         val pager = PageLister<kotlin.String>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getAssetTxs(asset = asset, count = count, page = page, order = order?.toString())
+            getAssetTxs(asset = asset, count = count, page = page, order = order)
         }
     }
 
@@ -290,7 +325,12 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAssetTxsAllList(
         asset: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
@@ -326,14 +366,19 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAssetsAll(
         order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<Assets> {
         val pager = PageLister<Assets>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getAssets(count = count, page = page, order = order?.toString())
+            getAssets(count = count, page = page, order = order)
         }
     }
 
@@ -347,7 +392,12 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getAssetsAllList(
         order: SortOrder? = null,
         batchSize: Int? = null,
@@ -392,14 +442,19 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getPolicyAssetsAll(
         policyId: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<AssetPolicy> {
         val pager = PageLister<AssetPolicy>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getPolicyAssets(policyId = policyId, count = count, page = page, order = order?.toString())
+            getPolicyAssets(policyId = policyId, count = count, page = page, order = order)
         }
     }
 
@@ -414,7 +469,12 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getPolicyAssetsAllList(
         policyId: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,

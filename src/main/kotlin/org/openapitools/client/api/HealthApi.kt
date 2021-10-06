@@ -26,7 +26,9 @@ import org.openapitools.client.infrastructure.ApiClient
 import org.openapitools.client.infrastructure.BlockfrostConfig
 import org.openapitools.client.infrastructure.ClientException
 import org.openapitools.client.infrastructure.ServerException
-import org.openapitools.client.models.*
+import org.openapitools.client.models.ApiRoot
+import org.openapitools.client.models.Clock
+import org.openapitools.client.models.Health
 import org.openapitools.client.retrofit.HealthApi as HealthApiRetrofit
 
 open class HealthApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig) : ApiClient(config) {

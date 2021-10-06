@@ -88,14 +88,19 @@ open class CardanoScriptsApi(config: BlockfrostConfig = BlockfrostConfig.default
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getScriptRedeemersAll(
         scriptHash: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<ScriptRedeemer> {
         val pager = PageLister<ScriptRedeemer>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getScriptRedeemers(scriptHash = scriptHash, count = count, page = page, order = order?.toString())
+            getScriptRedeemers(scriptHash = scriptHash, count = count, page = page, order = order)
         }
     }
 
@@ -110,7 +115,12 @@ open class CardanoScriptsApi(config: BlockfrostConfig = BlockfrostConfig.default
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getScriptRedeemersAllList(
         scriptHash: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
@@ -146,14 +156,19 @@ open class CardanoScriptsApi(config: BlockfrostConfig = BlockfrostConfig.default
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getScriptsAll(
         order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<Scripts> {
         val pager = PageLister<Scripts>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getScripts(count = count, page = page, order = order?.toString())
+            getScripts(count = count, page = page, order = order)
         }
     }
 
@@ -167,7 +182,12 @@ open class CardanoScriptsApi(config: BlockfrostConfig = BlockfrostConfig.default
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getScriptsAllList(
         order: SortOrder? = null,
         batchSize: Int? = null,

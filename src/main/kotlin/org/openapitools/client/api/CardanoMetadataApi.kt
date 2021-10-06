@@ -72,14 +72,19 @@ open class CardanoMetadataApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getTransactionMetadataCborForLabelAll(
         label: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<TxMetadataLabelCbor> {
         val pager = PageLister<TxMetadataLabelCbor>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getTransactionMetadataCborForLabel(label = label, count = count, page = page, order = order?.toString())
+            getTransactionMetadataCborForLabel(label = label, count = count, page = page, order = order)
         }
     }
 
@@ -94,7 +99,12 @@ open class CardanoMetadataApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getTransactionMetadataCborForLabelAllList(
         label: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
@@ -139,14 +149,19 @@ open class CardanoMetadataApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getTransactionMetadataJsonForLabelAll(
         label: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<TxMetadataLabelJson> {
         val pager = PageLister<TxMetadataLabelJson>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getTransactionMetadataJsonForLabel(label = label, count = count, page = page, order = order?.toString())
+            getTransactionMetadataJsonForLabel(label = label, count = count, page = page, order = order)
         }
     }
 
@@ -161,7 +176,12 @@ open class CardanoMetadataApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getTransactionMetadataJsonForLabelAllList(
         label: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
@@ -197,14 +217,19 @@ open class CardanoMetadataApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getTransactionMetadataLabelsAll(
         order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<TxMetadataLabel> {
         val pager = PageLister<TxMetadataLabel>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getTransactionMetadataLabels(count = count, page = page, order = order?.toString())
+            getTransactionMetadataLabels(count = count, page = page, order = order)
         }
     }
 
@@ -218,7 +243,12 @@ open class CardanoMetadataApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getTransactionMetadataLabelsAllList(
         order: SortOrder? = null,
         batchSize: Int? = null,

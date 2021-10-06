@@ -64,14 +64,19 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getActiveStakesForEpochAll(
         number: kotlin.Int,
         batchSize: Int? = null,
     ): Flow<EpochStakeContent> {
         val pager = PageLister<EpochStakeContent>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getActiveStakesForEpoch(number = number, count = count, page = page)
+            getActiveStakesForEpoch(number = number, count = count, page = page)
         }
     }
 
@@ -85,7 +90,12 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getActiveStakesForEpochAllList(
         number: kotlin.Int,
         batchSize: Int? = null,
@@ -130,14 +140,19 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getActiveStakesForEpochAndPoolAll(
         number: kotlin.Int, poolId: kotlin.String,
         batchSize: Int? = null,
     ): Flow<EpochStakePoolContent> {
         val pager = PageLister<EpochStakePoolContent>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getActiveStakesForEpochAndPool(number = number, poolId = poolId, count = count, page = page)
+            getActiveStakesForEpochAndPool(number = number, poolId = poolId, count = count, page = page)
         }
     }
 
@@ -152,7 +167,12 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getActiveStakesForEpochAndPoolAllList(
         number: kotlin.Int, poolId: kotlin.String,
         batchSize: Int? = null,
@@ -197,14 +217,19 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getBlocksForEpochAll(
         number: kotlin.Int, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<kotlin.String> {
         val pager = PageLister<kotlin.String>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getBlocksForEpoch(number = number, count = count, page = page, order = order?.toString())
+            getBlocksForEpoch(number = number, count = count, page = page, order = order)
         }
     }
 
@@ -219,7 +244,12 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getBlocksForEpochAllList(
         number: kotlin.Int, order: SortOrder? = null,
         batchSize: Int? = null,
@@ -271,20 +301,19 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getBlocksForEpochAndPoolAll(
         number: kotlin.Int, poolId: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<kotlin.String> {
         val pager = PageLister<kotlin.String>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getBlocksForEpochAndPool(
-                number = number,
-                poolId = poolId,
-                count = count,
-                page = page,
-                order = order?.toString()
-            )
+            getBlocksForEpochAndPool(number = number, poolId = poolId, count = count, page = page, order = order)
         }
     }
 
@@ -300,7 +329,12 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getBlocksForEpochAndPoolAllList(
         number: kotlin.Int, poolId: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
@@ -403,14 +437,19 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getNextEpochsAll(
         number: kotlin.Int,
         batchSize: Int? = null,
     ): Flow<EpochContent> {
         val pager = PageLister<EpochContent>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getNextEpochs(number = number, count = count, page = page)
+            getNextEpochs(number = number, count = count, page = page)
         }
     }
 
@@ -424,7 +463,12 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getNextEpochsAllList(
         number: kotlin.Int,
         batchSize: Int? = null,
@@ -460,14 +504,19 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getPreviousEpochsAll(
         number: kotlin.Int,
         batchSize: Int? = null,
     ): Flow<EpochContent> {
         val pager = PageLister<EpochContent>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getPreviousEpochs(number = number, count = count, page = page)
+            getPreviousEpochs(number = number, count = count, page = page)
         }
     }
 
@@ -481,7 +530,12 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getPreviousEpochsAllList(
         number: kotlin.Int,
         batchSize: Int? = null,

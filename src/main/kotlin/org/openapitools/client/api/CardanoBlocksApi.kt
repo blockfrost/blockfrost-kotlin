@@ -119,14 +119,19 @@ open class CardanoBlocksApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getBlockTransactionsAll(
         hashOrNumber: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<kotlin.String> {
         val pager = PageLister<kotlin.String>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getBlockTransactions(hashOrNumber = hashOrNumber, count = count, page = page, order = order?.toString())
+            getBlockTransactions(hashOrNumber = hashOrNumber, count = count, page = page, order = order)
         }
     }
 
@@ -141,7 +146,12 @@ open class CardanoBlocksApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getBlockTransactionsAllList(
         hashOrNumber: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
@@ -192,14 +202,19 @@ open class CardanoBlocksApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getNextBlocksAll(
         hashOrNumber: kotlin.String,
         batchSize: Int? = null,
     ): Flow<BlockContent> {
         val pager = PageLister<BlockContent>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getNextBlocks(hashOrNumber = hashOrNumber, count = count, page = page)
+            getNextBlocks(hashOrNumber = hashOrNumber, count = count, page = page)
         }
     }
 
@@ -213,7 +228,12 @@ open class CardanoBlocksApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getNextBlocksAllList(
         hashOrNumber: kotlin.String,
         batchSize: Int? = null,
@@ -249,14 +269,19 @@ open class CardanoBlocksApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getPreviousBlocksAll(
         hashOrNumber: kotlin.String,
         batchSize: Int? = null,
     ): Flow<BlockContent> {
         val pager = PageLister<BlockContent>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getPreviousBlocks(hashOrNumber = hashOrNumber, count = count, page = page)
+            getPreviousBlocks(hashOrNumber = hashOrNumber, count = count, page = page)
         }
     }
 
@@ -270,7 +295,12 @@ open class CardanoBlocksApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getPreviousBlocksAllList(
         hashOrNumber: kotlin.String,
         batchSize: Int? = null,
@@ -306,14 +336,19 @@ open class CardanoBlocksApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getTransactionsInLatestBlockAll(
         order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<kotlin.String> {
         val pager = PageLister<kotlin.String>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getTransactionsInLatestBlock(count = count, page = page, order = order?.toString())
+            getTransactionsInLatestBlock(count = count, page = page, order = order)
         }
     }
 
@@ -327,7 +362,12 @@ open class CardanoBlocksApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getTransactionsInLatestBlockAllList(
         order: SortOrder? = null,
         batchSize: Int? = null,

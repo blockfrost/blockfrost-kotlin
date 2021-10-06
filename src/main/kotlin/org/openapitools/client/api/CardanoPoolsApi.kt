@@ -79,14 +79,19 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getPoolBlocksAll(
         poolId: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<kotlin.String> {
         val pager = PageLister<kotlin.String>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getPoolBlocks(poolId = poolId, count = count, page = page, order = order?.toString())
+            getPoolBlocks(poolId = poolId, count = count, page = page, order = order)
         }
     }
 
@@ -101,7 +106,12 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getPoolBlocksAllList(
         poolId: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
@@ -146,14 +156,19 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getPoolDelegatorsAll(
         poolId: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<PoolDelegator> {
         val pager = PageLister<PoolDelegator>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getPoolDelegators(poolId = poolId, count = count, page = page, order = order?.toString())
+            getPoolDelegators(poolId = poolId, count = count, page = page, order = order)
         }
     }
 
@@ -168,7 +183,12 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getPoolDelegatorsAllList(
         poolId: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
@@ -206,14 +226,19 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getPoolHistoryAll(
         poolId: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<PoolHistory> {
         val pager = PageLister<PoolHistory>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getPoolHistory(poolId = poolId, count = count, page = page, order = order?.toString())
+            getPoolHistory(poolId = poolId, count = count, page = page, order = order)
         }
     }
 
@@ -228,7 +253,12 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getPoolHistoryAllList(
         poolId: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
@@ -298,14 +328,19 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getPoolUpdatesAll(
         poolId: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<PoolUpdate> {
         val pager = PageLister<PoolUpdate>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getPoolUpdates(poolId = poolId, count = count, page = page, order = order?.toString())
+            getPoolUpdates(poolId = poolId, count = count, page = page, order = order)
         }
     }
 
@@ -320,7 +355,12 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getPoolUpdatesAllList(
         poolId: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
@@ -356,14 +396,19 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getPoolsAll(
         order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<kotlin.String> {
         val pager = PageLister<kotlin.String>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getPools(count = count, page = page, order = order?.toString())
+            getPools(count = count, page = page, order = order)
         }
     }
 
@@ -377,7 +422,12 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getPoolsAllList(
         order: SortOrder? = null,
         batchSize: Int? = null,
@@ -413,14 +463,19 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getRetiredPoolsAll(
         order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<PoolListRetire> {
         val pager = PageLister<PoolListRetire>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getRetiredPools(count = count, page = page, order = order?.toString())
+            getRetiredPools(count = count, page = page, order = order)
         }
     }
 
@@ -434,7 +489,12 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getRetiredPoolsAllList(
         order: SortOrder? = null,
         batchSize: Int? = null,
@@ -470,14 +530,19 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getRetiringPoolsAll(
         order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<PoolListRetire> {
         val pager = PageLister<PoolListRetire>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getRetiringPools(count = count, page = page, order = order?.toString())
+            getRetiringPools(count = count, page = page, order = order)
         }
     }
 
@@ -491,7 +556,12 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getRetiringPoolsAllList(
         order: SortOrder? = null,
         batchSize: Int? = null,

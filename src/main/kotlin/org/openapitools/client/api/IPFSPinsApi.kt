@@ -64,14 +64,19 @@ open class IPFSPinsApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getPinListAll(
         order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<InlineResponse2005> {
         val pager = PageLister<InlineResponse2005>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
-            api.getPinList(count = count, page = page, order = order?.toString())
+            getPinList(count = count, page = page, order = order)
         }
     }
 
@@ -85,7 +90,12 @@ open class IPFSPinsApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(
+        UnsupportedOperationException::class,
+        ClientException::class,
+        ServerException::class,
+        PageListerException::class
+    )
     open suspend fun getPinListAllList(
         order: SortOrder? = null,
         batchSize: Int? = null,
