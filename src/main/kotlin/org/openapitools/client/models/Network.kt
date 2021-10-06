@@ -20,9 +20,6 @@
 
 package org.openapitools.client.models
 
-import org.openapitools.client.models.NetworkStake
-import org.openapitools.client.models.NetworkSupply
-
 import com.squareup.moshi.Json
 
 /**

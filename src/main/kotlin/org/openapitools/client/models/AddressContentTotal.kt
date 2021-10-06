@@ -20,8 +20,6 @@
 
 package org.openapitools.client.models
 
-import org.openapitools.client.models.TxContentOutputAmount
-
 import com.squareup.moshi.Json
 
 /**
