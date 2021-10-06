@@ -28,7 +28,7 @@ Return the information about the latest, therefore current, epoch.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoEpochsApi()
 try {
@@ -74,7 +74,7 @@ Return the protocol parameters for the latest epoch.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoEpochsApi()
 try {
@@ -120,7 +120,7 @@ Return the blocks minted for the epoch specified.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoEpochsApi()
 val number : kotlin.Int = 225 // kotlin.Int | Number of the epoch
@@ -176,7 +176,7 @@ Return the block minted for the epoch specified by stake pool.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoEpochsApi()
 val number : kotlin.Int = 225 // kotlin.Int | Number of the epoch
@@ -234,7 +234,7 @@ Return the content of the requested epoch.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoEpochsApi()
 val number : kotlin.Int = 225 // kotlin.Int | Number of the epoch
@@ -284,7 +284,7 @@ Return the list of epochs following a specific epoch.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoEpochsApi()
 val number : kotlin.Int = 225 // kotlin.Int | Number of the requested epoch.
@@ -338,7 +338,7 @@ Return the protocol parameters for the epoch specified.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoEpochsApi()
 val number : kotlin.Int = 225 // kotlin.Int | Number of the epoch
@@ -388,7 +388,7 @@ Return the list of epochs preceding a specific epoch.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoEpochsApi()
 val number : kotlin.Int = 225 // kotlin.Int | Number of the epoch
@@ -442,7 +442,7 @@ Return the active stake distribution for the specified epoch.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoEpochsApi()
 val number : kotlin.Int = 225 // kotlin.Int | Number of the epoch
@@ -496,7 +496,7 @@ Return the active stake distribution for the epoch specified by stake pool.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoEpochsApi()
 val number : kotlin.Int = 225 // kotlin.Int | Number of the epoch

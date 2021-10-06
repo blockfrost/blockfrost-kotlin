@@ -20,7 +20,7 @@ History of your Blockfrost usage metrics per endpoint in the past 30 days.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = MetricsApi()
 try {
@@ -66,7 +66,7 @@ History of your Blockfrost usage metrics in the past 30 days.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = MetricsApi()
 try {

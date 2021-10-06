@@ -26,7 +26,7 @@ Return the content of a requested block for a specific slot in an epoch.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoBlocksApi()
 val epochNumber : kotlin.Int = 219 // kotlin.Int | Epoch for specific epoch slot.
@@ -78,7 +78,7 @@ Return the content of a requested block.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoBlocksApi()
 val hashOrNumber : kotlin.String = 4ea1ba291e8eef538635a53e59fddba7810d1679631cc3aed7c8e6c4091a516a // kotlin.String | Hash or number of the requested block.
@@ -128,7 +128,7 @@ Return the list of blocks following a specific block.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoBlocksApi()
 val hashOrNumber : kotlin.String = 5ea1ba291e8eef538635a53e59fddba7810d1679631cc3aed7c8e6c4091a516a // kotlin.String | Hash of the requested block.
@@ -182,7 +182,7 @@ Return the list of blocks preceding a specific block.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoBlocksApi()
 val hashOrNumber : kotlin.String = 4873401 // kotlin.String | Hash of the requested block
@@ -236,7 +236,7 @@ Return the transactions within the block.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoBlocksApi()
 val hashOrNumber : kotlin.String = 4873401 // kotlin.String | Hash of the requested block.
@@ -292,7 +292,7 @@ Return the latest block available to the backends, also known as the tip of the 
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoBlocksApi()
 try {
@@ -338,7 +338,7 @@ Return the transactions within the latest block.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoBlocksApi()
 val count : kotlin.Int = 56 // kotlin.Int | The number of results displayed on one page.
@@ -392,7 +392,7 @@ Return the content of a requested block for a specific slot.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoBlocksApi()
 val slotNumber : kotlin.Int = 30895909 // kotlin.Int | Slot position for requested block.

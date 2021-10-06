@@ -12,7 +12,7 @@ import kotlinx.coroutines.test.TestCoroutineDispatcher
 import okhttp3.OkHttpClient
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.openapitools.client.api.CardanoAccountsApi4
+import org.openapitools.client.api.CardanoAccountsApi
 import org.openapitools.client.infrastructure.BlockfrostConfig
 import org.openapitools.client.infrastructure.Serializer
 import org.slf4j.Logger
@@ -117,7 +117,7 @@ class AccountServiceTest : TestBase() {
 
         val stakeAddr = "stake1u9a3t4rgddm4expj0ucyxhxg3ft9ugk2ry6r9w69h04ea6cfj887f"
         val config = BlockfrostConfig.defaulMainNetConfig
-        val api4 = CardanoAccountsApi4(config)
+        val api4 = CardanoAccountsApi(config)
         val r1 = api4.getAccountAddresses(stakeAddr)
 
         try {

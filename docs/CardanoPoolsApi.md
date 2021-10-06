@@ -28,7 +28,7 @@ List of registered stake pools.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoPoolsApi()
 val count : kotlin.Int = 56 // kotlin.Int | The numbers of pools per page.
@@ -82,7 +82,7 @@ List of stake pools blocks.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoPoolsApi()
 val poolId : kotlin.String = pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy // kotlin.String | Bech32 or hexadecimal pool ID.
@@ -138,7 +138,7 @@ List of current stake pools delegators.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoPoolsApi()
 val poolId : kotlin.String = pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy // kotlin.String | Bech32 or hexadecimal pool ID.
@@ -194,7 +194,7 @@ Pool information.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoPoolsApi()
 val poolId : kotlin.String = pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy // kotlin.String | Bech32 or hexadecimal pool ID.
@@ -244,7 +244,7 @@ History of stake pool parameters over epochs.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoPoolsApi()
 val poolId : kotlin.String = pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy // kotlin.String | Bech32 or hexadecimal pool ID.
@@ -300,7 +300,7 @@ Stake pool registration metadata.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoPoolsApi()
 val poolId : kotlin.String = pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy // kotlin.String | Bech32 or hexadecimal pool ID.
@@ -350,7 +350,7 @@ Relays of a stake pool.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoPoolsApi()
 val poolId : kotlin.String = pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy // kotlin.String | Bech32 or hexadecimal pool ID.
@@ -400,7 +400,7 @@ List of certificate updates to the stake pool.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoPoolsApi()
 val poolId : kotlin.String = pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy // kotlin.String | Bech32 or hexadecimal pool ID.
@@ -456,7 +456,7 @@ List of already retired pools.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoPoolsApi()
 val count : kotlin.Int = 56 // kotlin.Int | The numbers of pools per page.
@@ -510,7 +510,7 @@ List of stake pools retiring in the upcoming epochs
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoPoolsApi()
 val count : kotlin.Int = 56 // kotlin.Int | The number of results displayed on one page.

@@ -19,7 +19,7 @@ You need to &#x60;/ipfs/pin/add&#x60; an object to avoid it being garbage collec
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = IPFSAddApi()
 try {

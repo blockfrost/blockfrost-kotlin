@@ -22,7 +22,7 @@ List metadata about specific address
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = NutLinkApi()
 val address : kotlin.String = address_example // kotlin.String | 
@@ -72,7 +72,7 @@ List tickers for a specific metadata oracle
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = NutLinkApi()
 val address : kotlin.String = address_example // kotlin.String | 
@@ -128,7 +128,7 @@ List of records of a specific ticker
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = NutLinkApi()
 val address : kotlin.String = address_example // kotlin.String | 
@@ -186,7 +186,7 @@ List of records of a specific ticker
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = NutLinkApi()
 val ticker : kotlin.String = ticker_example // kotlin.String | 

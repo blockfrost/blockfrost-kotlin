@@ -19,7 +19,7 @@ Return the information about blockchain genesis.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoLedgerApi()
 try {

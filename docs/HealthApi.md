@@ -21,7 +21,7 @@ This endpoint provides the current UNIX time. Your application might use this to
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = HealthApi()
 try {
@@ -67,7 +67,7 @@ Return backend status as a boolean. Your application     should handle situation
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = HealthApi()
 try {
@@ -113,7 +113,7 @@ Root endpoint has no other function than to point end users to documentation.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = HealthApi()
 try {

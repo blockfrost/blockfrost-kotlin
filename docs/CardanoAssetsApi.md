@@ -25,7 +25,7 @@ List of a addresses containing a specific asset
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoAssetsApi()
 val asset : kotlin.String = b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e // kotlin.String | Concatenation of the policy_id and hex-encoded asset_name
@@ -81,7 +81,7 @@ Information about a specific asset
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoAssetsApi()
 val asset : kotlin.String = b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e // kotlin.String | Concatenation of the policy_id and hex-encoded asset_name
@@ -131,7 +131,7 @@ History of a specific asset
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoAssetsApi()
 val asset : kotlin.String = b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e // kotlin.String | Concatenation of the policy_id and hex-encoded asset_name
@@ -187,7 +187,7 @@ List of a specific asset transactions
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoAssetsApi()
 val asset : kotlin.String = b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e // kotlin.String | Concatenation of the policy_id and hex-encoded asset_name
@@ -243,7 +243,7 @@ List of a specific asset transactions
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoAssetsApi()
 val asset : kotlin.String = b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e // kotlin.String | Concatenation of the policy_id and hex-encoded asset_name
@@ -299,7 +299,7 @@ List of assets.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoAssetsApi()
 val count : kotlin.Int = 56 // kotlin.Int | The number of results displayed on one page.
@@ -353,7 +353,7 @@ List of asset minted under a specific policy
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoAssetsApi()
 val policyId : kotlin.String = 476039a0949cf0b22f6a800f56780184c44533887ca6e821007840c3 // kotlin.String | Specific policy_id

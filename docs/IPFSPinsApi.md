@@ -22,7 +22,7 @@ Pinned objects are counted in your user storage quota.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = IPFSPinsApi()
 val ipFSPath : kotlin.String = ipFSPath_example // kotlin.String | 
@@ -72,7 +72,7 @@ List objects pinned to local storage
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = IPFSPinsApi()
 val count : kotlin.Int = 56 // kotlin.Int | The number of results displayed on one page.
@@ -126,7 +126,7 @@ List objects pinned to local storage
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = IPFSPinsApi()
 val ipFSPath : kotlin.String = ipFSPath_example // kotlin.String | 
@@ -176,7 +176,7 @@ Remove pinned objects from local storage
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = IPFSPinsApi()
 val ipFSPath : kotlin.String = ipFSPath_example // kotlin.String | 

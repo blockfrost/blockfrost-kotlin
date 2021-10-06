@@ -27,7 +27,7 @@ Obtain information about assets associated with addresses of a specific account.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoAccountsApi()
 val stakeAddress : kotlin.String = stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc // kotlin.String | Bech32 stake address.
@@ -83,7 +83,7 @@ Obtain information about the addresses of a specific account.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoAccountsApi()
 val stakeAddress : kotlin.String = stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc // kotlin.String | Bech32 stake address.
@@ -139,7 +139,7 @@ Obtain information about the delegation of a specific account.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoAccountsApi()
 val stakeAddress : kotlin.String = stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc // kotlin.String | Bech32 stake address.
@@ -195,7 +195,7 @@ Obtain information about a specific stake account.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoAccountsApi()
 val stakeAddress : kotlin.String = stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc // kotlin.String | Bech32 stake address.
@@ -245,7 +245,7 @@ Obtain information about the history of a specific account.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoAccountsApi()
 val stakeAddress : kotlin.String = stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc // kotlin.String | Bech32 stake address.
@@ -301,7 +301,7 @@ Obtain information about the MIRs of a specific account.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoAccountsApi()
 val stakeAddress : kotlin.String = stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc // kotlin.String | Bech32 stake address.
@@ -357,7 +357,7 @@ Obtain information about the registrations and deregistrations of a specific acc
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoAccountsApi()
 val stakeAddress : kotlin.String = stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc // kotlin.String | Bech32 stake address.
@@ -413,7 +413,7 @@ Obtain information about the reward history of a specific account.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoAccountsApi()
 val stakeAddress : kotlin.String = stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc // kotlin.String | Bech32 stake address.
@@ -469,7 +469,7 @@ Obtain information about the withdrawals of a specific account.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoAccountsApi()
 val stakeAddress : kotlin.String = stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc // kotlin.String | Bech32 stake address.

@@ -19,7 +19,7 @@ Retrieve an object from the IFPS gateway (useful if you do not want to rely on a
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = IPFSGatewayApi()
 val ipFSPath : kotlin.String = ipFSPath_example // kotlin.String | 

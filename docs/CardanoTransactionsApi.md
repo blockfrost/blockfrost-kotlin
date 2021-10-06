@@ -29,7 +29,7 @@ Submit an already serialized transaction to the network.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoTransactionsApi()
 val contentType : kotlin.String = contentType_example // kotlin.String | 
@@ -79,7 +79,7 @@ Obtain information about delegation certificates of a specific transaction.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoTransactionsApi()
 val hash : kotlin.String = 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b // kotlin.String | Hash of the requested transaction.
@@ -129,7 +129,7 @@ Return content of the requested transaction.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoTransactionsApi()
 val hash : kotlin.String = 6e5f825c42c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b // kotlin.String | Hash of the requested transaction
@@ -179,7 +179,7 @@ Obtain the transaction metadata in CBOR.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoTransactionsApi()
 val hash : kotlin.String = 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b // kotlin.String | Hash of the requested transaction
@@ -229,7 +229,7 @@ Obtain the transaction metadata.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoTransactionsApi()
 val hash : kotlin.String = 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b // kotlin.String | Hash of the requested transaction
@@ -279,7 +279,7 @@ Obtain information about Move Instantaneous Rewards (MIRs) of a specific transac
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoTransactionsApi()
 val hash : kotlin.String = 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b // kotlin.String | Hash of the requested transaction.
@@ -329,7 +329,7 @@ Obtain information about stake pool retirements within a specific transaction.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoTransactionsApi()
 val hash : kotlin.String = 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b // kotlin.String | Hash of the requested transaction
@@ -379,7 +379,7 @@ Obtain information about stake pool registration and update certificates of a sp
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoTransactionsApi()
 val hash : kotlin.String = 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b // kotlin.String | Hash of the requested transaction
@@ -429,7 +429,7 @@ Obtain information about (de)registration of stake addresses within a transactio
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoTransactionsApi()
 val hash : kotlin.String = 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b // kotlin.String | Hash of the requested transaction.
@@ -479,7 +479,7 @@ Return the inputs and UTXOs of the specific transaction.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoTransactionsApi()
 val hash : kotlin.String = 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b // kotlin.String | Hash of the requested transaction
@@ -529,7 +529,7 @@ Obtain information about withdrawals of a specific transaction.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoTransactionsApi()
 val hash : kotlin.String = 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b // kotlin.String | Hash of the requested transaction.

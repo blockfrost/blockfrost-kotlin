@@ -33,6 +33,7 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
+// TODO: error handling?
 open class ApiClient(val config: BlockfrostConfig) {
     companion object {
         protected const val ContentType = "Content-Type"

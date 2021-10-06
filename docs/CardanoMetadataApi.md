@@ -21,7 +21,7 @@ List of all used transaction metadata labels.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoMetadataApi()
 val count : kotlin.Int = 56 // kotlin.Int | The number of results displayed on one page.
@@ -75,7 +75,7 @@ Transaction metadata per label.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoMetadataApi()
 val label : kotlin.String = 1990 // kotlin.String | Metadata label
@@ -131,7 +131,7 @@ Transaction metadata per label.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models.*
+//import org.openapitools.client.models2.*
 
 val apiInstance = CardanoMetadataApi()
 val label : kotlin.String = 1990 // kotlin.String | Metadata label

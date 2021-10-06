@@ -1,4 +1,4 @@
-package org.openapitools.client.apis
+package org.openapitools.client.retrofit
 
 import org.openapitools.client.infrastructure.CollectionFormats.*
 import retrofit2.http.*
