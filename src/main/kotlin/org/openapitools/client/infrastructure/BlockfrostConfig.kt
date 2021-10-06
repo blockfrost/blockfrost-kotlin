@@ -18,6 +18,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.io.IOException
+import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
 
 
@@ -31,6 +32,8 @@ open class BlockfrostConfig(
     private val maxRetryAttempts: Int = 2,
     private val retryConfigProvider: (() -> RetryConfig)? = null,
     private val retryProvider: (() -> Retry)? = null,
+    private val connectTimeoutMilli: Long? = 10_000L,
+    private val socketTimeoutMilli: Long? = 10_000L,
 
     private val okHttpClientBuilder: OkHttpClient.Builder? = null,
     private val serializerBuilder: Moshi.Builder = Serializer.moshiBuilder,
@@ -128,6 +131,11 @@ open class BlockfrostConfig(
                 level = HttpLoggingInterceptor.Level.BODY
             }).apply {
                 retryOnConnectionFailure(true)
+                connectTimeoutMilli?.let { connectTimeout(it, TimeUnit.MILLISECONDS) }
+                socketTimeoutMilli?.let {
+                    readTimeout(it, TimeUnit.MILLISECONDS)
+                    writeTimeout(it, TimeUnit.MILLISECONDS)
+                }
             }.addNetworkInterceptor { chain ->
                 chain.proceed(
                     chain.request()
