@@ -31,7 +31,7 @@ open class ApiClient(val config: BlockfrostConfig) {
     /**
      * BaseURL loaded from configuration
      */
-    val baseUrl: String get() = config.baseUrl ?: BlockfrostConfig.UrlMainnet
+    val baseUrl: String get() = config.baseUrl
 
     open fun getRetrofit(): Retrofit {
         return config.getRetrofit()

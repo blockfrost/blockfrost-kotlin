@@ -15,6 +15,7 @@ object JsonObjectAdapter {
     fun fromJson(reader: JsonReader): JsonBase? {
         try {
             val jdata = reader.readJsonValue()
+            @Suppress("UNCHECKED_CAST")
             (jdata as? Map<String, Any?>)?.let {
                 return JsonObject(it)
             }
