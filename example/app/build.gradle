@@ -17,23 +17,26 @@ plugins {
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
+
+    // Jitpack repository for github-based releases
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
-    // Align versions of all Kotlin components
     implementation platform('org.jetbrains.kotlin:kotlin-bom')
-
-    // Use the Kotlin JDK 8 standard library.
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:$kotlinVersionCoro"
 
     // SDK lib - local project
-    implementation project(":sdkKotlin")
+    // implementation project(":sdkKotlin")
 
-    // Use the Kotlin test library.
+    // SDK lib - jitpack
+    implementation 'com.github.blockfrost:blockfrost-kotlin:0.0.1'
+
+    // SDK lib - jitpack - master snapshot - latest version
+    //implementation 'com.github.blockfrost:blockfrost-kotlin:master-SNAPSHOT'
+
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
-
-    // Use the Kotlin JUnit integration.
     testImplementation 'org.jetbrains.kotlin:kotlin-test-junit'
 }
 

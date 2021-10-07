@@ -8,7 +8,7 @@ import kotlinx.coroutines.runBlocking
 import kotlin.system.exitProcess
 
 class App {
-    fun test()  {
+    fun main(argv: Array<out String>): Int {
         try {
             runBlocking {
                 // Use default configuration, mainnet, project_id loaded from BF_PROJECT_ID env var
@@ -33,11 +33,12 @@ class App {
         } catch(e: Exception){
             println("Exception: $e")
             e.printStackTrace()
-            exitProcess(1)
+            return 1
         }
+        return 0
     }
 }
 
-fun main() {
-    println(App().test())
+fun main(args: Array<String>) {
+    exitProcess(App().main(args))
 }

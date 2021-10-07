@@ -121,6 +121,7 @@ tasks.named('jar') {
     }
 }
 
+// Maven central publishing. Alternative: https://jitpack.io/docs/BUILDING/
 publishing {
     publications {
         mavenJava(MavenPublication) {

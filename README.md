@@ -2,6 +2,8 @@
 
 # blockfrost-kotlin
 ![CI badge](https://github.com/blockfrost/blockfrost-kotlin/actions/workflows/integration-test.yml/badge.svg)
+[![](https://jitpack.io/v/blockfrost/blockfrost-kotlin.svg)](https://jitpack.io/#blockfrost/blockfrost-kotlin)
+
 Kotlin SDK for Blockfrost.io API
 
 ## Requires
@@ -9,11 +11,38 @@ Kotlin SDK for Blockfrost.io API
 * Kotlin 1.5.30
 * Gradle 7.2
 
+## Add to your project
+
+Currently, Kotlin SDK is distributed via [JitPack](https://jitpack.io/#blockfrost/blockfrost-kotlin):
+
+Step 1. Add the JitPack repository to your build file
+```groovy
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+
+Step 2. Add the dependency to your module `build.gradle`
+```groovy
+dependencies {
+    implementation 'com.github.blockfrost:blockfrost-kotlin:0.0.1'
+}
+```
+
+For usage with Maven and other tools, check out the [JitPack page](https://jitpack.io/#blockfrost/blockfrost-kotlin).
+
+Check out [build.gradle](example/app/build.gradle) of an Example application using Kotlin SDK library.
+
 ## Usage
 
 API is asynchronous, coroutine based.
 
 ```kotlin
+import io.blockfrost.sdk_kotlin.api.CardanoAddressesApi
+import io.blockfrost.sdk_kotlin.infrastructure.BlockfrostConfig
+
 // Use default configuration, mainnet, project_id loaded from BF_PROJECT_ID env var
 val api = CardanoAddressesApi(config = BlockfrostConfig.defaulMainNetConfig)
 
@@ -35,6 +64,8 @@ val config = BlockfrostConfig(
 )
 val apiIpfsAdd = IPFSAddAPI(config = config)
 ```
+
+Check out [Example application](example) or [integration tests](sdk/src/integration-test/kotlin/io/blockfrost/sdk_kotlin/itests) for more usage examples.
 
 ### Fetch All methods
 Methods with paging parameters (count, page, order) have paging methods enabling to load all results, iterating over all pages in the background.
