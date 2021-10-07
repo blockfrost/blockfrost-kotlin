@@ -27,18 +27,18 @@ open class BlockfrostConfig(
     var projectId: String? = null,
     var batchSize: Int = DEFAULT_BATCH_SIZE,
 
-    private val retryFunction: IntervalFunction? = null,
-    private val circuitBreaker: CircuitBreaker? = null,
-    private val maxRetryAttempts: Int = 2,
-    private val retryConfigProvider: (() -> RetryConfig)? = null,
-    private val retryProvider: (() -> Retry)? = null,
-    private val connectTimeoutMilli: Long? = 10_000L,
-    private val socketTimeoutMilli: Long? = 10_000L,
+    protected val retryFunction: IntervalFunction? = null,
+    protected val circuitBreaker: CircuitBreaker? = null,
+    protected val maxRetryAttempts: Int = 3,
+    protected val retryConfigProvider: (() -> RetryConfig)? = null,
+    protected val retryProvider: (() -> Retry)? = null,
+    protected val connectTimeoutMilli: Long? = 10_000L,
+    protected val socketTimeoutMilli: Long? = 10_000L,
 
-    private val okHttpClientBuilder: OkHttpClient.Builder? = null,
-    private val serializerBuilder: Moshi.Builder = Serializer.moshiBuilder,
-    private val callFactory : Call.Factory? = null,
-    private val converterFactory: Converter.Factory? = null,
+    protected val okHttpClientBuilder: OkHttpClient.Builder? = null,
+    protected val serializerBuilder: Moshi.Builder = Serializer.moshiBuilder,
+    protected val callFactory : Call.Factory? = null,
+    protected val converterFactory: Converter.Factory? = null,
 ) : Cloneable {
     companion object {
         const val UserAgent = "BlockfrostKotlinSDK"
@@ -89,14 +89,14 @@ open class BlockfrostConfig(
         }
     }
 
-    private val apiAuthorizations = mutableMapOf<String, Interceptor>()
+    protected val apiAuthorizations = mutableMapOf<String, Interceptor>()
     var logger: ((String) -> Unit)? = null
 
-    private val clientBuilder: OkHttpClient.Builder by lazy {
+    protected val clientBuilder: OkHttpClient.Builder by lazy {
         okHttpClientBuilder ?: defaultClientBuilder()
     }
 
-    private val retrofitBuilder: Retrofit.Builder by lazy {
+    protected val retrofitBuilder: Retrofit.Builder by lazy {
         defaultRetrofitBuilder()
     }
 
@@ -122,31 +122,38 @@ open class BlockfrostConfig(
 
     open fun defaultClientBuilder(): OkHttpClient.Builder {
         return okHttpClientBuilder ?: OkHttpClient()
-            .newBuilder()
-            .addInterceptor(HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
-                override fun log(message: String) {
-                    logger?.invoke(message)
-                }
-            }).apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            }).apply {
-                retryOnConnectionFailure(true)
-                connectTimeoutMilli?.let { connectTimeout(it, TimeUnit.MILLISECONDS) }
-                socketTimeoutMilli?.let {
-                    readTimeout(it, TimeUnit.MILLISECONDS)
-                    writeTimeout(it, TimeUnit.MILLISECONDS)
-                }
-            }.addNetworkInterceptor { chain ->
-                chain.proceed(
-                    chain.request()
-                        .newBuilder()
-                        .header("User-Agent", "${UserAgent}-${BuildInfo.version}")
-                        .build()
-                )
+            .newBuilder().let { setupOkhttpBuilder(it) }
+    }
+
+    open fun setupOkhttpBuilder(builder: OkHttpClient.Builder): OkHttpClient.Builder {
+        return builder.addInterceptor(HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
+            override fun log(message: String) {
+                logger?.invoke(message)
             }
+        }).apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }).apply {
+            retryOnConnectionFailure(true)
+            connectTimeoutMilli?.let { connectTimeout(it, TimeUnit.MILLISECONDS) }
+            socketTimeoutMilli?.let {
+                readTimeout(it, TimeUnit.MILLISECONDS)
+                writeTimeout(it, TimeUnit.MILLISECONDS)
+            }
+        }.addNetworkInterceptor { chain ->
+            chain.proceed(
+                chain.request()
+                    .newBuilder()
+                    .header("User-Agent", "${UserAgent}-${BuildInfo.version}")
+                    .build()
+            )
+        }
     }
 
     open fun defaultRetrofitBuilder(): Retrofit.Builder {
+        return Retrofit.Builder().let { setupRetrofitBuilder(it) }
+    }
+
+    open fun setupRetrofitBuilder(builder: Retrofit.Builder): Retrofit.Builder {
         // Create a Retry with custom configuration
         val retry: Retry = retryProvider?.let { it() } ?: Retry.of(
             "apiRetry", retryConfig()
@@ -155,7 +162,7 @@ open class BlockfrostConfig(
         //builder.interceptors().add(interceptor)
         val client = clientBuilder.build()
 
-        return Retrofit.Builder()
+        return builder
             .baseUrl(baseUrl)
             .addConverterFactory(MoshiConverterFactory.create(serializerBuilder.build()))
             .addConverterFactory(ScalarsConverterFactory.create())
