@@ -113,8 +113,11 @@ task integrationTest(type: Test) {
 
 tasks.named('jar') {
     manifest {
-        attributes('Implementation-Title': project.name,
-                   'Implementation-Version': project.version)
+        attributes(
+                'Implementation-Title': project.name,
+                'Implementation-Version': project.version,
+                'Automatic-Module-Name': 'io.blockfrost.sdk_kotlin',
+        )
     }
 }
 
@@ -142,6 +145,7 @@ publishing {
                     developer {
                         id = 'ph4r05'
                         name = 'ph4r05'
+                        email = 'ph4r05@gmail.com'
                     }
                 }
                 scm {
@@ -183,3 +187,12 @@ nexusStaging {
     String ossrhUsername = System.getenv('MAVEN_USERNAME') ?: project.findProperty('ossrhUsername')
     String ossrhPassword = System.getenv('MAVEN_PASSWORD') ?: project.findProperty('ossrhPassword')
 }
+
+if (JavaVersion.current().isJava8Compatible()) {
+    allprojects {
+        tasks.withType(Javadoc) {
+            options.addStringOption('Xdoclint:none', '-quiet')
+        }
+    }
+}
+

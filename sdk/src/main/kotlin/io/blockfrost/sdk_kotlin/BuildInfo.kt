@@ -1,5 +1,10 @@
 package io.blockfrost.sdk_kotlin
 
 object BuildInfo {
-    val version = "0.0.1"
+    private const val defaultVersion = "0.0.1"
+    val version by lazy { BuildInfo.javaClass.getPackage().implementationVersion ?: defaultVersion }
+}
+
+fun main() {
+    println(BuildInfo.version)
 }
