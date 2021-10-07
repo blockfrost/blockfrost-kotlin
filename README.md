@@ -1,8 +1,8 @@
 <img src="https://blockfrost.io/images/logo.svg" width="250" align="right" height="90">
 
 # blockfrost-kotlin
-*WIP* Kotlin SDK for Blockfrost.io API
 ![CI badge](https://github.com/blockfrost/blockfrost-kotlin/actions/workflows/integration-test.yml/badge.svg)
+Kotlin SDK for Blockfrost.io API
 
 ## Requires
 
