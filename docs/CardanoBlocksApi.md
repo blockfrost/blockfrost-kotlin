@@ -4,19 +4,69 @@ All URIs are relative to *https://cardano-mainnet.blockfrost.io/api/v0*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**blocksEpochEpochNumberSlotSlotNumberGet**](CardanoBlocksApi.md#blocksEpochEpochNumberSlotSlotNumberGet) | **GET** /blocks/epoch/{epoch_number}/slot/{slot_number} | Specific block in a slot in an epoch
-[**blocksHashOrNumberGet**](CardanoBlocksApi.md#blocksHashOrNumberGet) | **GET** /blocks/{hash_or_number} | Specific block
-[**blocksHashOrNumberNextGet**](CardanoBlocksApi.md#blocksHashOrNumberNextGet) | **GET** /blocks/{hash_or_number}/next | Listing of next blocks
-[**blocksHashOrNumberPreviousGet**](CardanoBlocksApi.md#blocksHashOrNumberPreviousGet) | **GET** /blocks/{hash_or_number}/previous | Listing of previous blocks
-[**blocksHashOrNumberTxsGet**](CardanoBlocksApi.md#blocksHashOrNumberTxsGet) | **GET** /blocks/{hash_or_number}/txs | Block transactions
-[**blocksLatestGet**](CardanoBlocksApi.md#blocksLatestGet) | **GET** /blocks/latest | Latest block
-[**blocksLatestTxsGet**](CardanoBlocksApi.md#blocksLatestTxsGet) | **GET** /blocks/latest/txs | Latest block transactions
-[**blocksSlotSlotNumberGet**](CardanoBlocksApi.md#blocksSlotSlotNumberGet) | **GET** /blocks/slot/{slot_number} | Specific block in a slot
+[**getBlock**](CardanoBlocksApi.md#getBlock) | **GET** /blocks/{hash_or_number} | Specific block
+[**getBlockInEpochInSlot**](CardanoBlocksApi.md#getBlockInEpochInSlot) | **GET** /blocks/epoch/{epoch_number}/slot/{slot_number} | Specific block in a slot in an epoch
+[**getBlockInSlot**](CardanoBlocksApi.md#getBlockInSlot) | **GET** /blocks/slot/{slot_number} | Specific block in a slot
+[**getBlockTransactions**](CardanoBlocksApi.md#getBlockTransactions) | **GET** /blocks/{hash_or_number}/txs | Block transactions
+[**getLatestBlock**](CardanoBlocksApi.md#getLatestBlock) | **GET** /blocks/latest | Latest block
+[**getNextBlocks**](CardanoBlocksApi.md#getNextBlocks) | **GET** /blocks/{hash_or_number}/next | Listing of next blocks
+[**getPreviousBlocks**](CardanoBlocksApi.md#getPreviousBlocks) | **GET** /blocks/{hash_or_number}/previous | Listing of previous blocks
+[**getTransactionsInLatestBlock**](CardanoBlocksApi.md#getTransactionsInLatestBlock) | **GET** /blocks/latest/txs | Latest block transactions
 
 
-<a name="blocksEpochEpochNumberSlotSlotNumberGet"></a>
-# **blocksEpochEpochNumberSlotSlotNumberGet**
-> BlockContent blocksEpochEpochNumberSlotSlotNumberGet(epochNumber, slotNumber)
+<a name="getBlock"></a>
+# **getBlock**
+> BlockContent getBlock(hashOrNumber)
+
+Specific block
+
+Return the content of a requested block. 
+
+### Example
+```kotlin
+// Import classes:
+//import org.openapitools.client.infrastructure.*
+//import org.openapitools.client.models.*
+
+val apiInstance = CardanoBlocksApi()
+val hashOrNumber : kotlin.String = 4ea1ba291e8eef538635a53e59fddba7810d1679631cc3aed7c8e6c4091a516a // kotlin.String | Hash or number of the requested block.
+try {
+    val result : BlockContent = apiInstance.getBlock(hashOrNumber)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling CardanoBlocksApi#getBlock")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling CardanoBlocksApi#getBlock")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **hashOrNumber** | **kotlin.String**| Hash or number of the requested block. |
+
+### Return type
+
+[**BlockContent**](BlockContent.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["project_id"] = ""
+    ApiClient.apiKeyPrefix["project_id"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getBlockInEpochInSlot"></a>
+# **getBlockInEpochInSlot**
+> BlockContent getBlockInEpochInSlot(epochNumber, slotNumber)
 
 Specific block in a slot in an epoch
 
@@ -26,19 +76,19 @@ Return the content of a requested block for a specific slot in an epoch.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = CardanoBlocksApi()
 val epochNumber : kotlin.Int = 219 // kotlin.Int | Epoch for specific epoch slot.
 val slotNumber : kotlin.Int = 30895909 // kotlin.Int | Slot position for requested block.
 try {
-    val result : BlockContent = apiInstance.blocksEpochEpochNumberSlotSlotNumberGet(epochNumber, slotNumber)
+    val result : BlockContent = apiInstance.getBlockInEpochInSlot(epochNumber, slotNumber)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling CardanoBlocksApi#blocksEpochEpochNumberSlotSlotNumberGet")
+    println("4xx response calling CardanoBlocksApi#getBlockInEpochInSlot")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling CardanoBlocksApi#blocksEpochEpochNumberSlotSlotNumberGet")
+    println("5xx response calling CardanoBlocksApi#getBlockInEpochInSlot")
     e.printStackTrace()
 }
 ```
@@ -66,30 +116,30 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="blocksHashOrNumberGet"></a>
-# **blocksHashOrNumberGet**
-> BlockContent blocksHashOrNumberGet(hashOrNumber)
+<a name="getBlockInSlot"></a>
+# **getBlockInSlot**
+> BlockContent getBlockInSlot(slotNumber)
 
-Specific block
+Specific block in a slot
 
-Return the content of a requested block. 
+Return the content of a requested block for a specific slot. 
 
 ### Example
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = CardanoBlocksApi()
-val hashOrNumber : kotlin.String = 4ea1ba291e8eef538635a53e59fddba7810d1679631cc3aed7c8e6c4091a516a // kotlin.String | Hash or number of the requested block.
+val slotNumber : kotlin.Int = 30895909 // kotlin.Int | Slot position for requested block.
 try {
-    val result : BlockContent = apiInstance.blocksHashOrNumberGet(hashOrNumber)
+    val result : BlockContent = apiInstance.getBlockInSlot(slotNumber)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling CardanoBlocksApi#blocksHashOrNumberGet")
+    println("4xx response calling CardanoBlocksApi#getBlockInSlot")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling CardanoBlocksApi#blocksHashOrNumberGet")
+    println("5xx response calling CardanoBlocksApi#getBlockInSlot")
     e.printStackTrace()
 }
 ```
@@ -98,7 +148,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **hashOrNumber** | **kotlin.String**| Hash or number of the requested block. |
+ **slotNumber** | **kotlin.Int**| Slot position for requested block. |
 
 ### Return type
 
@@ -116,117 +166,9 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="blocksHashOrNumberNextGet"></a>
-# **blocksHashOrNumberNextGet**
-> kotlin.collections.List&lt;BlockContent&gt; blocksHashOrNumberNextGet(hashOrNumber, count, page)
-
-Listing of next blocks
-
-Return the list of blocks following a specific block. 
-
-### Example
-```kotlin
-// Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
-
-val apiInstance = CardanoBlocksApi()
-val hashOrNumber : kotlin.String = 5ea1ba291e8eef538635a53e59fddba7810d1679631cc3aed7c8e6c4091a516a // kotlin.String | Hash of the requested block.
-val count : kotlin.Int = 56 // kotlin.Int | The number of results displayed on one page.
-val page : kotlin.Int = 56 // kotlin.Int | The page number for listing the results.
-try {
-    val result : kotlin.collections.List<BlockContent> = apiInstance.blocksHashOrNumberNextGet(hashOrNumber, count, page)
-    println(result)
-} catch (e: ClientException) {
-    println("4xx response calling CardanoBlocksApi#blocksHashOrNumberNextGet")
-    e.printStackTrace()
-} catch (e: ServerException) {
-    println("5xx response calling CardanoBlocksApi#blocksHashOrNumberNextGet")
-    e.printStackTrace()
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **hashOrNumber** | **kotlin.String**| Hash of the requested block. |
- **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to 100]
- **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to 1]
-
-### Return type
-
-[**kotlin.collections.List&lt;BlockContent&gt;**](BlockContent.md)
-
-### Authorization
-
-
-Configure ApiKeyAuth:
-    ApiClient.apiKey["project_id"] = ""
-    ApiClient.apiKeyPrefix["project_id"] = ""
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-<a name="blocksHashOrNumberPreviousGet"></a>
-# **blocksHashOrNumberPreviousGet**
-> kotlin.collections.List&lt;BlockContent&gt; blocksHashOrNumberPreviousGet(hashOrNumber, count, page)
-
-Listing of previous blocks
-
-Return the list of blocks preceding a specific block. 
-
-### Example
-```kotlin
-// Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
-
-val apiInstance = CardanoBlocksApi()
-val hashOrNumber : kotlin.String = 4873401 // kotlin.String | Hash of the requested block
-val count : kotlin.Int = 56 // kotlin.Int | The number of results displayed on one page.
-val page : kotlin.Int = 56 // kotlin.Int | The page number for listing the results.
-try {
-    val result : kotlin.collections.List<BlockContent> = apiInstance.blocksHashOrNumberPreviousGet(hashOrNumber, count, page)
-    println(result)
-} catch (e: ClientException) {
-    println("4xx response calling CardanoBlocksApi#blocksHashOrNumberPreviousGet")
-    e.printStackTrace()
-} catch (e: ServerException) {
-    println("5xx response calling CardanoBlocksApi#blocksHashOrNumberPreviousGet")
-    e.printStackTrace()
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **hashOrNumber** | **kotlin.String**| Hash of the requested block |
- **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to 100]
- **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to 1]
-
-### Return type
-
-[**kotlin.collections.List&lt;BlockContent&gt;**](BlockContent.md)
-
-### Authorization
-
-
-Configure ApiKeyAuth:
-    ApiClient.apiKey["project_id"] = ""
-    ApiClient.apiKeyPrefix["project_id"] = ""
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-<a name="blocksHashOrNumberTxsGet"></a>
-# **blocksHashOrNumberTxsGet**
-> kotlin.collections.List&lt;kotlin.String&gt; blocksHashOrNumberTxsGet(hashOrNumber, count, page, order)
+<a name="getBlockTransactions"></a>
+# **getBlockTransactions**
+> kotlin.collections.List&lt;kotlin.String&gt; getBlockTransactions(hashOrNumber, count, page, order)
 
 Block transactions
 
@@ -236,21 +178,21 @@ Return the transactions within the block.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = CardanoBlocksApi()
 val hashOrNumber : kotlin.String = 4873401 // kotlin.String | Hash of the requested block.
 val count : kotlin.Int = 56 // kotlin.Int | The number of results displayed on one page.
 val page : kotlin.Int = 56 // kotlin.Int | The page number for listing the results.
-val order : kotlin.String = order_example // kotlin.String | Ordered by tx index in the block. The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
+val order : SortOrder = order_example // SortOrder | Ordered by tx index in the block. The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
 try {
-    val result : kotlin.collections.List<kotlin.String> = apiInstance.blocksHashOrNumberTxsGet(hashOrNumber, count, page, order)
+    val result : kotlin.collections.List<kotlin.String> = apiInstance.getBlockTransactions(hashOrNumber, count, page, order)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling CardanoBlocksApi#blocksHashOrNumberTxsGet")
+    println("4xx response calling CardanoBlocksApi#getBlockTransactions")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling CardanoBlocksApi#blocksHashOrNumberTxsGet")
+    println("5xx response calling CardanoBlocksApi#getBlockTransactions")
     e.printStackTrace()
 }
 ```
@@ -260,9 +202,9 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **hashOrNumber** | **kotlin.String**| Hash of the requested block. |
- **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to 100]
- **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to 1]
- **order** | **kotlin.String**| Ordered by tx index in the block. The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to asc] [enum: asc, desc]
+ **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to null]
+ **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to null]
+ **order** | **SortOrder**| Ordered by tx index in the block. The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to null] [enum: asc, desc]
 
 ### Return type
 
@@ -280,9 +222,9 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="blocksLatestGet"></a>
-# **blocksLatestGet**
-> BlockContent blocksLatestGet()
+<a name="getLatestBlock"></a>
+# **getLatestBlock**
+> BlockContent getLatestBlock()
 
 Latest block
 
@@ -292,17 +234,17 @@ Return the latest block available to the backends, also known as the tip of the 
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = CardanoBlocksApi()
 try {
-    val result : BlockContent = apiInstance.blocksLatestGet()
+    val result : BlockContent = apiInstance.getLatestBlock()
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling CardanoBlocksApi#blocksLatestGet")
+    println("4xx response calling CardanoBlocksApi#getLatestBlock")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling CardanoBlocksApi#blocksLatestGet")
+    println("5xx response calling CardanoBlocksApi#getLatestBlock")
     e.printStackTrace()
 }
 ```
@@ -326,32 +268,32 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="blocksLatestTxsGet"></a>
-# **blocksLatestTxsGet**
-> kotlin.collections.List&lt;kotlin.String&gt; blocksLatestTxsGet(count, page, order)
+<a name="getNextBlocks"></a>
+# **getNextBlocks**
+> kotlin.collections.List&lt;BlockContent&gt; getNextBlocks(hashOrNumber, count, page)
 
-Latest block transactions
+Listing of next blocks
 
-Return the transactions within the latest block.
+Return the list of blocks following a specific block. 
 
 ### Example
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = CardanoBlocksApi()
+val hashOrNumber : kotlin.String = 5ea1ba291e8eef538635a53e59fddba7810d1679631cc3aed7c8e6c4091a516a // kotlin.String | Hash of the requested block.
 val count : kotlin.Int = 56 // kotlin.Int | The number of results displayed on one page.
 val page : kotlin.Int = 56 // kotlin.Int | The page number for listing the results.
-val order : kotlin.String = order_example // kotlin.String | Ordered by tx index in the block. The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
 try {
-    val result : kotlin.collections.List<kotlin.String> = apiInstance.blocksLatestTxsGet(count, page, order)
+    val result : kotlin.collections.List<BlockContent> = apiInstance.getNextBlocks(hashOrNumber, count, page)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling CardanoBlocksApi#blocksLatestTxsGet")
+    println("4xx response calling CardanoBlocksApi#getNextBlocks")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling CardanoBlocksApi#blocksLatestTxsGet")
+    println("5xx response calling CardanoBlocksApi#getNextBlocks")
     e.printStackTrace()
 }
 ```
@@ -360,13 +302,13 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to 100]
- **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to 1]
- **order** | **kotlin.String**| Ordered by tx index in the block. The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to asc] [enum: asc, desc]
+ **hashOrNumber** | **kotlin.String**| Hash of the requested block. |
+ **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to null]
+ **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to null]
 
 ### Return type
 
-**kotlin.collections.List&lt;kotlin.String&gt;**
+[**kotlin.collections.List&lt;BlockContent&gt;**](BlockContent.md)
 
 ### Authorization
 
@@ -380,30 +322,32 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="blocksSlotSlotNumberGet"></a>
-# **blocksSlotSlotNumberGet**
-> BlockContent blocksSlotSlotNumberGet(slotNumber)
+<a name="getPreviousBlocks"></a>
+# **getPreviousBlocks**
+> kotlin.collections.List&lt;BlockContent&gt; getPreviousBlocks(hashOrNumber, count, page)
 
-Specific block in a slot
+Listing of previous blocks
 
-Return the content of a requested block for a specific slot. 
+Return the list of blocks preceding a specific block. 
 
 ### Example
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = CardanoBlocksApi()
-val slotNumber : kotlin.Int = 30895909 // kotlin.Int | Slot position for requested block.
+val hashOrNumber : kotlin.String = 4873401 // kotlin.String | Hash of the requested block
+val count : kotlin.Int = 56 // kotlin.Int | The number of results displayed on one page.
+val page : kotlin.Int = 56 // kotlin.Int | The page number for listing the results.
 try {
-    val result : BlockContent = apiInstance.blocksSlotSlotNumberGet(slotNumber)
+    val result : kotlin.collections.List<BlockContent> = apiInstance.getPreviousBlocks(hashOrNumber, count, page)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling CardanoBlocksApi#blocksSlotSlotNumberGet")
+    println("4xx response calling CardanoBlocksApi#getPreviousBlocks")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling CardanoBlocksApi#blocksSlotSlotNumberGet")
+    println("5xx response calling CardanoBlocksApi#getPreviousBlocks")
     e.printStackTrace()
 }
 ```
@@ -412,11 +356,67 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **slotNumber** | **kotlin.Int**| Slot position for requested block. |
+ **hashOrNumber** | **kotlin.String**| Hash of the requested block |
+ **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to null]
+ **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to null]
 
 ### Return type
 
-[**BlockContent**](BlockContent.md)
+[**kotlin.collections.List&lt;BlockContent&gt;**](BlockContent.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["project_id"] = ""
+    ApiClient.apiKeyPrefix["project_id"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getTransactionsInLatestBlock"></a>
+# **getTransactionsInLatestBlock**
+> kotlin.collections.List&lt;kotlin.String&gt; getTransactionsInLatestBlock(count, page, order)
+
+Latest block transactions
+
+Return the transactions within the latest block.
+
+### Example
+```kotlin
+// Import classes:
+//import org.openapitools.client.infrastructure.*
+//import org.openapitools.client.models.*
+
+val apiInstance = CardanoBlocksApi()
+val count : kotlin.Int = 56 // kotlin.Int | The number of results displayed on one page.
+val page : kotlin.Int = 56 // kotlin.Int | The page number for listing the results.
+val order : SortOrder = order_example // SortOrder | Ordered by tx index in the block. The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
+try {
+    val result : kotlin.collections.List<kotlin.String> = apiInstance.getTransactionsInLatestBlock(count, page, order)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling CardanoBlocksApi#getTransactionsInLatestBlock")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling CardanoBlocksApi#getTransactionsInLatestBlock")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to null]
+ **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to null]
+ **order** | **SortOrder**| Ordered by tx index in the block. The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to null] [enum: asc, desc]
+
+### Return type
+
+**kotlin.collections.List&lt;kotlin.String&gt;**
 
 ### Authorization
 

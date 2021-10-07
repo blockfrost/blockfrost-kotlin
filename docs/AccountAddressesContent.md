@@ -1,10 +1,10 @@
 
-# InlineResponse2002
+# AccountAddressesContent
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**serverTime** | **kotlin.Int** |  | 
+**address** | **kotlin.String** | Address associated with the stake key | 
 
 
 

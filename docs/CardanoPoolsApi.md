@@ -4,187 +4,21 @@ All URIs are relative to *https://cardano-mainnet.blockfrost.io/api/v0*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**poolsGet**](CardanoPoolsApi.md#poolsGet) | **GET** /pools | List of stake pools
-[**poolsPoolIdBlocksGet**](CardanoPoolsApi.md#poolsPoolIdBlocksGet) | **GET** /pools/{pool_id}/blocks | Stake pool blocks
-[**poolsPoolIdDelegatorsGet**](CardanoPoolsApi.md#poolsPoolIdDelegatorsGet) | **GET** /pools/{pool_id}/delegators | Stake pool delegators
-[**poolsPoolIdGet**](CardanoPoolsApi.md#poolsPoolIdGet) | **GET** /pools/{pool_id} | Specific stake pool
-[**poolsPoolIdHistoryGet**](CardanoPoolsApi.md#poolsPoolIdHistoryGet) | **GET** /pools/{pool_id}/history | Stake pool history
-[**poolsPoolIdMetadataGet**](CardanoPoolsApi.md#poolsPoolIdMetadataGet) | **GET** /pools/{pool_id}/metadata | Stake pool metadata
-[**poolsPoolIdRelaysGet**](CardanoPoolsApi.md#poolsPoolIdRelaysGet) | **GET** /pools/{pool_id}/relays | Stake pool relays
-[**poolsPoolIdUpdatesGet**](CardanoPoolsApi.md#poolsPoolIdUpdatesGet) | **GET** /pools/{pool_id}/updates | Stake pool updates
-[**poolsRetiredGet**](CardanoPoolsApi.md#poolsRetiredGet) | **GET** /pools/retired | List of retired stake pools
-[**poolsRetiringGet**](CardanoPoolsApi.md#poolsRetiringGet) | **GET** /pools/retiring | List of retiring stake pools
+[**getPool**](CardanoPoolsApi.md#getPool) | **GET** /pools/{pool_id} | Specific stake pool
+[**getPoolBlocks**](CardanoPoolsApi.md#getPoolBlocks) | **GET** /pools/{pool_id}/blocks | Stake pool blocks
+[**getPoolDelegators**](CardanoPoolsApi.md#getPoolDelegators) | **GET** /pools/{pool_id}/delegators | Stake pool delegators
+[**getPoolHistory**](CardanoPoolsApi.md#getPoolHistory) | **GET** /pools/{pool_id}/history | Stake pool history
+[**getPoolMetadata**](CardanoPoolsApi.md#getPoolMetadata) | **GET** /pools/{pool_id}/metadata | Stake pool metadata
+[**getPoolRelays**](CardanoPoolsApi.md#getPoolRelays) | **GET** /pools/{pool_id}/relays | Stake pool relays
+[**getPoolUpdates**](CardanoPoolsApi.md#getPoolUpdates) | **GET** /pools/{pool_id}/updates | Stake pool updates
+[**getPools**](CardanoPoolsApi.md#getPools) | **GET** /pools | List of stake pools
+[**getRetiredPools**](CardanoPoolsApi.md#getRetiredPools) | **GET** /pools/retired | List of retired stake pools
+[**getRetiringPools**](CardanoPoolsApi.md#getRetiringPools) | **GET** /pools/retiring | List of retiring stake pools
 
 
-<a name="poolsGet"></a>
-# **poolsGet**
-> kotlin.collections.List&lt;kotlin.String&gt; poolsGet(count, page, order)
-
-List of stake pools
-
-List of registered stake pools.
-
-### Example
-```kotlin
-// Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
-
-val apiInstance = CardanoPoolsApi()
-val count : kotlin.Int = 56 // kotlin.Int | The numbers of pools per page.
-val page : kotlin.Int = 56 // kotlin.Int | The page number for listing the results.
-val order : kotlin.String = order_example // kotlin.String | The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
-try {
-    val result : kotlin.collections.List<kotlin.String> = apiInstance.poolsGet(count, page, order)
-    println(result)
-} catch (e: ClientException) {
-    println("4xx response calling CardanoPoolsApi#poolsGet")
-    e.printStackTrace()
-} catch (e: ServerException) {
-    println("5xx response calling CardanoPoolsApi#poolsGet")
-    e.printStackTrace()
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **count** | **kotlin.Int**| The numbers of pools per page. | [optional] [default to 100]
- **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to 1]
- **order** | **kotlin.String**| The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to asc] [enum: asc, desc]
-
-### Return type
-
-**kotlin.collections.List&lt;kotlin.String&gt;**
-
-### Authorization
-
-
-Configure ApiKeyAuth:
-    ApiClient.apiKey["project_id"] = ""
-    ApiClient.apiKeyPrefix["project_id"] = ""
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-<a name="poolsPoolIdBlocksGet"></a>
-# **poolsPoolIdBlocksGet**
-> kotlin.collections.List&lt;kotlin.String&gt; poolsPoolIdBlocksGet(poolId, count, page, order)
-
-Stake pool blocks
-
-List of stake pools blocks.
-
-### Example
-```kotlin
-// Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
-
-val apiInstance = CardanoPoolsApi()
-val poolId : kotlin.String = pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy // kotlin.String | Bech32 or hexadecimal pool ID.
-val count : kotlin.Int = 56 // kotlin.Int | The number of results displayed on one page.
-val page : kotlin.Int = 56 // kotlin.Int | The page number for listing the results.
-val order : kotlin.String = order_example // kotlin.String | The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
-try {
-    val result : kotlin.collections.List<kotlin.String> = apiInstance.poolsPoolIdBlocksGet(poolId, count, page, order)
-    println(result)
-} catch (e: ClientException) {
-    println("4xx response calling CardanoPoolsApi#poolsPoolIdBlocksGet")
-    e.printStackTrace()
-} catch (e: ServerException) {
-    println("5xx response calling CardanoPoolsApi#poolsPoolIdBlocksGet")
-    e.printStackTrace()
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **poolId** | **kotlin.String**| Bech32 or hexadecimal pool ID. |
- **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to 100]
- **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to 1]
- **order** | **kotlin.String**| The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to asc] [enum: asc, desc]
-
-### Return type
-
-**kotlin.collections.List&lt;kotlin.String&gt;**
-
-### Authorization
-
-
-Configure ApiKeyAuth:
-    ApiClient.apiKey["project_id"] = ""
-    ApiClient.apiKeyPrefix["project_id"] = ""
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-<a name="poolsPoolIdDelegatorsGet"></a>
-# **poolsPoolIdDelegatorsGet**
-> kotlin.collections.List&lt;kotlin.Any&gt; poolsPoolIdDelegatorsGet(poolId, count, page, order)
-
-Stake pool delegators
-
-List of current stake pools delegators.
-
-### Example
-```kotlin
-// Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
-
-val apiInstance = CardanoPoolsApi()
-val poolId : kotlin.String = pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy // kotlin.String | Bech32 or hexadecimal pool ID.
-val count : kotlin.Int = 56 // kotlin.Int | The number of results displayed on one page.
-val page : kotlin.Int = 56 // kotlin.Int | The page number for listing the results.
-val order : kotlin.String = order_example // kotlin.String | The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
-try {
-    val result : kotlin.collections.List<kotlin.Any> = apiInstance.poolsPoolIdDelegatorsGet(poolId, count, page, order)
-    println(result)
-} catch (e: ClientException) {
-    println("4xx response calling CardanoPoolsApi#poolsPoolIdDelegatorsGet")
-    e.printStackTrace()
-} catch (e: ServerException) {
-    println("5xx response calling CardanoPoolsApi#poolsPoolIdDelegatorsGet")
-    e.printStackTrace()
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **poolId** | **kotlin.String**| Bech32 or hexadecimal pool ID. |
- **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to 100]
- **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to 1]
- **order** | **kotlin.String**| The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to asc] [enum: asc, desc]
-
-### Return type
-
-[**kotlin.collections.List&lt;kotlin.Any&gt;**](kotlin.Any.md)
-
-### Authorization
-
-
-Configure ApiKeyAuth:
-    ApiClient.apiKey["project_id"] = ""
-    ApiClient.apiKeyPrefix["project_id"] = ""
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-<a name="poolsPoolIdGet"></a>
-# **poolsPoolIdGet**
-> Pool poolsPoolIdGet(poolId)
+<a name="getPool"></a>
+# **getPool**
+> Pool getPool(poolId)
 
 Specific stake pool
 
@@ -194,18 +28,18 @@ Pool information.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = CardanoPoolsApi()
 val poolId : kotlin.String = pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy // kotlin.String | Bech32 or hexadecimal pool ID.
 try {
-    val result : Pool = apiInstance.poolsPoolIdGet(poolId)
+    val result : Pool = apiInstance.getPool(poolId)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling CardanoPoolsApi#poolsPoolIdGet")
+    println("4xx response calling CardanoPoolsApi#getPool")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling CardanoPoolsApi#poolsPoolIdGet")
+    println("5xx response calling CardanoPoolsApi#getPool")
     e.printStackTrace()
 }
 ```
@@ -232,33 +66,33 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="poolsPoolIdHistoryGet"></a>
-# **poolsPoolIdHistoryGet**
-> kotlin.collections.List&lt;kotlin.Any&gt; poolsPoolIdHistoryGet(poolId, count, page, order)
+<a name="getPoolBlocks"></a>
+# **getPoolBlocks**
+> kotlin.collections.List&lt;kotlin.String&gt; getPoolBlocks(poolId, count, page, order)
 
-Stake pool history
+Stake pool blocks
 
-History of stake pool parameters over epochs. 
+List of stake pools blocks.
 
 ### Example
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = CardanoPoolsApi()
 val poolId : kotlin.String = pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy // kotlin.String | Bech32 or hexadecimal pool ID.
 val count : kotlin.Int = 56 // kotlin.Int | The number of results displayed on one page.
-val page : kotlin.Int = 56 // kotlin.Int | The page number for listing the results
-val order : kotlin.String = order_example // kotlin.String | The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
+val page : kotlin.Int = 56 // kotlin.Int | The page number for listing the results.
+val order : SortOrder = order_example // SortOrder | The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
 try {
-    val result : kotlin.collections.List<kotlin.Any> = apiInstance.poolsPoolIdHistoryGet(poolId, count, page, order)
+    val result : kotlin.collections.List<kotlin.String> = apiInstance.getPoolBlocks(poolId, count, page, order)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling CardanoPoolsApi#poolsPoolIdHistoryGet")
+    println("4xx response calling CardanoPoolsApi#getPoolBlocks")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling CardanoPoolsApi#poolsPoolIdHistoryGet")
+    println("5xx response calling CardanoPoolsApi#getPoolBlocks")
     e.printStackTrace()
 }
 ```
@@ -268,13 +102,13 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **poolId** | **kotlin.String**| Bech32 or hexadecimal pool ID. |
- **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to 100]
- **page** | **kotlin.Int**| The page number for listing the results | [optional] [default to 1]
- **order** | **kotlin.String**| The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to asc] [enum: asc, desc]
+ **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to null]
+ **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to null]
+ **order** | **SortOrder**| The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to null] [enum: asc, desc]
 
 ### Return type
 
-[**kotlin.collections.List&lt;kotlin.Any&gt;**](kotlin.Any.md)
+**kotlin.collections.List&lt;kotlin.String&gt;**
 
 ### Authorization
 
@@ -288,9 +122,121 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="poolsPoolIdMetadataGet"></a>
-# **poolsPoolIdMetadataGet**
-> AnyOfLessThanPoolMetadataCommaObjectGreaterThan poolsPoolIdMetadataGet(poolId)
+<a name="getPoolDelegators"></a>
+# **getPoolDelegators**
+> kotlin.collections.List&lt;PoolDelegator&gt; getPoolDelegators(poolId, count, page, order)
+
+Stake pool delegators
+
+List of current stake pools delegators.
+
+### Example
+```kotlin
+// Import classes:
+//import org.openapitools.client.infrastructure.*
+//import org.openapitools.client.models.*
+
+val apiInstance = CardanoPoolsApi()
+val poolId : kotlin.String = pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy // kotlin.String | Bech32 or hexadecimal pool ID.
+val count : kotlin.Int = 56 // kotlin.Int | The number of results displayed on one page.
+val page : kotlin.Int = 56 // kotlin.Int | The page number for listing the results.
+val order : SortOrder = order_example // SortOrder | The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
+try {
+    val result : kotlin.collections.List<PoolDelegator> = apiInstance.getPoolDelegators(poolId, count, page, order)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling CardanoPoolsApi#getPoolDelegators")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling CardanoPoolsApi#getPoolDelegators")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **poolId** | **kotlin.String**| Bech32 or hexadecimal pool ID. |
+ **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to null]
+ **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to null]
+ **order** | **SortOrder**| The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to null] [enum: asc, desc]
+
+### Return type
+
+[**kotlin.collections.List&lt;PoolDelegator&gt;**](PoolDelegator.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["project_id"] = ""
+    ApiClient.apiKeyPrefix["project_id"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getPoolHistory"></a>
+# **getPoolHistory**
+> kotlin.collections.List&lt;PoolHistory&gt; getPoolHistory(poolId, count, page, order)
+
+Stake pool history
+
+History of stake pool parameters over epochs. 
+
+### Example
+```kotlin
+// Import classes:
+//import org.openapitools.client.infrastructure.*
+//import org.openapitools.client.models.*
+
+val apiInstance = CardanoPoolsApi()
+val poolId : kotlin.String = pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy // kotlin.String | Bech32 or hexadecimal pool ID.
+val count : kotlin.Int = 56 // kotlin.Int | The number of results displayed on one page.
+val page : kotlin.Int = 56 // kotlin.Int | The page number for listing the results
+val order : SortOrder = order_example // SortOrder | The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
+try {
+    val result : kotlin.collections.List<PoolHistory> = apiInstance.getPoolHistory(poolId, count, page, order)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling CardanoPoolsApi#getPoolHistory")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling CardanoPoolsApi#getPoolHistory")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **poolId** | **kotlin.String**| Bech32 or hexadecimal pool ID. |
+ **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to null]
+ **page** | **kotlin.Int**| The page number for listing the results | [optional] [default to null]
+ **order** | **SortOrder**| The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to null] [enum: asc, desc]
+
+### Return type
+
+[**kotlin.collections.List&lt;PoolHistory&gt;**](PoolHistory.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["project_id"] = ""
+    ApiClient.apiKeyPrefix["project_id"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getPoolMetadata"></a>
+# **getPoolMetadata**
+> AnyOfLessThanPoolMetadataCommaObjectGreaterThan getPoolMetadata(poolId)
 
 Stake pool metadata
 
@@ -300,18 +246,18 @@ Stake pool registration metadata.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = CardanoPoolsApi()
 val poolId : kotlin.String = pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy // kotlin.String | Bech32 or hexadecimal pool ID.
 try {
-    val result : AnyOfLessThanPoolMetadataCommaObjectGreaterThan = apiInstance.poolsPoolIdMetadataGet(poolId)
+    val result : AnyOfLessThanPoolMetadataCommaObjectGreaterThan = apiInstance.getPoolMetadata(poolId)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling CardanoPoolsApi#poolsPoolIdMetadataGet")
+    println("4xx response calling CardanoPoolsApi#getPoolMetadata")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling CardanoPoolsApi#poolsPoolIdMetadataGet")
+    println("5xx response calling CardanoPoolsApi#getPoolMetadata")
     e.printStackTrace()
 }
 ```
@@ -338,9 +284,9 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="poolsPoolIdRelaysGet"></a>
-# **poolsPoolIdRelaysGet**
-> kotlin.collections.List&lt;kotlin.Any&gt; poolsPoolIdRelaysGet(poolId)
+<a name="getPoolRelays"></a>
+# **getPoolRelays**
+> kotlin.collections.List&lt;PoolRelay&gt; getPoolRelays(poolId)
 
 Stake pool relays
 
@@ -350,18 +296,18 @@ Relays of a stake pool.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = CardanoPoolsApi()
 val poolId : kotlin.String = pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy // kotlin.String | Bech32 or hexadecimal pool ID.
 try {
-    val result : kotlin.collections.List<kotlin.Any> = apiInstance.poolsPoolIdRelaysGet(poolId)
+    val result : kotlin.collections.List<PoolRelay> = apiInstance.getPoolRelays(poolId)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling CardanoPoolsApi#poolsPoolIdRelaysGet")
+    println("4xx response calling CardanoPoolsApi#getPoolRelays")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling CardanoPoolsApi#poolsPoolIdRelaysGet")
+    println("5xx response calling CardanoPoolsApi#getPoolRelays")
     e.printStackTrace()
 }
 ```
@@ -374,7 +320,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**kotlin.collections.List&lt;kotlin.Any&gt;**](kotlin.Any.md)
+[**kotlin.collections.List&lt;PoolRelay&gt;**](PoolRelay.md)
 
 ### Authorization
 
@@ -388,9 +334,9 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="poolsPoolIdUpdatesGet"></a>
-# **poolsPoolIdUpdatesGet**
-> kotlin.collections.List&lt;kotlin.Any&gt; poolsPoolIdUpdatesGet(poolId, count, page, order)
+<a name="getPoolUpdates"></a>
+# **getPoolUpdates**
+> kotlin.collections.List&lt;PoolUpdate&gt; getPoolUpdates(poolId, count, page, order)
 
 Stake pool updates
 
@@ -400,21 +346,21 @@ List of certificate updates to the stake pool.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = CardanoPoolsApi()
 val poolId : kotlin.String = pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy // kotlin.String | Bech32 or hexadecimal pool ID.
 val count : kotlin.Int = 56 // kotlin.Int | The number of results displayed on one page.
 val page : kotlin.Int = 56 // kotlin.Int | The page number for listing the results.
-val order : kotlin.String = order_example // kotlin.String | The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
+val order : SortOrder = order_example // SortOrder | The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
 try {
-    val result : kotlin.collections.List<kotlin.Any> = apiInstance.poolsPoolIdUpdatesGet(poolId, count, page, order)
+    val result : kotlin.collections.List<PoolUpdate> = apiInstance.getPoolUpdates(poolId, count, page, order)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling CardanoPoolsApi#poolsPoolIdUpdatesGet")
+    println("4xx response calling CardanoPoolsApi#getPoolUpdates")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling CardanoPoolsApi#poolsPoolIdUpdatesGet")
+    println("5xx response calling CardanoPoolsApi#getPoolUpdates")
     e.printStackTrace()
 }
 ```
@@ -424,13 +370,13 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **poolId** | **kotlin.String**| Bech32 or hexadecimal pool ID. |
- **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to 100]
- **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to 1]
- **order** | **kotlin.String**| The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to asc] [enum: asc, desc]
+ **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to null]
+ **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to null]
+ **order** | **SortOrder**| The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to null] [enum: asc, desc]
 
 ### Return type
 
-[**kotlin.collections.List&lt;kotlin.Any&gt;**](kotlin.Any.md)
+[**kotlin.collections.List&lt;PoolUpdate&gt;**](PoolUpdate.md)
 
 ### Authorization
 
@@ -444,9 +390,63 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="poolsRetiredGet"></a>
-# **poolsRetiredGet**
-> kotlin.collections.List&lt;kotlin.Any&gt; poolsRetiredGet(count, page, order)
+<a name="getPools"></a>
+# **getPools**
+> kotlin.collections.List&lt;kotlin.String&gt; getPools(count, page, order)
+
+List of stake pools
+
+List of registered stake pools.
+
+### Example
+```kotlin
+// Import classes:
+//import org.openapitools.client.infrastructure.*
+//import org.openapitools.client.models.*
+
+val apiInstance = CardanoPoolsApi()
+val count : kotlin.Int = 56 // kotlin.Int | The numbers of pools per page.
+val page : kotlin.Int = 56 // kotlin.Int | The page number for listing the results.
+val order : SortOrder = order_example // SortOrder | The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
+try {
+    val result : kotlin.collections.List<kotlin.String> = apiInstance.getPools(count, page, order)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling CardanoPoolsApi#getPools")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling CardanoPoolsApi#getPools")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **count** | **kotlin.Int**| The numbers of pools per page. | [optional] [default to null]
+ **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to null]
+ **order** | **SortOrder**| The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to null] [enum: asc, desc]
+
+### Return type
+
+**kotlin.collections.List&lt;kotlin.String&gt;**
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["project_id"] = ""
+    ApiClient.apiKeyPrefix["project_id"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getRetiredPools"></a>
+# **getRetiredPools**
+> kotlin.collections.List&lt;PoolListRetire&gt; getRetiredPools(count, page, order)
 
 List of retired stake pools
 
@@ -456,20 +456,20 @@ List of already retired pools.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = CardanoPoolsApi()
 val count : kotlin.Int = 56 // kotlin.Int | The numbers of pools per page.
 val page : kotlin.Int = 56 // kotlin.Int | The page number for listing the results.
-val order : kotlin.String = order_example // kotlin.String | The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
+val order : SortOrder = order_example // SortOrder | The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
 try {
-    val result : kotlin.collections.List<kotlin.Any> = apiInstance.poolsRetiredGet(count, page, order)
+    val result : kotlin.collections.List<PoolListRetire> = apiInstance.getRetiredPools(count, page, order)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling CardanoPoolsApi#poolsRetiredGet")
+    println("4xx response calling CardanoPoolsApi#getRetiredPools")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling CardanoPoolsApi#poolsRetiredGet")
+    println("5xx response calling CardanoPoolsApi#getRetiredPools")
     e.printStackTrace()
 }
 ```
@@ -478,13 +478,13 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **count** | **kotlin.Int**| The numbers of pools per page. | [optional] [default to 100]
- **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to 1]
- **order** | **kotlin.String**| The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to asc] [enum: asc, desc]
+ **count** | **kotlin.Int**| The numbers of pools per page. | [optional] [default to null]
+ **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to null]
+ **order** | **SortOrder**| The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to null] [enum: asc, desc]
 
 ### Return type
 
-[**kotlin.collections.List&lt;kotlin.Any&gt;**](kotlin.Any.md)
+[**kotlin.collections.List&lt;PoolListRetire&gt;**](PoolListRetire.md)
 
 ### Authorization
 
@@ -498,9 +498,9 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="poolsRetiringGet"></a>
-# **poolsRetiringGet**
-> kotlin.collections.List&lt;kotlin.Any&gt; poolsRetiringGet(count, page, order)
+<a name="getRetiringPools"></a>
+# **getRetiringPools**
+> kotlin.collections.List&lt;PoolListRetire&gt; getRetiringPools(count, page, order)
 
 List of retiring stake pools
 
@@ -510,20 +510,20 @@ List of stake pools retiring in the upcoming epochs
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = CardanoPoolsApi()
 val count : kotlin.Int = 56 // kotlin.Int | The number of results displayed on one page.
 val page : kotlin.Int = 56 // kotlin.Int | The page number for listing the results.
-val order : kotlin.String = order_example // kotlin.String | The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
+val order : SortOrder = order_example // SortOrder | The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
 try {
-    val result : kotlin.collections.List<kotlin.Any> = apiInstance.poolsRetiringGet(count, page, order)
+    val result : kotlin.collections.List<PoolListRetire> = apiInstance.getRetiringPools(count, page, order)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling CardanoPoolsApi#poolsRetiringGet")
+    println("4xx response calling CardanoPoolsApi#getRetiringPools")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling CardanoPoolsApi#poolsRetiringGet")
+    println("5xx response calling CardanoPoolsApi#getRetiringPools")
     e.printStackTrace()
 }
 ```
@@ -532,13 +532,13 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to 100]
- **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to 1]
- **order** | **kotlin.String**| The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to asc] [enum: asc, desc]
+ **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to null]
+ **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to null]
+ **order** | **SortOrder**| The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to null] [enum: asc, desc]
 
 ### Return type
 
-[**kotlin.collections.List&lt;kotlin.Any&gt;**](kotlin.Any.md)
+[**kotlin.collections.List&lt;PoolListRetire&gt;**](PoolListRetire.md)
 
 ### Authorization
 

@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **epoch** | **kotlin.Int** | Epoch number | 
 **epochSlot** | **kotlin.Int** | Slot within the epoch | 
 **slotLeader** | **kotlin.String** | Bech32 ID of the slot leader or specific block description in case there is no slot leader | 
-**size** | **kotlin.Int** | Block size in Bytes | 
+**propertySize** | **kotlin.Int** | Block size in Bytes | 
 **txCount** | **kotlin.Int** | Number of transactions in the block | 
 **output** | **kotlin.String** | Total output within the block in Lovelaces | 
 **fees** | **kotlin.String** | Total fees within the block in Lovelaces | 

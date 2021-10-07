@@ -1,10 +1,10 @@
 
-# InlineResponse2001
+# Scripts
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**isHealthy** | **kotlin.Boolean** |  | 
+**scriptHash** | **kotlin.String** | Script hash | 
 
 
 

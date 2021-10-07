@@ -4,14 +4,14 @@ All URIs are relative to *https://cardano-mainnet.blockfrost.io/api/v0*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ipfsAddPost**](IPFSAddApi.md#ipfsAddPost) | **POST** /ipfs/add | Add a file or directory to IPFS
+[**add**](IPFSAddApi.md#add) | **POST** /ipfs/add | Add a file to IPFS
 
 
-<a name="ipfsAddPost"></a>
-# **ipfsAddPost**
-> InlineResponse2003 ipfsAddPost()
+<a name="add"></a>
+# **add**
+> InlineResponse2003 add()
 
-Add a file or directory to IPFS
+Add a file to IPFS
 
 You need to &#x60;/ipfs/pin/add&#x60; an object to avoid it being garbage collected. This usage is being counted in your user account quota. 
 
@@ -19,17 +19,17 @@ You need to &#x60;/ipfs/pin/add&#x60; an object to avoid it being garbage collec
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = IPFSAddApi()
 try {
-    val result : InlineResponse2003 = apiInstance.ipfsAddPost()
+    val result : InlineResponse2003 = apiInstance.add()
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling IPFSAddApi#ipfsAddPost")
+    println("4xx response calling IPFSAddApi#add")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling IPFSAddApi#ipfsAddPost")
+    println("5xx response calling IPFSAddApi#add")
     e.printStackTrace()
 }
 ```

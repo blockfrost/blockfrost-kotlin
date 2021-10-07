@@ -4,76 +4,20 @@ All URIs are relative to *https://cardano-mainnet.blockfrost.io/api/v0*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**accountsStakeAddressAddressesAssetsGet**](CardanoAccountsApi.md#accountsStakeAddressAddressesAssetsGet) | **GET** /accounts/{stake_address}/addresses/assets | Assets associated with the account addresses
-[**accountsStakeAddressAddressesGet**](CardanoAccountsApi.md#accountsStakeAddressAddressesGet) | **GET** /accounts/{stake_address}/addresses | Account associated addresses
-[**accountsStakeAddressDelegationsGet**](CardanoAccountsApi.md#accountsStakeAddressDelegationsGet) | **GET** /accounts/{stake_address}/delegations | Account delegation history
-[**accountsStakeAddressGet**](CardanoAccountsApi.md#accountsStakeAddressGet) | **GET** /accounts/{stake_address} | Specific account address
-[**accountsStakeAddressHistoryGet**](CardanoAccountsApi.md#accountsStakeAddressHistoryGet) | **GET** /accounts/{stake_address}/history | Account history
-[**accountsStakeAddressMirsGet**](CardanoAccountsApi.md#accountsStakeAddressMirsGet) | **GET** /accounts/{stake_address}/mirs | Account MIR history
-[**accountsStakeAddressRegistrationsGet**](CardanoAccountsApi.md#accountsStakeAddressRegistrationsGet) | **GET** /accounts/{stake_address}/registrations | Account registration history
-[**accountsStakeAddressRewardsGet**](CardanoAccountsApi.md#accountsStakeAddressRewardsGet) | **GET** /accounts/{stake_address}/rewards | Account reward history
-[**accountsStakeAddressWithdrawalsGet**](CardanoAccountsApi.md#accountsStakeAddressWithdrawalsGet) | **GET** /accounts/{stake_address}/withdrawals | Account withdrawal history
+[**getAccountAddresses**](CardanoAccountsApi.md#getAccountAddresses) | **GET** /accounts/{stake_address}/addresses | Account associated addresses
+[**getAccountAssets**](CardanoAccountsApi.md#getAccountAssets) | **GET** /accounts/{stake_address}/addresses/assets | Assets associated with the account addresses
+[**getAccountByStakeAddress**](CardanoAccountsApi.md#getAccountByStakeAddress) | **GET** /accounts/{stake_address} | Specific account address
+[**getAccountDelegationHistory**](CardanoAccountsApi.md#getAccountDelegationHistory) | **GET** /accounts/{stake_address}/delegations | Account delegation history
+[**getAccountHistory**](CardanoAccountsApi.md#getAccountHistory) | **GET** /accounts/{stake_address}/history | Account history
+[**getAccountMirHistory**](CardanoAccountsApi.md#getAccountMirHistory) | **GET** /accounts/{stake_address}/mirs | Account MIR history
+[**getAccountRegistrationHistory**](CardanoAccountsApi.md#getAccountRegistrationHistory) | **GET** /accounts/{stake_address}/registrations | Account registration history
+[**getAccountRewardHistory**](CardanoAccountsApi.md#getAccountRewardHistory) | **GET** /accounts/{stake_address}/rewards | Account reward history
+[**getAccountWithdrawalHistory**](CardanoAccountsApi.md#getAccountWithdrawalHistory) | **GET** /accounts/{stake_address}/withdrawals | Account withdrawal history
 
 
-<a name="accountsStakeAddressAddressesAssetsGet"></a>
-# **accountsStakeAddressAddressesAssetsGet**
-> kotlin.collections.List&lt;kotlin.Any&gt; accountsStakeAddressAddressesAssetsGet(stakeAddress, count, page, order)
-
-Assets associated with the account addresses
-
-Obtain information about assets associated with addresses of a specific account.  &lt;b&gt;Be careful&lt;/b&gt;, as an account could be part of a mangled address and does not necessarily mean the addresses are owned by user as the account. 
-
-### Example
-```kotlin
-// Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
-
-val apiInstance = CardanoAccountsApi()
-val stakeAddress : kotlin.String = stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc // kotlin.String | Bech32 stake address.
-val count : kotlin.Int = 56 // kotlin.Int | The number of results displayed on one page.
-val page : kotlin.Int = 56 // kotlin.Int | The page number for listing the results.
-val order : kotlin.String = order_example // kotlin.String | The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
-try {
-    val result : kotlin.collections.List<kotlin.Any> = apiInstance.accountsStakeAddressAddressesAssetsGet(stakeAddress, count, page, order)
-    println(result)
-} catch (e: ClientException) {
-    println("4xx response calling CardanoAccountsApi#accountsStakeAddressAddressesAssetsGet")
-    e.printStackTrace()
-} catch (e: ServerException) {
-    println("5xx response calling CardanoAccountsApi#accountsStakeAddressAddressesAssetsGet")
-    e.printStackTrace()
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **stakeAddress** | **kotlin.String**| Bech32 stake address. |
- **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to 100]
- **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to 1]
- **order** | **kotlin.String**| The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to asc] [enum: asc, desc]
-
-### Return type
-
-[**kotlin.collections.List&lt;kotlin.Any&gt;**](kotlin.Any.md)
-
-### Authorization
-
-
-Configure ApiKeyAuth:
-    ApiClient.apiKey["project_id"] = ""
-    ApiClient.apiKeyPrefix["project_id"] = ""
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-<a name="accountsStakeAddressAddressesGet"></a>
-# **accountsStakeAddressAddressesGet**
-> kotlin.collections.List&lt;kotlin.Any&gt; accountsStakeAddressAddressesGet(stakeAddress, count, page, order)
+<a name="getAccountAddresses"></a>
+# **getAccountAddresses**
+> kotlin.collections.List&lt;AccountAddressesContent&gt; getAccountAddresses(stakeAddress, count, page, order)
 
 Account associated addresses
 
@@ -83,21 +27,21 @@ Obtain information about the addresses of a specific account.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = CardanoAccountsApi()
 val stakeAddress : kotlin.String = stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc // kotlin.String | Bech32 stake address.
 val count : kotlin.Int = 56 // kotlin.Int | The number of results displayed on one page.
 val page : kotlin.Int = 56 // kotlin.Int | The page number for listing the results.
-val order : kotlin.String = order_example // kotlin.String | The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
+val order : SortOrder = order_example // SortOrder | The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
 try {
-    val result : kotlin.collections.List<kotlin.Any> = apiInstance.accountsStakeAddressAddressesGet(stakeAddress, count, page, order)
+    val result : kotlin.collections.List<AccountAddressesContent> = apiInstance.getAccountAddresses(stakeAddress, count, page, order)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling CardanoAccountsApi#accountsStakeAddressAddressesGet")
+    println("4xx response calling CardanoAccountsApi#getAccountAddresses")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling CardanoAccountsApi#accountsStakeAddressAddressesGet")
+    println("5xx response calling CardanoAccountsApi#getAccountAddresses")
     e.printStackTrace()
 }
 ```
@@ -107,13 +51,13 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **stakeAddress** | **kotlin.String**| Bech32 stake address. |
- **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to 100]
- **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to 1]
- **order** | **kotlin.String**| The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to asc] [enum: asc, desc]
+ **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to null]
+ **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to null]
+ **order** | **SortOrder**| The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to null] [enum: asc, desc]
 
 ### Return type
 
-[**kotlin.collections.List&lt;kotlin.Any&gt;**](kotlin.Any.md)
+[**kotlin.collections.List&lt;AccountAddressesContent&gt;**](AccountAddressesContent.md)
 
 ### Authorization
 
@@ -127,33 +71,33 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="accountsStakeAddressDelegationsGet"></a>
-# **accountsStakeAddressDelegationsGet**
-> kotlin.collections.List&lt;kotlin.Any&gt; accountsStakeAddressDelegationsGet(stakeAddress, count, page, order)
+<a name="getAccountAssets"></a>
+# **getAccountAssets**
+> kotlin.collections.List&lt;AccountAddressesAsset&gt; getAccountAssets(stakeAddress, count, page, order)
 
-Account delegation history
+Assets associated with the account addresses
 
-Obtain information about the delegation of a specific account.
+Obtain information about assets associated with addresses of a specific account.  &lt;b&gt;Be careful&lt;/b&gt;, as an account could be part of a mangled address and does not necessarily mean the addresses are owned by user as the account. 
 
 ### Example
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = CardanoAccountsApi()
 val stakeAddress : kotlin.String = stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc // kotlin.String | Bech32 stake address.
 val count : kotlin.Int = 56 // kotlin.Int | The number of results displayed on one page.
 val page : kotlin.Int = 56 // kotlin.Int | The page number for listing the results.
-val order : kotlin.String = order_example // kotlin.String | The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
+val order : SortOrder = order_example // SortOrder | The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
 try {
-    val result : kotlin.collections.List<kotlin.Any> = apiInstance.accountsStakeAddressDelegationsGet(stakeAddress, count, page, order)
+    val result : kotlin.collections.List<AccountAddressesAsset> = apiInstance.getAccountAssets(stakeAddress, count, page, order)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling CardanoAccountsApi#accountsStakeAddressDelegationsGet")
+    println("4xx response calling CardanoAccountsApi#getAccountAssets")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling CardanoAccountsApi#accountsStakeAddressDelegationsGet")
+    println("5xx response calling CardanoAccountsApi#getAccountAssets")
     e.printStackTrace()
 }
 ```
@@ -163,13 +107,13 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **stakeAddress** | **kotlin.String**| Bech32 stake address. |
- **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to 100]
- **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to 1]
- **order** | **kotlin.String**| The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to asc] [enum: asc, desc]
+ **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to null]
+ **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to null]
+ **order** | **SortOrder**| The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to null] [enum: asc, desc]
 
 ### Return type
 
-[**kotlin.collections.List&lt;kotlin.Any&gt;**](kotlin.Any.md)
+[**kotlin.collections.List&lt;AccountAddressesAsset&gt;**](AccountAddressesAsset.md)
 
 ### Authorization
 
@@ -183,9 +127,9 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="accountsStakeAddressGet"></a>
-# **accountsStakeAddressGet**
-> AccountContent accountsStakeAddressGet(stakeAddress)
+<a name="getAccountByStakeAddress"></a>
+# **getAccountByStakeAddress**
+> AccountContent getAccountByStakeAddress(stakeAddress)
 
 Specific account address
 
@@ -195,18 +139,18 @@ Obtain information about a specific stake account.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = CardanoAccountsApi()
 val stakeAddress : kotlin.String = stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc // kotlin.String | Bech32 stake address.
 try {
-    val result : AccountContent = apiInstance.accountsStakeAddressGet(stakeAddress)
+    val result : AccountContent = apiInstance.getAccountByStakeAddress(stakeAddress)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling CardanoAccountsApi#accountsStakeAddressGet")
+    println("4xx response calling CardanoAccountsApi#getAccountByStakeAddress")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling CardanoAccountsApi#accountsStakeAddressGet")
+    println("5xx response calling CardanoAccountsApi#getAccountByStakeAddress")
     e.printStackTrace()
 }
 ```
@@ -233,9 +177,65 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="accountsStakeAddressHistoryGet"></a>
-# **accountsStakeAddressHistoryGet**
-> kotlin.collections.List&lt;kotlin.Any&gt; accountsStakeAddressHistoryGet(stakeAddress, count, page, order)
+<a name="getAccountDelegationHistory"></a>
+# **getAccountDelegationHistory**
+> kotlin.collections.List&lt;AccountDelegationContent&gt; getAccountDelegationHistory(stakeAddress, count, page, order)
+
+Account delegation history
+
+Obtain information about the delegation of a specific account.
+
+### Example
+```kotlin
+// Import classes:
+//import org.openapitools.client.infrastructure.*
+//import org.openapitools.client.models.*
+
+val apiInstance = CardanoAccountsApi()
+val stakeAddress : kotlin.String = stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc // kotlin.String | Bech32 stake address.
+val count : kotlin.Int = 56 // kotlin.Int | The number of results displayed on one page.
+val page : kotlin.Int = 56 // kotlin.Int | The page number for listing the results.
+val order : SortOrder = order_example // SortOrder | The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
+try {
+    val result : kotlin.collections.List<AccountDelegationContent> = apiInstance.getAccountDelegationHistory(stakeAddress, count, page, order)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling CardanoAccountsApi#getAccountDelegationHistory")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling CardanoAccountsApi#getAccountDelegationHistory")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **stakeAddress** | **kotlin.String**| Bech32 stake address. |
+ **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to null]
+ **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to null]
+ **order** | **SortOrder**| The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to null] [enum: asc, desc]
+
+### Return type
+
+[**kotlin.collections.List&lt;AccountDelegationContent&gt;**](AccountDelegationContent.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["project_id"] = ""
+    ApiClient.apiKeyPrefix["project_id"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getAccountHistory"></a>
+# **getAccountHistory**
+> kotlin.collections.List&lt;AccountHistoryContent&gt; getAccountHistory(stakeAddress, count, page, order)
 
 Account history
 
@@ -245,21 +245,21 @@ Obtain information about the history of a specific account.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = CardanoAccountsApi()
 val stakeAddress : kotlin.String = stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc // kotlin.String | Bech32 stake address.
 val count : kotlin.Int = 56 // kotlin.Int | The number of results displayed on one page.
 val page : kotlin.Int = 56 // kotlin.Int | The page number for listing the results.
-val order : kotlin.String = order_example // kotlin.String | The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
+val order : SortOrder = order_example // SortOrder | The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
 try {
-    val result : kotlin.collections.List<kotlin.Any> = apiInstance.accountsStakeAddressHistoryGet(stakeAddress, count, page, order)
+    val result : kotlin.collections.List<AccountHistoryContent> = apiInstance.getAccountHistory(stakeAddress, count, page, order)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling CardanoAccountsApi#accountsStakeAddressHistoryGet")
+    println("4xx response calling CardanoAccountsApi#getAccountHistory")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling CardanoAccountsApi#accountsStakeAddressHistoryGet")
+    println("5xx response calling CardanoAccountsApi#getAccountHistory")
     e.printStackTrace()
 }
 ```
@@ -269,13 +269,13 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **stakeAddress** | **kotlin.String**| Bech32 stake address. |
- **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to 100]
- **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to 1]
- **order** | **kotlin.String**| The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to asc] [enum: asc, desc]
+ **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to null]
+ **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to null]
+ **order** | **SortOrder**| The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to null] [enum: asc, desc]
 
 ### Return type
 
-[**kotlin.collections.List&lt;kotlin.Any&gt;**](kotlin.Any.md)
+[**kotlin.collections.List&lt;AccountHistoryContent&gt;**](AccountHistoryContent.md)
 
 ### Authorization
 
@@ -289,9 +289,9 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="accountsStakeAddressMirsGet"></a>
-# **accountsStakeAddressMirsGet**
-> kotlin.collections.List&lt;kotlin.Any&gt; accountsStakeAddressMirsGet(stakeAddress, count, page, order)
+<a name="getAccountMirHistory"></a>
+# **getAccountMirHistory**
+> kotlin.collections.List&lt;AccountMirContent&gt; getAccountMirHistory(stakeAddress, count, page, order)
 
 Account MIR history
 
@@ -301,21 +301,21 @@ Obtain information about the MIRs of a specific account.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = CardanoAccountsApi()
 val stakeAddress : kotlin.String = stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc // kotlin.String | Bech32 stake address.
 val count : kotlin.Int = 56 // kotlin.Int | The number of results displayed on one page.
 val page : kotlin.Int = 56 // kotlin.Int | The page number for listing the results.
-val order : kotlin.String = order_example // kotlin.String | The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
+val order : SortOrder = order_example // SortOrder | The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
 try {
-    val result : kotlin.collections.List<kotlin.Any> = apiInstance.accountsStakeAddressMirsGet(stakeAddress, count, page, order)
+    val result : kotlin.collections.List<AccountMirContent> = apiInstance.getAccountMirHistory(stakeAddress, count, page, order)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling CardanoAccountsApi#accountsStakeAddressMirsGet")
+    println("4xx response calling CardanoAccountsApi#getAccountMirHistory")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling CardanoAccountsApi#accountsStakeAddressMirsGet")
+    println("5xx response calling CardanoAccountsApi#getAccountMirHistory")
     e.printStackTrace()
 }
 ```
@@ -325,13 +325,13 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **stakeAddress** | **kotlin.String**| Bech32 stake address. |
- **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to 100]
- **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to 1]
- **order** | **kotlin.String**| The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to asc] [enum: asc, desc]
+ **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to null]
+ **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to null]
+ **order** | **SortOrder**| The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to null] [enum: asc, desc]
 
 ### Return type
 
-[**kotlin.collections.List&lt;kotlin.Any&gt;**](kotlin.Any.md)
+[**kotlin.collections.List&lt;AccountMirContent&gt;**](AccountMirContent.md)
 
 ### Authorization
 
@@ -345,9 +345,9 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="accountsStakeAddressRegistrationsGet"></a>
-# **accountsStakeAddressRegistrationsGet**
-> kotlin.collections.List&lt;kotlin.Any&gt; accountsStakeAddressRegistrationsGet(stakeAddress, count, page, order)
+<a name="getAccountRegistrationHistory"></a>
+# **getAccountRegistrationHistory**
+> kotlin.collections.List&lt;AccountRegistrationContent&gt; getAccountRegistrationHistory(stakeAddress, count, page, order)
 
 Account registration history
 
@@ -357,21 +357,21 @@ Obtain information about the registrations and deregistrations of a specific acc
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = CardanoAccountsApi()
 val stakeAddress : kotlin.String = stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc // kotlin.String | Bech32 stake address.
 val count : kotlin.Int = 56 // kotlin.Int | The number of results displayed on one page.
 val page : kotlin.Int = 56 // kotlin.Int | The page number for listing the results.
-val order : kotlin.String = order_example // kotlin.String | The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
+val order : SortOrder = order_example // SortOrder | The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
 try {
-    val result : kotlin.collections.List<kotlin.Any> = apiInstance.accountsStakeAddressRegistrationsGet(stakeAddress, count, page, order)
+    val result : kotlin.collections.List<AccountRegistrationContent> = apiInstance.getAccountRegistrationHistory(stakeAddress, count, page, order)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling CardanoAccountsApi#accountsStakeAddressRegistrationsGet")
+    println("4xx response calling CardanoAccountsApi#getAccountRegistrationHistory")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling CardanoAccountsApi#accountsStakeAddressRegistrationsGet")
+    println("5xx response calling CardanoAccountsApi#getAccountRegistrationHistory")
     e.printStackTrace()
 }
 ```
@@ -381,13 +381,13 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **stakeAddress** | **kotlin.String**| Bech32 stake address. |
- **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to 100]
- **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to 1]
- **order** | **kotlin.String**| The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to asc] [enum: asc, desc]
+ **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to null]
+ **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to null]
+ **order** | **SortOrder**| The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to null] [enum: asc, desc]
 
 ### Return type
 
-[**kotlin.collections.List&lt;kotlin.Any&gt;**](kotlin.Any.md)
+[**kotlin.collections.List&lt;AccountRegistrationContent&gt;**](AccountRegistrationContent.md)
 
 ### Authorization
 
@@ -401,9 +401,9 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="accountsStakeAddressRewardsGet"></a>
-# **accountsStakeAddressRewardsGet**
-> kotlin.collections.List&lt;kotlin.Any&gt; accountsStakeAddressRewardsGet(stakeAddress, count, page, order)
+<a name="getAccountRewardHistory"></a>
+# **getAccountRewardHistory**
+> kotlin.collections.List&lt;AccountRewardContent&gt; getAccountRewardHistory(stakeAddress, count, page, order)
 
 Account reward history
 
@@ -413,21 +413,21 @@ Obtain information about the reward history of a specific account.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = CardanoAccountsApi()
 val stakeAddress : kotlin.String = stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc // kotlin.String | Bech32 stake address.
 val count : kotlin.Int = 56 // kotlin.Int | The number of results displayed on one page.
 val page : kotlin.Int = 56 // kotlin.Int | The page number for listing the results.
-val order : kotlin.String = order_example // kotlin.String | The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
+val order : SortOrder = order_example // SortOrder | The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
 try {
-    val result : kotlin.collections.List<kotlin.Any> = apiInstance.accountsStakeAddressRewardsGet(stakeAddress, count, page, order)
+    val result : kotlin.collections.List<AccountRewardContent> = apiInstance.getAccountRewardHistory(stakeAddress, count, page, order)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling CardanoAccountsApi#accountsStakeAddressRewardsGet")
+    println("4xx response calling CardanoAccountsApi#getAccountRewardHistory")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling CardanoAccountsApi#accountsStakeAddressRewardsGet")
+    println("5xx response calling CardanoAccountsApi#getAccountRewardHistory")
     e.printStackTrace()
 }
 ```
@@ -437,13 +437,13 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **stakeAddress** | **kotlin.String**| Bech32 stake address. |
- **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to 100]
- **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to 1]
- **order** | **kotlin.String**| The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to asc] [enum: asc, desc]
+ **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to null]
+ **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to null]
+ **order** | **SortOrder**| The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to null] [enum: asc, desc]
 
 ### Return type
 
-[**kotlin.collections.List&lt;kotlin.Any&gt;**](kotlin.Any.md)
+[**kotlin.collections.List&lt;AccountRewardContent&gt;**](AccountRewardContent.md)
 
 ### Authorization
 
@@ -457,9 +457,9 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="accountsStakeAddressWithdrawalsGet"></a>
-# **accountsStakeAddressWithdrawalsGet**
-> kotlin.collections.List&lt;kotlin.Any&gt; accountsStakeAddressWithdrawalsGet(stakeAddress, count, page, order)
+<a name="getAccountWithdrawalHistory"></a>
+# **getAccountWithdrawalHistory**
+> kotlin.collections.List&lt;AccountWithdrawalContent&gt; getAccountWithdrawalHistory(stakeAddress, count, page, order)
 
 Account withdrawal history
 
@@ -469,21 +469,21 @@ Obtain information about the withdrawals of a specific account.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = CardanoAccountsApi()
 val stakeAddress : kotlin.String = stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc // kotlin.String | Bech32 stake address.
 val count : kotlin.Int = 56 // kotlin.Int | The number of results displayed on one page.
 val page : kotlin.Int = 56 // kotlin.Int | The page number for listing the results.
-val order : kotlin.String = order_example // kotlin.String | The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
+val order : SortOrder = order_example // SortOrder | The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
 try {
-    val result : kotlin.collections.List<kotlin.Any> = apiInstance.accountsStakeAddressWithdrawalsGet(stakeAddress, count, page, order)
+    val result : kotlin.collections.List<AccountWithdrawalContent> = apiInstance.getAccountWithdrawalHistory(stakeAddress, count, page, order)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling CardanoAccountsApi#accountsStakeAddressWithdrawalsGet")
+    println("4xx response calling CardanoAccountsApi#getAccountWithdrawalHistory")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling CardanoAccountsApi#accountsStakeAddressWithdrawalsGet")
+    println("5xx response calling CardanoAccountsApi#getAccountWithdrawalHistory")
     e.printStackTrace()
 }
 ```
@@ -493,13 +493,13 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **stakeAddress** | **kotlin.String**| Bech32 stake address. |
- **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to 100]
- **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to 1]
- **order** | **kotlin.String**| The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to asc] [enum: asc, desc]
+ **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to null]
+ **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to null]
+ **order** | **SortOrder**| The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to null] [enum: asc, desc]
 
 ### Return type
 
-[**kotlin.collections.List&lt;kotlin.Any&gt;**](kotlin.Any.md)
+[**kotlin.collections.List&lt;AccountWithdrawalContent&gt;**](AccountWithdrawalContent.md)
 
 ### Authorization
 

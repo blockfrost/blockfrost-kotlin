@@ -4,12 +4,12 @@ All URIs are relative to *https://cardano-mainnet.blockfrost.io/api/v0*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ipfsGatewayIPFSPathGet**](IPFSGatewayApi.md#ipfsGatewayIPFSPathGet) | **GET** /ipfs/gateway/{IPFS_path} | Relay to an IPFS gateway
+[**get**](IPFSGatewayApi.md#get) | **GET** /ipfs/gateway/{IPFS_path} | Relay to an IPFS gateway
 
 
-<a name="ipfsGatewayIPFSPathGet"></a>
-# **ipfsGatewayIPFSPathGet**
-> ipfsGatewayIPFSPathGet(ipFSPath)
+<a name="get"></a>
+# **get**
+> get(ipFSPath)
 
 Relay to an IPFS gateway
 
@@ -19,17 +19,17 @@ Retrieve an object from the IFPS gateway (useful if you do not want to rely on a
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = IPFSGatewayApi()
 val ipFSPath : kotlin.String = ipFSPath_example // kotlin.String | 
 try {
-    apiInstance.ipfsGatewayIPFSPathGet(ipFSPath)
+    apiInstance.get(ipFSPath)
 } catch (e: ClientException) {
-    println("4xx response calling IPFSGatewayApi#ipfsGatewayIPFSPathGet")
+    println("4xx response calling IPFSGatewayApi#get")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling IPFSGatewayApi#ipfsGatewayIPFSPathGet")
+    println("5xx response calling IPFSGatewayApi#get")
     e.printStackTrace()
 }
 ```

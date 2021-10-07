@@ -4,122 +4,23 @@ All URIs are relative to *https://cardano-mainnet.blockfrost.io/api/v0*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**txSubmitPost**](CardanoTransactionsApi.md#txSubmitPost) | **POST** /tx/submit | Submit a transaction
-[**txsHashDelegationsGet**](CardanoTransactionsApi.md#txsHashDelegationsGet) | **GET** /txs/{hash}/delegations | Transaction delegation certificates
-[**txsHashGet**](CardanoTransactionsApi.md#txsHashGet) | **GET** /txs/{hash} | Specific transaction
-[**txsHashMetadataCborGet**](CardanoTransactionsApi.md#txsHashMetadataCborGet) | **GET** /txs/{hash}/metadata/cbor | Transaction metadata in CBOR
-[**txsHashMetadataGet**](CardanoTransactionsApi.md#txsHashMetadataGet) | **GET** /txs/{hash}/metadata | Transaction metadata
-[**txsHashMirsGet**](CardanoTransactionsApi.md#txsHashMirsGet) | **GET** /txs/{hash}/mirs | Transaction MIRs
-[**txsHashPoolRetiresGet**](CardanoTransactionsApi.md#txsHashPoolRetiresGet) | **GET** /txs/{hash}/pool_retires | Transaction stake pool retirement certificates
-[**txsHashPoolUpdatesGet**](CardanoTransactionsApi.md#txsHashPoolUpdatesGet) | **GET** /txs/{hash}/pool_updates | Transaction stake pool registration and update certificates
-[**txsHashStakesGet**](CardanoTransactionsApi.md#txsHashStakesGet) | **GET** /txs/{hash}/stakes | Transaction stake addresses certificates
-[**txsHashUtxosGet**](CardanoTransactionsApi.md#txsHashUtxosGet) | **GET** /txs/{hash}/utxos | Transaction UTXOs
-[**txsHashWithdrawalsGet**](CardanoTransactionsApi.md#txsHashWithdrawalsGet) | **GET** /txs/{hash}/withdrawals | Transaction withdrawal
+[**getTransaction**](CardanoTransactionsApi.md#getTransaction) | **GET** /txs/{hash} | Specific transaction
+[**getTransactionDelegations**](CardanoTransactionsApi.md#getTransactionDelegations) | **GET** /txs/{hash}/delegations | Transaction delegation certificates
+[**getTransactionMetadata**](CardanoTransactionsApi.md#getTransactionMetadata) | **GET** /txs/{hash}/metadata | Transaction metadata
+[**getTransactionMetadataCbor**](CardanoTransactionsApi.md#getTransactionMetadataCbor) | **GET** /txs/{hash}/metadata/cbor | Transaction metadata in CBOR
+[**getTransactionMirs**](CardanoTransactionsApi.md#getTransactionMirs) | **GET** /txs/{hash}/mirs | Transaction MIRs
+[**getTransactionPoolRetires**](CardanoTransactionsApi.md#getTransactionPoolRetires) | **GET** /txs/{hash}/pool_retires | Transaction stake pool retirement certificates
+[**getTransactionPoolUpdates**](CardanoTransactionsApi.md#getTransactionPoolUpdates) | **GET** /txs/{hash}/pool_updates | Transaction stake pool registration and update certificates
+[**getTransactionRedeemers**](CardanoTransactionsApi.md#getTransactionRedeemers) | **GET** /txs/{hash}/redeemers | Transaction redeemers
+[**getTransactionStakes**](CardanoTransactionsApi.md#getTransactionStakes) | **GET** /txs/{hash}/stakes | Transaction stake addresses certificates
+[**getTransactionUtxos**](CardanoTransactionsApi.md#getTransactionUtxos) | **GET** /txs/{hash}/utxos | Transaction UTXOs
+[**getTransactionWithdrawals**](CardanoTransactionsApi.md#getTransactionWithdrawals) | **GET** /txs/{hash}/withdrawals | Transaction withdrawal
+[**submitTransaction**](CardanoTransactionsApi.md#submitTransaction) | **POST** /tx/submit | Submit a transaction
 
 
-<a name="txSubmitPost"></a>
-# **txSubmitPost**
-> kotlin.String txSubmitPost(contentType)
-
-Submit a transaction
-
-Submit an already serialized transaction to the network.
-
-### Example
-```kotlin
-// Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
-
-val apiInstance = CardanoTransactionsApi()
-val contentType : kotlin.String = contentType_example // kotlin.String | 
-try {
-    val result : kotlin.String = apiInstance.txSubmitPost(contentType)
-    println(result)
-} catch (e: ClientException) {
-    println("4xx response calling CardanoTransactionsApi#txSubmitPost")
-    e.printStackTrace()
-} catch (e: ServerException) {
-    println("5xx response calling CardanoTransactionsApi#txSubmitPost")
-    e.printStackTrace()
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **contentType** | **kotlin.String**|  | [enum: application/cbor]
-
-### Return type
-
-**kotlin.String**
-
-### Authorization
-
-
-Configure ApiKeyAuth:
-    ApiClient.apiKey["project_id"] = ""
-    ApiClient.apiKeyPrefix["project_id"] = ""
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-<a name="txsHashDelegationsGet"></a>
-# **txsHashDelegationsGet**
-> kotlin.collections.List&lt;kotlin.Any&gt; txsHashDelegationsGet(hash)
-
-Transaction delegation certificates
-
-Obtain information about delegation certificates of a specific transaction. 
-
-### Example
-```kotlin
-// Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
-
-val apiInstance = CardanoTransactionsApi()
-val hash : kotlin.String = 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b // kotlin.String | Hash of the requested transaction.
-try {
-    val result : kotlin.collections.List<kotlin.Any> = apiInstance.txsHashDelegationsGet(hash)
-    println(result)
-} catch (e: ClientException) {
-    println("4xx response calling CardanoTransactionsApi#txsHashDelegationsGet")
-    e.printStackTrace()
-} catch (e: ServerException) {
-    println("5xx response calling CardanoTransactionsApi#txsHashDelegationsGet")
-    e.printStackTrace()
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **hash** | **kotlin.String**| Hash of the requested transaction. |
-
-### Return type
-
-[**kotlin.collections.List&lt;kotlin.Any&gt;**](kotlin.Any.md)
-
-### Authorization
-
-
-Configure ApiKeyAuth:
-    ApiClient.apiKey["project_id"] = ""
-    ApiClient.apiKeyPrefix["project_id"] = ""
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-<a name="txsHashGet"></a>
-# **txsHashGet**
-> TxContent txsHashGet(hash)
+<a name="getTransaction"></a>
+# **getTransaction**
+> TxContent getTransaction(hash)
 
 Specific transaction
 
@@ -129,18 +30,18 @@ Return content of the requested transaction.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = CardanoTransactionsApi()
 val hash : kotlin.String = 6e5f825c42c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b // kotlin.String | Hash of the requested transaction
 try {
-    val result : TxContent = apiInstance.txsHashGet(hash)
+    val result : TxContent = apiInstance.getTransaction(hash)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling CardanoTransactionsApi#txsHashGet")
+    println("4xx response calling CardanoTransactionsApi#getTransaction")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling CardanoTransactionsApi#txsHashGet")
+    println("5xx response calling CardanoTransactionsApi#getTransaction")
     e.printStackTrace()
 }
 ```
@@ -167,30 +68,30 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="txsHashMetadataCborGet"></a>
-# **txsHashMetadataCborGet**
-> kotlin.collections.List&lt;kotlin.Any&gt; txsHashMetadataCborGet(hash)
+<a name="getTransactionDelegations"></a>
+# **getTransactionDelegations**
+> kotlin.collections.List&lt;TxContentDelegation&gt; getTransactionDelegations(hash)
 
-Transaction metadata in CBOR
+Transaction delegation certificates
 
-Obtain the transaction metadata in CBOR.
+Obtain information about delegation certificates of a specific transaction. 
 
 ### Example
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = CardanoTransactionsApi()
-val hash : kotlin.String = 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b // kotlin.String | Hash of the requested transaction
+val hash : kotlin.String = 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b // kotlin.String | Hash of the requested transaction.
 try {
-    val result : kotlin.collections.List<kotlin.Any> = apiInstance.txsHashMetadataCborGet(hash)
+    val result : kotlin.collections.List<TxContentDelegation> = apiInstance.getTransactionDelegations(hash)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling CardanoTransactionsApi#txsHashMetadataCborGet")
+    println("4xx response calling CardanoTransactionsApi#getTransactionDelegations")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling CardanoTransactionsApi#txsHashMetadataCborGet")
+    println("5xx response calling CardanoTransactionsApi#getTransactionDelegations")
     e.printStackTrace()
 }
 ```
@@ -199,11 +100,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **hash** | **kotlin.String**| Hash of the requested transaction |
+ **hash** | **kotlin.String**| Hash of the requested transaction. |
 
 ### Return type
 
-[**kotlin.collections.List&lt;kotlin.Any&gt;**](kotlin.Any.md)
+[**kotlin.collections.List&lt;TxContentDelegation&gt;**](TxContentDelegation.md)
 
 ### Authorization
 
@@ -217,9 +118,9 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="txsHashMetadataGet"></a>
-# **txsHashMetadataGet**
-> kotlin.collections.List&lt;kotlin.Any&gt; txsHashMetadataGet(hash)
+<a name="getTransactionMetadata"></a>
+# **getTransactionMetadata**
+> kotlin.collections.List&lt;TxContentMetadata&gt; getTransactionMetadata(hash)
 
 Transaction metadata
 
@@ -229,18 +130,18 @@ Obtain the transaction metadata.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = CardanoTransactionsApi()
 val hash : kotlin.String = 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b // kotlin.String | Hash of the requested transaction
 try {
-    val result : kotlin.collections.List<kotlin.Any> = apiInstance.txsHashMetadataGet(hash)
+    val result : kotlin.collections.List<TxContentMetadata> = apiInstance.getTransactionMetadata(hash)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling CardanoTransactionsApi#txsHashMetadataGet")
+    println("4xx response calling CardanoTransactionsApi#getTransactionMetadata")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling CardanoTransactionsApi#txsHashMetadataGet")
+    println("5xx response calling CardanoTransactionsApi#getTransactionMetadata")
     e.printStackTrace()
 }
 ```
@@ -253,7 +154,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**kotlin.collections.List&lt;kotlin.Any&gt;**](kotlin.Any.md)
+[**kotlin.collections.List&lt;TxContentMetadata&gt;**](TxContentMetadata.md)
 
 ### Authorization
 
@@ -267,9 +168,59 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="txsHashMirsGet"></a>
-# **txsHashMirsGet**
-> kotlin.collections.List&lt;kotlin.Any&gt; txsHashMirsGet(hash)
+<a name="getTransactionMetadataCbor"></a>
+# **getTransactionMetadataCbor**
+> kotlin.collections.List&lt;TxContentMetadataCbor&gt; getTransactionMetadataCbor(hash)
+
+Transaction metadata in CBOR
+
+Obtain the transaction metadata in CBOR.
+
+### Example
+```kotlin
+// Import classes:
+//import org.openapitools.client.infrastructure.*
+//import org.openapitools.client.models.*
+
+val apiInstance = CardanoTransactionsApi()
+val hash : kotlin.String = 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b // kotlin.String | Hash of the requested transaction
+try {
+    val result : kotlin.collections.List<TxContentMetadataCbor> = apiInstance.getTransactionMetadataCbor(hash)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling CardanoTransactionsApi#getTransactionMetadataCbor")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling CardanoTransactionsApi#getTransactionMetadataCbor")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **hash** | **kotlin.String**| Hash of the requested transaction |
+
+### Return type
+
+[**kotlin.collections.List&lt;TxContentMetadataCbor&gt;**](TxContentMetadataCbor.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["project_id"] = ""
+    ApiClient.apiKeyPrefix["project_id"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getTransactionMirs"></a>
+# **getTransactionMirs**
+> kotlin.collections.List&lt;TxContentMir&gt; getTransactionMirs(hash)
 
 Transaction MIRs
 
@@ -279,18 +230,18 @@ Obtain information about Move Instantaneous Rewards (MIRs) of a specific transac
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = CardanoTransactionsApi()
 val hash : kotlin.String = 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b // kotlin.String | Hash of the requested transaction.
 try {
-    val result : kotlin.collections.List<kotlin.Any> = apiInstance.txsHashMirsGet(hash)
+    val result : kotlin.collections.List<TxContentMir> = apiInstance.getTransactionMirs(hash)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling CardanoTransactionsApi#txsHashMirsGet")
+    println("4xx response calling CardanoTransactionsApi#getTransactionMirs")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling CardanoTransactionsApi#txsHashMirsGet")
+    println("5xx response calling CardanoTransactionsApi#getTransactionMirs")
     e.printStackTrace()
 }
 ```
@@ -303,7 +254,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**kotlin.collections.List&lt;kotlin.Any&gt;**](kotlin.Any.md)
+[**kotlin.collections.List&lt;TxContentMir&gt;**](TxContentMir.md)
 
 ### Authorization
 
@@ -317,9 +268,9 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="txsHashPoolRetiresGet"></a>
-# **txsHashPoolRetiresGet**
-> kotlin.collections.List&lt;kotlin.Any&gt; txsHashPoolRetiresGet(hash)
+<a name="getTransactionPoolRetires"></a>
+# **getTransactionPoolRetires**
+> kotlin.collections.List&lt;TxContentPoolRetire&gt; getTransactionPoolRetires(hash)
 
 Transaction stake pool retirement certificates
 
@@ -329,18 +280,18 @@ Obtain information about stake pool retirements within a specific transaction.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = CardanoTransactionsApi()
 val hash : kotlin.String = 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b // kotlin.String | Hash of the requested transaction
 try {
-    val result : kotlin.collections.List<kotlin.Any> = apiInstance.txsHashPoolRetiresGet(hash)
+    val result : kotlin.collections.List<TxContentPoolRetire> = apiInstance.getTransactionPoolRetires(hash)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling CardanoTransactionsApi#txsHashPoolRetiresGet")
+    println("4xx response calling CardanoTransactionsApi#getTransactionPoolRetires")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling CardanoTransactionsApi#txsHashPoolRetiresGet")
+    println("5xx response calling CardanoTransactionsApi#getTransactionPoolRetires")
     e.printStackTrace()
 }
 ```
@@ -353,7 +304,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**kotlin.collections.List&lt;kotlin.Any&gt;**](kotlin.Any.md)
+[**kotlin.collections.List&lt;TxContentPoolRetire&gt;**](TxContentPoolRetire.md)
 
 ### Authorization
 
@@ -367,9 +318,9 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="txsHashPoolUpdatesGet"></a>
-# **txsHashPoolUpdatesGet**
-> kotlin.collections.List&lt;kotlin.Any&gt; txsHashPoolUpdatesGet(hash)
+<a name="getTransactionPoolUpdates"></a>
+# **getTransactionPoolUpdates**
+> kotlin.collections.List&lt;TxContentPoolCert&gt; getTransactionPoolUpdates(hash)
 
 Transaction stake pool registration and update certificates
 
@@ -379,18 +330,18 @@ Obtain information about stake pool registration and update certificates of a sp
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = CardanoTransactionsApi()
 val hash : kotlin.String = 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b // kotlin.String | Hash of the requested transaction
 try {
-    val result : kotlin.collections.List<kotlin.Any> = apiInstance.txsHashPoolUpdatesGet(hash)
+    val result : kotlin.collections.List<TxContentPoolCert> = apiInstance.getTransactionPoolUpdates(hash)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling CardanoTransactionsApi#txsHashPoolUpdatesGet")
+    println("4xx response calling CardanoTransactionsApi#getTransactionPoolUpdates")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling CardanoTransactionsApi#txsHashPoolUpdatesGet")
+    println("5xx response calling CardanoTransactionsApi#getTransactionPoolUpdates")
     e.printStackTrace()
 }
 ```
@@ -403,7 +354,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**kotlin.collections.List&lt;kotlin.Any&gt;**](kotlin.Any.md)
+[**kotlin.collections.List&lt;TxContentPoolCert&gt;**](TxContentPoolCert.md)
 
 ### Authorization
 
@@ -417,9 +368,59 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="txsHashStakesGet"></a>
-# **txsHashStakesGet**
-> kotlin.collections.List&lt;kotlin.Any&gt; txsHashStakesGet(hash)
+<a name="getTransactionRedeemers"></a>
+# **getTransactionRedeemers**
+> kotlin.collections.List&lt;TxContentRedeemer&gt; getTransactionRedeemers(hash)
+
+Transaction redeemers
+
+Obtain the transaction redeemers.
+
+### Example
+```kotlin
+// Import classes:
+//import org.openapitools.client.infrastructure.*
+//import org.openapitools.client.models.*
+
+val apiInstance = CardanoTransactionsApi()
+val hash : kotlin.String = 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b // kotlin.String | Hash of the requested transaction
+try {
+    val result : kotlin.collections.List<TxContentRedeemer> = apiInstance.getTransactionRedeemers(hash)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling CardanoTransactionsApi#getTransactionRedeemers")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling CardanoTransactionsApi#getTransactionRedeemers")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **hash** | **kotlin.String**| Hash of the requested transaction |
+
+### Return type
+
+[**kotlin.collections.List&lt;TxContentRedeemer&gt;**](TxContentRedeemer.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["project_id"] = ""
+    ApiClient.apiKeyPrefix["project_id"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getTransactionStakes"></a>
+# **getTransactionStakes**
+> kotlin.collections.List&lt;TxContentStakeAddr&gt; getTransactionStakes(hash)
 
 Transaction stake addresses certificates
 
@@ -429,18 +430,18 @@ Obtain information about (de)registration of stake addresses within a transactio
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = CardanoTransactionsApi()
 val hash : kotlin.String = 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b // kotlin.String | Hash of the requested transaction.
 try {
-    val result : kotlin.collections.List<kotlin.Any> = apiInstance.txsHashStakesGet(hash)
+    val result : kotlin.collections.List<TxContentStakeAddr> = apiInstance.getTransactionStakes(hash)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling CardanoTransactionsApi#txsHashStakesGet")
+    println("4xx response calling CardanoTransactionsApi#getTransactionStakes")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling CardanoTransactionsApi#txsHashStakesGet")
+    println("5xx response calling CardanoTransactionsApi#getTransactionStakes")
     e.printStackTrace()
 }
 ```
@@ -453,7 +454,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**kotlin.collections.List&lt;kotlin.Any&gt;**](kotlin.Any.md)
+[**kotlin.collections.List&lt;TxContentStakeAddr&gt;**](TxContentStakeAddr.md)
 
 ### Authorization
 
@@ -467,9 +468,9 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="txsHashUtxosGet"></a>
-# **txsHashUtxosGet**
-> TxContentUtxo txsHashUtxosGet(hash)
+<a name="getTransactionUtxos"></a>
+# **getTransactionUtxos**
+> TxContentUtxo getTransactionUtxos(hash)
 
 Transaction UTXOs
 
@@ -479,18 +480,18 @@ Return the inputs and UTXOs of the specific transaction.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = CardanoTransactionsApi()
 val hash : kotlin.String = 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b // kotlin.String | Hash of the requested transaction
 try {
-    val result : TxContentUtxo = apiInstance.txsHashUtxosGet(hash)
+    val result : TxContentUtxo = apiInstance.getTransactionUtxos(hash)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling CardanoTransactionsApi#txsHashUtxosGet")
+    println("4xx response calling CardanoTransactionsApi#getTransactionUtxos")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling CardanoTransactionsApi#txsHashUtxosGet")
+    println("5xx response calling CardanoTransactionsApi#getTransactionUtxos")
     e.printStackTrace()
 }
 ```
@@ -517,9 +518,9 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="txsHashWithdrawalsGet"></a>
-# **txsHashWithdrawalsGet**
-> kotlin.collections.List&lt;kotlin.Any&gt; txsHashWithdrawalsGet(hash)
+<a name="getTransactionWithdrawals"></a>
+# **getTransactionWithdrawals**
+> kotlin.collections.List&lt;TxContentWithdrawal&gt; getTransactionWithdrawals(hash)
 
 Transaction withdrawal
 
@@ -529,18 +530,18 @@ Obtain information about withdrawals of a specific transaction.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = CardanoTransactionsApi()
 val hash : kotlin.String = 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b // kotlin.String | Hash of the requested transaction.
 try {
-    val result : kotlin.collections.List<kotlin.Any> = apiInstance.txsHashWithdrawalsGet(hash)
+    val result : kotlin.collections.List<TxContentWithdrawal> = apiInstance.getTransactionWithdrawals(hash)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling CardanoTransactionsApi#txsHashWithdrawalsGet")
+    println("4xx response calling CardanoTransactionsApi#getTransactionWithdrawals")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling CardanoTransactionsApi#txsHashWithdrawalsGet")
+    println("5xx response calling CardanoTransactionsApi#getTransactionWithdrawals")
     e.printStackTrace()
 }
 ```
@@ -553,7 +554,57 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**kotlin.collections.List&lt;kotlin.Any&gt;**](kotlin.Any.md)
+[**kotlin.collections.List&lt;TxContentWithdrawal&gt;**](TxContentWithdrawal.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["project_id"] = ""
+    ApiClient.apiKeyPrefix["project_id"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="submitTransaction"></a>
+# **submitTransaction**
+> kotlin.String submitTransaction(contentType)
+
+Submit a transaction
+
+Submit an already serialized transaction to the network.
+
+### Example
+```kotlin
+// Import classes:
+//import org.openapitools.client.infrastructure.*
+//import org.openapitools.client.models.*
+
+val apiInstance = CardanoTransactionsApi()
+val contentType : kotlin.String = contentType_example // kotlin.String | 
+try {
+    val result : kotlin.String = apiInstance.submitTransaction(contentType)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling CardanoTransactionsApi#submitTransaction")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling CardanoTransactionsApi#submitTransaction")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **contentType** | **kotlin.String**|  | [enum: application/cbor]
+
+### Return type
+
+**kotlin.String**
 
 ### Authorization
 

@@ -4,12 +4,12 @@ All URIs are relative to *https://cardano-mainnet.blockfrost.io/api/v0*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**genesisGet**](CardanoLedgerApi.md#genesisGet) | **GET** /genesis | Blockchain genesis
+[**getGenesis**](CardanoLedgerApi.md#getGenesis) | **GET** /genesis | Blockchain genesis
 
 
-<a name="genesisGet"></a>
-# **genesisGet**
-> GenesisContent genesisGet()
+<a name="getGenesis"></a>
+# **getGenesis**
+> GenesisContent getGenesis()
 
 Blockchain genesis
 
@@ -19,17 +19,17 @@ Return the information about blockchain genesis.
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = CardanoLedgerApi()
 try {
-    val result : GenesisContent = apiInstance.genesisGet()
+    val result : GenesisContent = apiInstance.getGenesis()
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling CardanoLedgerApi#genesisGet")
+    println("4xx response calling CardanoLedgerApi#getGenesis")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling CardanoLedgerApi#genesisGet")
+    println("5xx response calling CardanoLedgerApi#getGenesis")
     e.printStackTrace()
 }
 ```

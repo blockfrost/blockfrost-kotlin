@@ -4,67 +4,17 @@ All URIs are relative to *https://cardano-mainnet.blockfrost.io/api/v0*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ipfsPinAddIPFSPathPost**](IPFSPinsApi.md#ipfsPinAddIPFSPathPost) | **POST** /ipfs/pin/add/{IPFS_path} | Pin an object
-[**ipfsPinListGet**](IPFSPinsApi.md#ipfsPinListGet) | **GET** /ipfs/pin/list/ | 
-[**ipfsPinListIPFSPathGet**](IPFSPinsApi.md#ipfsPinListIPFSPathGet) | **GET** /ipfs/pin/list/{IPFS_path} | 
-[**ipfsPinRemoveIPFSPathPost**](IPFSPinsApi.md#ipfsPinRemoveIPFSPathPost) | **POST** /ipfs/pin/remove/{IPFS_path} | 
+[**getPinList**](IPFSPinsApi.md#getPinList) | **GET** /ipfs/pin/list/ | List pinned objects
+[**getPinListByIpfsPath**](IPFSPinsApi.md#getPinListByIpfsPath) | **GET** /ipfs/pin/list/{IPFS_path} | Get details about pinned object
+[**pinAdd**](IPFSPinsApi.md#pinAdd) | **POST** /ipfs/pin/add/{IPFS_path} | Pin an object
+[**removePin**](IPFSPinsApi.md#removePin) | **POST** /ipfs/pin/remove/{IPFS_path} | 
 
 
-<a name="ipfsPinAddIPFSPathPost"></a>
-# **ipfsPinAddIPFSPathPost**
-> InlineResponse2004 ipfsPinAddIPFSPathPost(ipFSPath)
+<a name="getPinList"></a>
+# **getPinList**
+> kotlin.collections.List&lt;InlineResponse2005&gt; getPinList(count, page, order)
 
-Pin an object
-
-Pinned objects are counted in your user storage quota.
-
-### Example
-```kotlin
-// Import classes:
-//import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
-
-val apiInstance = IPFSPinsApi()
-val ipFSPath : kotlin.String = ipFSPath_example // kotlin.String | 
-try {
-    val result : InlineResponse2004 = apiInstance.ipfsPinAddIPFSPathPost(ipFSPath)
-    println(result)
-} catch (e: ClientException) {
-    println("4xx response calling IPFSPinsApi#ipfsPinAddIPFSPathPost")
-    e.printStackTrace()
-} catch (e: ServerException) {
-    println("5xx response calling IPFSPinsApi#ipfsPinAddIPFSPathPost")
-    e.printStackTrace()
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **ipFSPath** | **kotlin.String**|  |
-
-### Return type
-
-[**InlineResponse2004**](InlineResponse2004.md)
-
-### Authorization
-
-
-Configure ApiKeyAuth:
-    ApiClient.apiKey["project_id"] = ""
-    ApiClient.apiKeyPrefix["project_id"] = ""
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-<a name="ipfsPinListGet"></a>
-# **ipfsPinListGet**
-> kotlin.collections.List&lt;InlineResponse2005&gt; ipfsPinListGet(count, page, order)
-
-
+List pinned objects
 
 List objects pinned to local storage
 
@@ -72,20 +22,20 @@ List objects pinned to local storage
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = IPFSPinsApi()
 val count : kotlin.Int = 56 // kotlin.Int | The number of results displayed on one page.
 val page : kotlin.Int = 56 // kotlin.Int | The page number for listing the results.
-val order : kotlin.String = order_example // kotlin.String | The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
+val order : SortOrder = order_example // SortOrder | The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last. 
 try {
-    val result : kotlin.collections.List<InlineResponse2005> = apiInstance.ipfsPinListGet(count, page, order)
+    val result : kotlin.collections.List<InlineResponse2005> = apiInstance.getPinList(count, page, order)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling IPFSPinsApi#ipfsPinListGet")
+    println("4xx response calling IPFSPinsApi#getPinList")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling IPFSPinsApi#ipfsPinListGet")
+    println("5xx response calling IPFSPinsApi#getPinList")
     e.printStackTrace()
 }
 ```
@@ -94,9 +44,9 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to 100]
- **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to 1]
- **order** | **kotlin.String**| The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to asc] [enum: asc, desc]
+ **count** | **kotlin.Int**| The number of results displayed on one page. | [optional] [default to null]
+ **page** | **kotlin.Int**| The page number for listing the results. | [optional] [default to null]
+ **order** | **SortOrder**| The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  | [optional] [default to null] [enum: asc, desc]
 
 ### Return type
 
@@ -114,30 +64,30 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="ipfsPinListIPFSPathGet"></a>
-# **ipfsPinListIPFSPathGet**
-> InlineResponse2006 ipfsPinListIPFSPathGet(ipFSPath)
+<a name="getPinListByIpfsPath"></a>
+# **getPinListByIpfsPath**
+> InlineResponse2006 getPinListByIpfsPath(ipFSPath)
 
+Get details about pinned object
 
-
-List objects pinned to local storage
+Get information about locally pinned IPFS object
 
 ### Example
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = IPFSPinsApi()
 val ipFSPath : kotlin.String = ipFSPath_example // kotlin.String | 
 try {
-    val result : InlineResponse2006 = apiInstance.ipfsPinListIPFSPathGet(ipFSPath)
+    val result : InlineResponse2006 = apiInstance.getPinListByIpfsPath(ipFSPath)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling IPFSPinsApi#ipfsPinListIPFSPathGet")
+    println("4xx response calling IPFSPinsApi#getPinListByIpfsPath")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling IPFSPinsApi#ipfsPinListIPFSPathGet")
+    println("5xx response calling IPFSPinsApi#getPinListByIpfsPath")
     e.printStackTrace()
 }
 ```
@@ -164,9 +114,59 @@ Configure ApiKeyAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="ipfsPinRemoveIPFSPathPost"></a>
-# **ipfsPinRemoveIPFSPathPost**
-> InlineResponse2007 ipfsPinRemoveIPFSPathPost(ipFSPath)
+<a name="pinAdd"></a>
+# **pinAdd**
+> InlineResponse2004 pinAdd(ipFSPath)
+
+Pin an object
+
+Pinned objects are counted in your user storage quota.
+
+### Example
+```kotlin
+// Import classes:
+//import org.openapitools.client.infrastructure.*
+//import org.openapitools.client.models.*
+
+val apiInstance = IPFSPinsApi()
+val ipFSPath : kotlin.String = ipFSPath_example // kotlin.String | 
+try {
+    val result : InlineResponse2004 = apiInstance.pinAdd(ipFSPath)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling IPFSPinsApi#pinAdd")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling IPFSPinsApi#pinAdd")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ipFSPath** | **kotlin.String**|  |
+
+### Return type
+
+[**InlineResponse2004**](InlineResponse2004.md)
+
+### Authorization
+
+
+Configure ApiKeyAuth:
+    ApiClient.apiKey["project_id"] = ""
+    ApiClient.apiKeyPrefix["project_id"] = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="removePin"></a>
+# **removePin**
+> InlineResponse2007 removePin(ipFSPath)
 
 
 
@@ -176,18 +176,18 @@ Remove pinned objects from local storage
 ```kotlin
 // Import classes:
 //import org.openapitools.client.infrastructure.*
-//import org.openapitools.client.models2.*
+//import org.openapitools.client.models.*
 
 val apiInstance = IPFSPinsApi()
 val ipFSPath : kotlin.String = ipFSPath_example // kotlin.String | 
 try {
-    val result : InlineResponse2007 = apiInstance.ipfsPinRemoveIPFSPathPost(ipFSPath)
+    val result : InlineResponse2007 = apiInstance.removePin(ipFSPath)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling IPFSPinsApi#ipfsPinRemoveIPFSPathPost")
+    println("4xx response calling IPFSPinsApi#removePin")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling IPFSPinsApi#ipfsPinRemoveIPFSPathPost")
+    println("5xx response calling IPFSPinsApi#removePin")
     e.printStackTrace()
 }
 ```
