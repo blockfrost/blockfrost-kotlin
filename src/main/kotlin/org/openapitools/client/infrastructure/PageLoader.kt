@@ -13,24 +13,24 @@ import java.util.concurrent.PriorityBlockingQueue
 import java.util.concurrent.atomic.AtomicInteger
 
 // Enables easy conversion of Response<List<T>> to List<T> in PageLister
-typealias PageListerResponse<T> = List<T>
-fun PageListerResponse<*>.code(): Int {
+typealias PageLoaderResponse<T> = List<T>
+fun PageLoaderResponse<*>.code(): Int {
     return 200
 }
-val PageListerResponse<*>.isSuccessful: Boolean get() { return true }
-fun <T> PageListerResponse<T>.body(): List<T> {
+val PageLoaderResponse<*>.isSuccessful: Boolean get() { return true }
+fun <T> PageLoaderResponse<T>.body(): List<T> {
     return this
 }
 
-data class PagedResponse<T>(val page: Int, val response: PageListerResponse<T>? = null)
+data class PagedResponse<T>(val page: Int, val response: PageLoaderResponse<T>? = null)
 
-open class PageListerException(message: String? = null, val page: Int? = null, cause: Throwable? = null) : RuntimeException(message, cause) {
+open class PageListerException(message: String? = null, val page: Int? = null, cause: Throwable? = null) : BlockfrostException(message, cause) {
     companion object {
         private const val serialVersionUID: Long = 23L
     }
 }
 
-class PageLister<T>(
+class PageLoader<T>(
     val countPerPage: Int = 100,
     val concurrentPages: Int = 10,
 
@@ -39,16 +39,16 @@ class PageLister<T>(
     private var genJob: Job? = null
 
     private var semWork: Semaphore? = null
-    private var outputChannel: Channel<PageListerResponse<T>?>? = null
+    private var outputChannel: Channel<PageLoaderResponse<T>?>? = null
     private var pageQueue: PriorityBlockingQueue<PagedResponse<T>>? = null
     private var numPages = 0
 
-    suspend fun load(loader: suspend (count: Int, page: Int) -> PageListerResponse<T>) : Flow<T> = flow { coroutineScope {
+    suspend fun load(loader: suspend (count: Int, page: Int) -> PageLoaderResponse<T>) : Flow<T> = flow { coroutineScope {
         val lowestEmptyPage = AtomicInteger(Int.MAX_VALUE - concurrentPages - 1)
-        val semWorkers = Semaphore(concurrentPages, 0).also { this@PageLister.semWork = it }
+        val semWorkers = Semaphore(concurrentPages, 0).also { this@PageLoader.semWork = it }
 
-        val outputChannel = Channel<PageListerResponse<T>?>().also { this@PageLister.outputChannel = it }
-        val pageQueue = PriorityBlockingQueue<PagedResponse<T>>(11, compareBy { it.page }).also { this@PageLister.pageQueue = it }
+        val outputChannel = Channel<PageLoaderResponse<T>?>().also { this@PageLoader.outputChannel = it }
+        val pageQueue = PriorityBlockingQueue<PagedResponse<T>>(11, compareBy { it.page }).also { this@PageLoader.pageQueue = it }
         val taskChannel = Channel<Int>()
 
         val taskErrorProcessor: suspend (PagedResponse<T>, Exception?) -> Unit = process@{ cpr, exc ->

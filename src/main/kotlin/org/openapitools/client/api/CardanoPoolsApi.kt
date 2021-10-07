@@ -89,7 +89,7 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
         poolId: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<kotlin.String> {
-        val pager = PageLister<kotlin.String>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<kotlin.String>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getPoolBlocks(poolId = poolId, count = count, page = page, order = order)
         }
@@ -101,7 +101,7 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
      * parameter poolId: (path) Bech32 or hexadecimal pool ID.
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<kotlin.String>>
+     * @return List<kotlin.String>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -166,7 +166,7 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
         poolId: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<PoolDelegator> {
-        val pager = PageLister<PoolDelegator>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<PoolDelegator>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getPoolDelegators(poolId = poolId, count = count, page = page, order = order)
         }
@@ -178,7 +178,7 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
      * parameter poolId: (path) Bech32 or hexadecimal pool ID.
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<PoolDelegator>>
+     * @return List<PoolDelegator>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -236,7 +236,7 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
         poolId: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<PoolHistory> {
-        val pager = PageLister<PoolHistory>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<PoolHistory>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getPoolHistory(poolId = poolId, count = count, page = page, order = order)
         }
@@ -248,7 +248,7 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
      * parameter poolId: (path) Bech32 or hexadecimal pool ID.
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<PoolHistory>>
+     * @return List<PoolHistory>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -338,7 +338,7 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
         poolId: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<PoolUpdate> {
-        val pager = PageLister<PoolUpdate>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<PoolUpdate>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getPoolUpdates(poolId = poolId, count = count, page = page, order = order)
         }
@@ -350,7 +350,7 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
      * parameter poolId: (path) Bech32 or hexadecimal pool ID.
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<PoolUpdate>>
+     * @return List<PoolUpdate>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -406,7 +406,7 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
         order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<kotlin.String> {
-        val pager = PageLister<kotlin.String>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<kotlin.String>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getPools(count = count, page = page, order = order)
         }
@@ -417,7 +417,7 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
      * List of registered stake pools.
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<kotlin.String>>
+     * @return List<kotlin.String>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -473,7 +473,7 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
         order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<PoolListRetire> {
-        val pager = PageLister<PoolListRetire>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<PoolListRetire>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getRetiredPools(count = count, page = page, order = order)
         }
@@ -484,7 +484,7 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
      * List of already retired pools.
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<PoolListRetire>>
+     * @return List<PoolListRetire>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -540,7 +540,7 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
         order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<PoolListRetire> {
-        val pager = PageLister<PoolListRetire>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<PoolListRetire>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getRetiringPools(count = count, page = page, order = order)
         }
@@ -551,7 +551,7 @@ open class CardanoPoolsApi(config: BlockfrostConfig = BlockfrostConfig.defaultCo
      * List of stake pools retiring in the upcoming epochs
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<PoolListRetire>>
+     * @return List<PoolListRetire>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response

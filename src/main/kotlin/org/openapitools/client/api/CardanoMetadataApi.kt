@@ -82,7 +82,7 @@ open class CardanoMetadataApi(config: BlockfrostConfig = BlockfrostConfig.defaul
         label: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<TxMetadataLabelCbor> {
-        val pager = PageLister<TxMetadataLabelCbor>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<TxMetadataLabelCbor>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getTransactionMetadataCborForLabel(label = label, count = count, page = page, order = order)
         }
@@ -94,7 +94,7 @@ open class CardanoMetadataApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * parameter label: (path) Metadata label
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<TxMetadataLabelCbor>>
+     * @return List<TxMetadataLabelCbor>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -159,7 +159,7 @@ open class CardanoMetadataApi(config: BlockfrostConfig = BlockfrostConfig.defaul
         label: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<TxMetadataLabelJson> {
-        val pager = PageLister<TxMetadataLabelJson>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<TxMetadataLabelJson>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getTransactionMetadataJsonForLabel(label = label, count = count, page = page, order = order)
         }
@@ -171,7 +171,7 @@ open class CardanoMetadataApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * parameter label: (path) Metadata label
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<TxMetadataLabelJson>>
+     * @return List<TxMetadataLabelJson>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -227,7 +227,7 @@ open class CardanoMetadataApi(config: BlockfrostConfig = BlockfrostConfig.defaul
         order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<TxMetadataLabel> {
-        val pager = PageLister<TxMetadataLabel>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<TxMetadataLabel>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getTransactionMetadataLabels(count = count, page = page, order = order)
         }
@@ -238,7 +238,7 @@ open class CardanoMetadataApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * List of all used transaction metadata labels.
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<TxMetadataLabel>>
+     * @return List<TxMetadataLabel>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response

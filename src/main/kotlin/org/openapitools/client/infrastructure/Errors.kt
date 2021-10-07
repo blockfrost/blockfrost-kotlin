@@ -1,13 +1,19 @@
 @file:Suppress("unused")
 package org.openapitools.client.infrastructure
 
-open class APIRuntimeException(message: String? = null, cause: Throwable? = null) : RuntimeException(message, cause) {
+open class BlockfrostException(message: String? = null, cause: Throwable? = null) : RuntimeException(message, cause) {
     companion object {
         private const val serialVersionUID: Long = 121L
     }
 }
 
-open class ClientException(message: String? = null, val statusCode: Int = -1, val response: retrofit2.Response<*>? = null) : RuntimeException(message) {
+open class APIRuntimeException(message: String? = null, cause: Throwable? = null) : BlockfrostException(message, cause) {
+    companion object {
+        private const val serialVersionUID: Long = 121L
+    }
+}
+
+open class ClientException(message: String? = null, val statusCode: Int = -1, val response: retrofit2.Response<*>? = null) : BlockfrostException(message) {
 
     companion object {
         private const val serialVersionUID: Long = 123L
@@ -49,7 +55,7 @@ open class RateLimitedException(message: String? = null, response: retrofit2.Res
     }
 }
 
-open class ServerException(message: String? = null, val statusCode: Int = -1, val response: retrofit2.Response<*>? = null) : RuntimeException(message) {
+open class ServerException(message: String? = null, val statusCode: Int = -1, val response: retrofit2.Response<*>? = null) : BlockfrostException(message) {
 
     companion object {
         private const val serialVersionUID: Long = 456L

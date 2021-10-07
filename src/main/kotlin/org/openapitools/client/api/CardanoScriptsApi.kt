@@ -98,7 +98,7 @@ open class CardanoScriptsApi(config: BlockfrostConfig = BlockfrostConfig.default
         scriptHash: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<ScriptRedeemer> {
-        val pager = PageLister<ScriptRedeemer>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<ScriptRedeemer>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getScriptRedeemers(scriptHash = scriptHash, count = count, page = page, order = order)
         }
@@ -110,7 +110,7 @@ open class CardanoScriptsApi(config: BlockfrostConfig = BlockfrostConfig.default
      * parameter scriptHash: (path) Hash of the script
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<ScriptRedeemer>>
+     * @return List<ScriptRedeemer>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -166,7 +166,7 @@ open class CardanoScriptsApi(config: BlockfrostConfig = BlockfrostConfig.default
         order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<Scripts> {
-        val pager = PageLister<Scripts>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<Scripts>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getScripts(count = count, page = page, order = order)
         }
@@ -177,7 +177,7 @@ open class CardanoScriptsApi(config: BlockfrostConfig = BlockfrostConfig.default
      * List of scripts.
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<Scripts>>
+     * @return List<Scripts>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response

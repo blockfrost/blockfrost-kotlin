@@ -51,7 +51,9 @@ open class IPFSAddApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
      */
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
     open suspend fun add(body: ByteArray, fname: String? = null, mediaType: MediaType? = null): IPFSObject? = withContext(Dispatchers.IO) {
-        handleResponse(api.addFile(MultipartBody.Part.createFormData("file", fname, body.toRequestBody(mediaType ?: DefaultMediaType.toMediaType()))))
+        val req = MultipartBody.Part.createFormData("file", fname,
+            body.toRequestBody(mediaType ?: guessContentTypeFromFile(fname, DefaultMediaType).toMediaType()))
+        handleResponse(api.addFile(req))
     }
 
     /**
@@ -68,7 +70,7 @@ open class IPFSAddApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
         val body = MultipartBody.Part.createFormData("file", name, object : RequestBody() {
 
             override fun contentType(): MediaType? {
-                return mediaType ?: DefaultMediaType.toMediaType()
+                return mediaType ?: guessContentTypeFromFile(name, DefaultMediaType).toMediaType()
             }
 
             override fun writeTo(sink: BufferedSink) {
@@ -100,7 +102,7 @@ open class IPFSAddApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
         val body = MultipartBody.Part.createFormData("file", name, object : RequestBody() {
 
             override fun contentType(): MediaType? {
-                return mediaType ?: DefaultMediaType.toMediaType()
+                return mediaType ?: guessContentTypeFromFile(name, DefaultMediaType).toMediaType()
             }
 
             override fun writeTo(sink: BufferedSink) {
@@ -120,7 +122,7 @@ open class IPFSAddApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
 
         protected fun dumpToSink(stream: InputStream, sink: BufferedSink): Long {
             val buff = ByteArray(8192)
-            var idx = 0
+            var idx: Int
             var acc = 0L
             do {
                 idx = stream.read(buff)

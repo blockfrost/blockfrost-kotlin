@@ -8,15 +8,12 @@ import io.kotest.matchers.shouldBe
 import org.openapitools.client.api.CardanoAddressesApi
 import org.openapitools.client.infrastructure.BlockfrostConfig
 import org.openapitools.client.models.AddressContent
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import kotlin.properties.Delegates
 import kotlin.time.Duration
 import kotlin.time.ExperimentalTime
 
 @OptIn(ExperimentalTime::class)
 class AddressesTest : DescribeSpec({
-    val logger: Logger = LoggerFactory.getLogger(javaClass)
     var api: CardanoAddressesApi by Delegates.notNull()
     System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "TRACE")
 

@@ -80,7 +80,7 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
         stakeAddress: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<AccountAddressesContent> {
-        val pager = PageLister<AccountAddressesContent>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<AccountAddressesContent>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getAccountAddresses(stakeAddress = stakeAddress, count = count, page = page, order = order)
         }
@@ -92,7 +92,7 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * parameter stakeAddress: (path) Bech32 stake address.
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<AccountAddressesContent>>
+     * @return List<AccountAddressesContent>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -157,7 +157,7 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
         stakeAddress: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<AccountAddressesAsset> {
-        val pager = PageLister<AccountAddressesAsset>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<AccountAddressesAsset>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getAccountAssets(stakeAddress = stakeAddress, count = count, page = page, order = order)
         }
@@ -169,7 +169,7 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * parameter stakeAddress: (path) Bech32 stake address.
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<AccountAddressesAsset>>
+     * @return List<AccountAddressesAsset>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -250,7 +250,7 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
         stakeAddress: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<AccountDelegationContent> {
-        val pager = PageLister<AccountDelegationContent>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<AccountDelegationContent>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getAccountDelegationHistory(stakeAddress = stakeAddress, count = count, page = page, order = order)
         }
@@ -262,7 +262,7 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * parameter stakeAddress: (path) Bech32 stake address.
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<AccountDelegationContent>>
+     * @return List<AccountDelegationContent>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -331,7 +331,7 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
         stakeAddress: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<AccountHistoryContent> {
-        val pager = PageLister<AccountHistoryContent>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<AccountHistoryContent>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getAccountHistory(stakeAddress = stakeAddress, count = count, page = page, order = order)
         }
@@ -343,7 +343,7 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * parameter stakeAddress: (path) Bech32 stake address.
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<AccountHistoryContent>>
+     * @return List<AccountHistoryContent>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -408,7 +408,7 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
         stakeAddress: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<AccountMirContent> {
-        val pager = PageLister<AccountMirContent>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<AccountMirContent>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getAccountMirHistory(stakeAddress = stakeAddress, count = count, page = page, order = order)
         }
@@ -420,7 +420,7 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * parameter stakeAddress: (path) Bech32 stake address.
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<AccountMirContent>>
+     * @return List<AccountMirContent>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -485,7 +485,7 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
         stakeAddress: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<AccountRegistrationContent> {
-        val pager = PageLister<AccountRegistrationContent>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<AccountRegistrationContent>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getAccountRegistrationHistory(stakeAddress = stakeAddress, count = count, page = page, order = order)
         }
@@ -497,7 +497,7 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * parameter stakeAddress: (path) Bech32 stake address.
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<AccountRegistrationContent>>
+     * @return List<AccountRegistrationContent>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -566,7 +566,7 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
         stakeAddress: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<AccountRewardContent> {
-        val pager = PageLister<AccountRewardContent>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<AccountRewardContent>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getAccountRewardHistory(stakeAddress = stakeAddress, count = count, page = page, order = order)
         }
@@ -578,7 +578,7 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * parameter stakeAddress: (path) Bech32 stake address.
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<AccountRewardContent>>
+     * @return List<AccountRewardContent>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -643,7 +643,7 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
         stakeAddress: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<AccountWithdrawalContent> {
-        val pager = PageLister<AccountWithdrawalContent>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<AccountWithdrawalContent>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getAccountWithdrawalHistory(stakeAddress = stakeAddress, count = count, page = page, order = order)
         }
@@ -655,7 +655,7 @@ open class CardanoAccountsApi(config: BlockfrostConfig = BlockfrostConfig.defaul
      * parameter stakeAddress: (path) Bech32 stake address.
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<AccountWithdrawalContent>>
+     * @return List<AccountWithdrawalContent>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response

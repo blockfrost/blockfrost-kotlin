@@ -99,7 +99,7 @@ open class NutLinkApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
         address: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<NutlinkAddressTickers> {
-        val pager = PageLister<NutlinkAddressTickers>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<NutlinkAddressTickers>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getAddressTickers(address = address, count = count, page = page, order = order)
         }
@@ -111,7 +111,7 @@ open class NutLinkApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
      * parameter address: (path)
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<NutlinkAddressTickers>>
+     * @return List<NutlinkAddressTickers>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -183,7 +183,7 @@ open class NutLinkApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
         address: kotlin.String, ticker: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<NutlinkAddressTicker> {
-        val pager = PageLister<NutlinkAddressTicker>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<NutlinkAddressTicker>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getTickerRecordsByAddressAndTicker(
                 address = address,
@@ -202,7 +202,7 @@ open class NutLinkApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
      * parameter ticker: (path)
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<NutlinkAddressTicker>>
+     * @return List<NutlinkAddressTicker>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -272,7 +272,7 @@ open class NutLinkApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
         ticker: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<NutlinkTickersTicker> {
-        val pager = PageLister<NutlinkTickersTicker>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<NutlinkTickersTicker>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getTickerRecordsByTicker(ticker = ticker, count = count, page = page, order = order)
         }
@@ -284,7 +284,7 @@ open class NutLinkApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig)
      * parameter ticker: (path)
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<NutlinkTickersTicker>>
+     * @return List<NutlinkTickersTicker>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response

@@ -9,8 +9,6 @@ import org.openapitools.client.api.IPFSAddApi
 import org.openapitools.client.api.IPFSGatewayApi
 import org.openapitools.client.api.IPFSPinsApi
 import org.openapitools.client.infrastructure.BlockfrostConfig
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import java.io.File
 import kotlin.properties.Delegates
 import kotlin.time.Duration
@@ -18,7 +16,6 @@ import kotlin.time.ExperimentalTime
 
 @OptIn(ExperimentalTime::class)
 class IpfsTest : DescribeSpec({
-    val logger: Logger = LoggerFactory.getLogger(javaClass)
     var apiAdd: IPFSAddApi by Delegates.notNull()
     var apiPin: IPFSPinsApi by Delegates.notNull()
     var apiGw: IPFSGatewayApi by Delegates.notNull()

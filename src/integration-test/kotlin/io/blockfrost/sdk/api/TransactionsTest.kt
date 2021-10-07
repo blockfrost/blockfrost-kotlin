@@ -1,35 +1,26 @@
 package io.blockfrost.sdk.api
 
-import com.beust.klaxon.JsonArray
 import com.beust.klaxon.JsonObject
 import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.core.spec.style.DescribeSpec
-import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.collections.shouldNotBeEmpty
 import io.kotest.matchers.floats.plusOrMinus
-import io.kotest.matchers.ints.shouldBeGreaterThan
 import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
-import org.openapitools.client.api.CardanoPoolsApi
 import org.openapitools.client.api.CardanoTransactionsApi
-import org.openapitools.client.api.NutLinkApi
 import org.openapitools.client.infrastructure.BadRequestException
 import org.openapitools.client.infrastructure.BlockfrostConfig
-import org.openapitools.client.models.NutlinkAddress
 import org.openapitools.client.models.TxContentOutputAmount
 import org.openapitools.client.models.TxContentUtxoAmount
 import org.openapitools.client.models.TxContentUtxoOutputs
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import kotlin.properties.Delegates
 import kotlin.time.Duration
 import kotlin.time.ExperimentalTime
 
 @OptIn(ExperimentalTime::class)
 class TransactionsTest : DescribeSpec({
-    val logger: Logger = LoggerFactory.getLogger(javaClass)
     var api: CardanoTransactionsApi by Delegates.notNull()
     System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "TRACE")
 

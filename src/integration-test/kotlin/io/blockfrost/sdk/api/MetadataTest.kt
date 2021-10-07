@@ -10,15 +10,12 @@ import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldNotBeBlank
 import org.openapitools.client.api.CardanoMetadataApi
 import org.openapitools.client.infrastructure.BlockfrostConfig
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import kotlin.properties.Delegates
 import kotlin.time.Duration
 import kotlin.time.ExperimentalTime
 
 @OptIn(ExperimentalTime::class)
 class MetadataTest : DescribeSpec({
-    val logger: Logger = LoggerFactory.getLogger(javaClass)
     var api: CardanoMetadataApi by Delegates.notNull()
     System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "TRACE")
 

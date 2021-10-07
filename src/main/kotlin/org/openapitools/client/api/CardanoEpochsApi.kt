@@ -74,7 +74,7 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         number: kotlin.Int,
         batchSize: Int? = null,
     ): Flow<EpochStakeContent> {
-        val pager = PageLister<EpochStakeContent>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<EpochStakeContent>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getActiveStakesForEpoch(number = number, count = count, page = page)
         }
@@ -85,7 +85,7 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * Return the active stake distribution for the specified epoch.
      * parameter number: (path) Number of the epoch
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<EpochStakeContent>>
+     * @return List<EpochStakeContent>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -150,7 +150,7 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         number: kotlin.Int, poolId: kotlin.String,
         batchSize: Int? = null,
     ): Flow<EpochStakePoolContent> {
-        val pager = PageLister<EpochStakePoolContent>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<EpochStakePoolContent>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getActiveStakesForEpochAndPool(number = number, poolId = poolId, count = count, page = page)
         }
@@ -162,7 +162,7 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * parameter number: (path) Number of the epoch
      * parameter poolId: (path) Stake pool ID to filter
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<EpochStakePoolContent>>
+     * @return List<EpochStakePoolContent>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -227,7 +227,7 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         number: kotlin.Int, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<kotlin.String> {
-        val pager = PageLister<kotlin.String>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<kotlin.String>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getBlocksForEpoch(number = number, count = count, page = page, order = order)
         }
@@ -239,7 +239,7 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * parameter number: (path) Number of the epoch
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<kotlin.String>>
+     * @return List<kotlin.String>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -311,7 +311,7 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         number: kotlin.Int, poolId: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<kotlin.String> {
-        val pager = PageLister<kotlin.String>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<kotlin.String>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getBlocksForEpochAndPool(number = number, poolId = poolId, count = count, page = page, order = order)
         }
@@ -324,7 +324,7 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * parameter poolId: (path) Stake pool ID to filter
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<kotlin.String>>
+     * @return List<kotlin.String>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -447,7 +447,7 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         number: kotlin.Int,
         batchSize: Int? = null,
     ): Flow<EpochContent> {
-        val pager = PageLister<EpochContent>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<EpochContent>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getNextEpochs(number = number, count = count, page = page)
         }
@@ -458,7 +458,7 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * Return the list of epochs following a specific epoch.
      * parameter number: (path) Number of the requested epoch.
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<EpochContent>>
+     * @return List<EpochContent>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -514,7 +514,7 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         number: kotlin.Int,
         batchSize: Int? = null,
     ): Flow<EpochContent> {
-        val pager = PageLister<EpochContent>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<EpochContent>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getPreviousEpochs(number = number, count = count, page = page)
         }
@@ -525,7 +525,7 @@ open class CardanoEpochsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * Return the list of epochs preceding a specific epoch.
      * parameter number: (path) Number of the epoch
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<EpochContent>>
+     * @return List<EpochContent>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response

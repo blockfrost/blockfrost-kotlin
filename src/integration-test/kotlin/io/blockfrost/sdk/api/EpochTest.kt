@@ -9,15 +9,12 @@ import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import org.openapitools.client.api.CardanoEpochsApi
 import org.openapitools.client.infrastructure.BlockfrostConfig
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import kotlin.properties.Delegates
 import kotlin.time.Duration
 import kotlin.time.ExperimentalTime
 
 @OptIn(ExperimentalTime::class)
 class EpochTest : DescribeSpec({
-    val logger: Logger = LoggerFactory.getLogger(javaClass)
     var api: CardanoEpochsApi by Delegates.notNull()
     System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "TRACE")
 

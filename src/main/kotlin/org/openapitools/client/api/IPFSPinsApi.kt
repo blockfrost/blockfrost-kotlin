@@ -72,7 +72,7 @@ open class IPFSPinsApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig
         order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<PinItem> {
-        val pager = PageLister<PinItem>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<PinItem>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getPinList(count = count, page = page, order = order)
         }
@@ -83,7 +83,7 @@ open class IPFSPinsApi(config: BlockfrostConfig = BlockfrostConfig.defaultConfig
      * List objects pinned to local storage
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<PinItem>>
+     * @return List<PinItem>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response

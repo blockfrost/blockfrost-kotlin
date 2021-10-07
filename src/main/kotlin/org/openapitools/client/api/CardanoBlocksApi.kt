@@ -129,7 +129,7 @@ open class CardanoBlocksApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         hashOrNumber: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<kotlin.String> {
-        val pager = PageLister<kotlin.String>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<kotlin.String>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getBlockTransactions(hashOrNumber = hashOrNumber, count = count, page = page, order = order)
         }
@@ -141,7 +141,7 @@ open class CardanoBlocksApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * parameter hashOrNumber: (path) Hash of the requested block.
      * parameter order: (query) Ordered by tx index in the block. The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<kotlin.String>>
+     * @return List<kotlin.String>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -212,7 +212,7 @@ open class CardanoBlocksApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         hashOrNumber: kotlin.String,
         batchSize: Int? = null,
     ): Flow<BlockContent> {
-        val pager = PageLister<BlockContent>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<BlockContent>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getNextBlocks(hashOrNumber = hashOrNumber, count = count, page = page)
         }
@@ -223,7 +223,7 @@ open class CardanoBlocksApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * Return the list of blocks following a specific block.
      * parameter hashOrNumber: (path) Hash of the requested block.
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<BlockContent>>
+     * @return List<BlockContent>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -279,7 +279,7 @@ open class CardanoBlocksApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         hashOrNumber: kotlin.String,
         batchSize: Int? = null,
     ): Flow<BlockContent> {
-        val pager = PageLister<BlockContent>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<BlockContent>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getPreviousBlocks(hashOrNumber = hashOrNumber, count = count, page = page)
         }
@@ -290,7 +290,7 @@ open class CardanoBlocksApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * Return the list of blocks preceding a specific block.
      * parameter hashOrNumber: (path) Hash of the requested block
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<BlockContent>>
+     * @return List<BlockContent>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -346,7 +346,7 @@ open class CardanoBlocksApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<kotlin.String> {
-        val pager = PageLister<kotlin.String>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<kotlin.String>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getTransactionsInLatestBlock(count = count, page = page, order = order)
         }
@@ -357,7 +357,7 @@ open class CardanoBlocksApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * Return the transactions within the latest block.
      * parameter order: (query) Ordered by tx index in the block. The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<kotlin.String>>
+     * @return List<kotlin.String>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response

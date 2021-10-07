@@ -89,7 +89,7 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         asset: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<AssetAddress> {
-        val pager = PageLister<AssetAddress>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<AssetAddress>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getAssetAddresses(asset = asset, count = count, page = page, order = order)
         }
@@ -101,7 +101,7 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * parameter asset: (path) Concatenation of the policy_id and hex-encoded asset_name
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<AssetAddress>>
+     * @return List<AssetAddress>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -159,7 +159,7 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         asset: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<AssetHistory> {
-        val pager = PageLister<AssetHistory>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<AssetHistory>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getAssetHistory(asset = asset, count = count, page = page, order = order)
         }
@@ -171,7 +171,7 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * parameter asset: (path) Concatenation of the policy_id and hex-encoded asset_name
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<AssetHistory>>
+     * @return List<AssetHistory>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -236,7 +236,7 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         asset: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<AssetTransaction> {
-        val pager = PageLister<AssetTransaction>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<AssetTransaction>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getAssetTransactions(asset = asset, count = count, page = page, order = order)
         }
@@ -248,7 +248,7 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * parameter asset: (path) Concatenation of the policy_id and hex-encoded asset_name
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<AssetTransaction>>
+     * @return List<AssetTransaction>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -308,7 +308,7 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         asset: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<kotlin.String> {
-        val pager = PageLister<kotlin.String>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<kotlin.String>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getAssetTxs(asset = asset, count = count, page = page, order = order)
         }
@@ -320,7 +320,7 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * parameter asset: (path) Concatenation of the policy_id and hex-encoded asset_name
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<kotlin.String>>
+     * @return List<kotlin.String>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -376,7 +376,7 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<Assets> {
-        val pager = PageLister<Assets>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<Assets>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getAssets(count = count, page = page, order = order)
         }
@@ -387,7 +387,7 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * List of assets.
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<Assets>>
+     * @return List<Assets>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -452,7 +452,7 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
         policyId: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<AssetPolicy> {
-        val pager = PageLister<AssetPolicy>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<AssetPolicy>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getPolicyAssets(policyId = policyId, count = count, page = page, order = order)
         }
@@ -464,7 +464,7 @@ open class CardanoAssetsApi(config: BlockfrostConfig = BlockfrostConfig.defaultC
      * parameter policyId: (path) Specific policy_id
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<AssetPolicy>>
+     * @return List<AssetPolicy>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response

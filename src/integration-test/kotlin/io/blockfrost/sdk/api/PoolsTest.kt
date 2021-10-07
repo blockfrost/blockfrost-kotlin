@@ -1,26 +1,19 @@
 package io.blockfrost.sdk.api
 
-import com.beust.klaxon.JsonArray
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.collections.shouldNotBeEmpty
 import io.kotest.matchers.floats.plusOrMinus
-import io.kotest.matchers.ints.shouldBeGreaterThan
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import org.openapitools.client.api.CardanoPoolsApi
-import org.openapitools.client.api.NutLinkApi
 import org.openapitools.client.infrastructure.BlockfrostConfig
-import org.openapitools.client.models.NutlinkAddress
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import kotlin.properties.Delegates
 import kotlin.time.Duration
 import kotlin.time.ExperimentalTime
 
 @OptIn(ExperimentalTime::class)
 class PoolsTest : DescribeSpec({
-    val logger: Logger = LoggerFactory.getLogger(javaClass)
     var api: CardanoPoolsApi by Delegates.notNull()
     System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "TRACE")
 

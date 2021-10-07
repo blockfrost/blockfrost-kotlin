@@ -126,7 +126,7 @@ open class CardanoAddressesApi(config: BlockfrostConfig = BlockfrostConfig.defau
         address: kotlin.String, order: SortOrder? = null, from: kotlin.String? = null, to: kotlin.String? = null,
         batchSize: Int? = null,
     ): Flow<AddressTransactionsContent> {
-        val pager = PageLister<AddressTransactionsContent>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<AddressTransactionsContent>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getAddressTransactions(address = address, count = count, page = page, order = order, from = from, to = to)
         }
@@ -140,7 +140,7 @@ open class CardanoAddressesApi(config: BlockfrostConfig = BlockfrostConfig.defau
      * parameter from: (query) The block number and optionally also index from which (inclusive) to start search for results, concatenated using colon. Has to be lower than or equal to &#x60;to&#x60; parameter.  (optional)
      * parameter to: (query) The block number and optionally also index where (inclusive) to end the search for results, concatenated using colon. Has to be higher than or equal to &#x60;from&#x60; parameter.  (optional)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<AddressTransactionsContent>>
+     * @return List<AddressTransactionsContent>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -206,7 +206,7 @@ open class CardanoAddressesApi(config: BlockfrostConfig = BlockfrostConfig.defau
         address: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<kotlin.String> {
-        val pager = PageLister<kotlin.String>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<kotlin.String>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getAddressTxs(address = address, count = count, page = page, order = order)
         }
@@ -218,7 +218,7 @@ open class CardanoAddressesApi(config: BlockfrostConfig = BlockfrostConfig.defau
      * parameter address: (path) Bech32 address.
      * parameter order: (query) The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<kotlin.String>>
+     * @return List<kotlin.String>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
@@ -283,7 +283,7 @@ open class CardanoAddressesApi(config: BlockfrostConfig = BlockfrostConfig.defau
         address: kotlin.String, order: SortOrder? = null,
         batchSize: Int? = null,
     ): Flow<AddressUtxoContent> {
-        val pager = PageLister<AddressUtxoContent>(concurrentPages = batchSize ?: config.batchSize)
+        val pager = PageLoader<AddressUtxoContent>(concurrentPages = batchSize ?: config.batchSize)
         return pager.load { count, page ->
             getAddressUtxos(address = address, count = count, page = page, order = order)
         }
@@ -295,7 +295,7 @@ open class CardanoAddressesApi(config: BlockfrostConfig = BlockfrostConfig.defau
      * parameter address: (path) Bech32 address.
      * parameter order: (query) Ordered by tx index in the block. The ordering of items from the point of view of the blockchain, not the page listing itself. By default, we return oldest first, newest last.  (optional, default to null)
      * parameter batchSize: Number of concurrent requests for page download. If null, config.batchSize is used.
-     * @return List<kotlin.collections.List<AddressUtxoContent>>
+     * @return List<AddressUtxoContent>
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
