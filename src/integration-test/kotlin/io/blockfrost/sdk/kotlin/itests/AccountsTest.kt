@@ -1,5 +1,6 @@
 package io.blockfrost.sdk.kotlin.itests
 
+import io.blockfrost.sdk.kotlin.api.CardanoAccountsApi
 import io.blockfrost.sdk.kotlin.infrastructure.BlockfrostConfig
 import io.blockfrost.sdk.kotlin.models.*
 import io.kotest.core.spec.style.DescribeSpec
