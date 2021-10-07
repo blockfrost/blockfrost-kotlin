@@ -154,8 +154,8 @@ publishing {
     }
 
     repositories {
-        String ossrhUsername = System.getenv('MAVEN_USERNAME')
-        String ossrhPassword = System.getenv('MAVEN_PASSWORD')
+        String ossrhUsername = System.getenv('MAVEN_USERNAME') ?: project.findProperty('ossrhUsername')
+        String ossrhPassword = System.getenv('MAVEN_PASSWORD') ?: project.findProperty('ossrhPassword')
 
         maven {
             def releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
@@ -171,7 +171,7 @@ publishing {
 
 ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 
-if (isReleaseVersion && !project.hasProperty("skipSigning")) {
+if (isReleaseVersion && project.hasProperty("signArtifacts")) {
     signing {
         // sign configurations.archives
         sign publishing.publications
@@ -180,6 +180,6 @@ if (isReleaseVersion && !project.hasProperty("skipSigning")) {
 
 nexusStaging {
     serverUrl = "https://s01.oss.sonatype.org/service/local/"
-    username = System.getenv('MAVEN_USERNAME')
-    password = System.getenv('MAVEN_PASSWORD')
+    String ossrhUsername = System.getenv('MAVEN_USERNAME') ?: project.findProperty('ossrhUsername')
+    String ossrhPassword = System.getenv('MAVEN_PASSWORD') ?: project.findProperty('ossrhPassword')
 }

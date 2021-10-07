@@ -40,7 +40,7 @@ jobs:
           echo RELOADAGENT | gpg-connect-agent
           echo ${{ secrets.SIGNING_PASSWORD }} | gpg  --export-secret-keys --batch --yes --passphrase-fd 0 --pinentry-mode loopback > ~/.gradle/secring.gpg
       - name: Publish package
-        run: ./gradlew publish -Psigning.keyId=${{ secrets.SIGNING_KEY_ID }} -Psigning.password=${{ secrets.SIGNING_PASSWORD }} -Psigning.secretKeyRingFile=$(echo ~/.gradle/secring.gpg)
+        run: ./gradlew publish -Psigning.keyId=${{ secrets.SIGNING_KEY_ID }} -Psigning.password=${{ secrets.SIGNING_PASSWORD }} -Psigning.secretKeyRingFile=$(echo ~/.gradle/secring.gpg) -P signArtifacts=true
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
