@@ -1,6 +1,5 @@
 package org.openapitools.client.retrofit
 
-import org.openapitools.client.infrastructure.CollectionFormats.*
 import org.openapitools.client.models.*
 import retrofit2.Response
 import retrofit2.http.*

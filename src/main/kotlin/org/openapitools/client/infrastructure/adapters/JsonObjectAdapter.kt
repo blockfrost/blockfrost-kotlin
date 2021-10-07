@@ -1,4 +1,4 @@
-package org.openapitools.client.infrastructure
+package org.openapitools.client.infrastructure.adapters
 
 import com.beust.klaxon.JsonArray
 import com.beust.klaxon.JsonBase
