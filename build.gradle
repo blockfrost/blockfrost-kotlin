@@ -1,13 +1,13 @@
-group 'org.openapitools'
-version '1.0.0'
+group 'io.blockfrost.sdk_kotlin'
+version '0.0.1'
 
 wrapper {
-    gradleVersion = '6.8.3'
+    gradleVersion = '7.2'
     distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
 }
 
 buildscript {
-    ext.kotlinVersion = '1.5.10'
+    ext.kotlinVersion = '1.5.30'
     ext.kotlinVersionCoro = '1.5.1'
     ext.resilience4jVersion = '1.7.1'
     ext.retrofitVersion = '2.9.0'
@@ -20,11 +20,16 @@ buildscript {
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "io.kotest:kotest-gradle-plugin:0.3.8"
+        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.30.0"
     }
 }
 
 apply plugin: 'kotlin'
-apply plugin: "io.kotest"
+apply plugin: 'java-library'
+apply plugin: 'io.kotest'
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+apply plugin: 'io.codearte.nexus-staging'
 
 repositories {
     maven { url "https://repo1.maven.org/maven2" }
@@ -133,68 +138,75 @@ task integrationTest(type: Test) {
     useJUnitPlatform()
 }
 
-//publishing {
-//    publications {
-//        mavenJava(MavenPublication) {
-//            from components.java
-//            artifact(sourceJar) {
-//                classifier = 'sources'
-//            }
-//            artifact(javadocJar) {
-//                classifier = 'javadoc'
-//            }
-//            pom {
-//                name = 'Blockfrost.io Java SDK'
-//                description = 'Java SDK for the Blockfrost.io API'
-//                url = 'https://github.com/blockfrost/blockfrost-java'
-//                licenses {
-//                    license {
-//                        name = 'Apache License, Version 2.0'
-//                        url = 'https://opensource.org/licenses/Apache-2.0'
-//                    }
-//                }
-//                developers {
-//                    developer {
-//                        id = 'satran004'
-//                        name = 'Satya'
-//                        email = 'satran004@gmail.com'
-//                    }
-//                    developer {
-//                        id = 'cryptofervid'
-//                        name = 'Cryptofervid'
-//                        email = 'cryptofervid@gmail.com'
-//                    }
-//                }
-//                scm {
-//                    connection = 'scm:git:git://github.com/blockfrost/blockfrost-java.git'
-//                    developerConnection = 'scm:git:ssh://git@github.com/blockfrost/blockfrost-java.git'
-//                    url = 'https://github.com/blockfrost/blockfrost-java'
-//                }
-//            }
-//        }
-//    }
-//
-//    repositories {
-//        String ossrhUsername = System.getenv('MAVEN_USER')
-//        String ossrhPassword = System.getenv('MAVEN_PASSWORD')
-//
-//        maven {
-//            def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
-//            def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
-//            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
-//            credentials {
-//                username ossrhUsername
-//                password ossrhPassword
-//            }
-//        }
-//    }
-//}
+tasks.named('jar') {
+    manifest {
+        attributes('Implementation-Title': project.name,
+                   'Implementation-Version': project.version)
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifact(sourceJar) {
+                classifier = 'sources'
+            }
+            artifact(javadocJar) {
+                classifier = 'javadoc'
+            }
+            pom {
+                name = 'Blockfrost.io Kotlin SDK'
+                description = 'Kotlin SDK for the Blockfrost.io API'
+                url = 'https://github.com/blockfrost/blockfrost-kotlin'
+                licenses {
+                    license {
+                        name = 'Apache License, Version 2.0'
+                        url = 'https://opensource.org/licenses/Apache-2.0'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'ph4r05'
+                        name = 'ph4r05'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/blockfrost/blockfrost-kotlin.git'
+                    developerConnection = 'scm:git:ssh://git@github.com/blockfrost/blockfrost-kotlin.git'
+                    url = 'https://github.com/blockfrost/blockfrost-kotlin'
+                }
+            }
+        }
+    }
+
+    repositories {
+        String ossrhUsername = System.getenv('MAVEN_USERNAME')
+        String ossrhPassword = System.getenv('MAVEN_PASSWORD')
+
+        maven {
+            def releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+            def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+            credentials {
+                username ossrhUsername
+                password ossrhPassword
+            }
+        }
+    }
+}
 
 ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 
-//if (isReleaseVersion && !project.hasProperty("skipSigning")) {
-//    signing {
-////        sign configurations.archives
-//        sign publishing.publications
-//    }
-//}
+if (isReleaseVersion && !project.hasProperty("skipSigning")) {
+    signing {
+        // sign configurations.archives
+        sign publishing.publications
+    }
+}
+
+nexusStaging {
+    serverUrl = "https://s01.oss.sonatype.org/service/local/"
+    username = System.getenv('MAVEN_USERNAME')
+    password = System.getenv('MAVEN_PASSWORD')
+}
