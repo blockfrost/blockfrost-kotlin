@@ -1,6 +1,3 @@
-group 'io.blockfrost.sdk_kotlin'
-version '0.0.1'
-
 wrapper {
     gradleVersion = '7.2'
     distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
