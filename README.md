@@ -252,5 +252,3 @@ Class | Method | HTTP request | Description
 - **Type**: API key
 - **API key parameter name**: project_id
 - **Location**: HTTP header
-
->>>>>>> master
