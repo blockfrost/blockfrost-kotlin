@@ -25,7 +25,7 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build with Gradle
-        run: ./gradlew clean build integrationTest
+        run: ./gradlew clean build test integrationTest
         env:
           BF_PROJECT_ID: ${{ secrets.BF_PROJECT_ID }}
           BF_MAINNET_PROJECT_ID: ${{ secrets.BF_MAINNET_PROJECT_ID }}
