@@ -6,6 +6,7 @@ apply plugin: 'signing'
 
 repositories {
     maven { url "https://repo1.maven.org/maven2" }
+    maven { url 'https://jitpack.io' }
 }
 
 test {
@@ -18,8 +19,8 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:$kotlinVersionCoro"
 
     implementation "com.squareup.moshi:moshi-kotlin:1.12.0"
-    implementation "com.squareup.okhttp3:okhttp:4.9.1"
-    implementation "com.squareup.okhttp3:logging-interceptor:4.9.1"
+    implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-scalars:$retrofitVersion"
@@ -45,6 +46,8 @@ dependencies {
     testImplementation "io.kotest:kotest-runner-junit5:$kotestVersion"
     testImplementation "io.kotest:kotest-assertions-core:$kotestVersion"
     testImplementation "io.kotest:kotest-property:$kotestVersion"
+    testImplementation "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
+    testImplementation "com.squareup.retrofit2:retrofit-mock:$retrofitVersion"
 }
 
 sourceSets {

@@ -18,7 +18,7 @@ class ScriptsTest : DescribeSpec({
             api = CardanoScriptsApi(config = BlockfrostConfig.defaulMainNetConfig)
         }
 
-        var scriptHash: String = ""
+        var scriptHash = ""
 
         it("all").config(timeout = Duration.Companion.seconds(10)){
             val r = api.getScripts(count = 10)

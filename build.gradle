@@ -8,6 +8,7 @@ buildscript {
     ext.kotlinVersionCoro = '1.5.1'
     ext.resilience4jVersion = '1.7.1'
     ext.retrofitVersion = '2.9.0'
+    ext.okHttpVersion = '4.9.2'
     ext.kotestVersion = '4.6.3'
 
     repositories {

@@ -1,8 +1,10 @@
 package io.blockfrost.sdk_kotlin.itests
 
 import io.blockfrost.sdk_kotlin.api.CardanoAccountsApi
+import io.blockfrost.sdk_kotlin.infrastructure.BadRequestException
 import io.blockfrost.sdk_kotlin.infrastructure.BlockfrostConfig
 import io.blockfrost.sdk_kotlin.models.*
+import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.collections.shouldNotBeEmpty
@@ -28,6 +30,12 @@ class AccountsTest : DescribeSpec({
             r.shouldNotBeNull()
             r.stakeAddress.shouldBe("stake1u8zu4smzyf2r2mfqjd6tc6vxf2p8rccdfk82ye3eut2udkgs46q0w")
             r.poolId.shouldBeNull()
+        }
+
+        it("loads accounts - invalid address").config(timeout = Duration.Companion.seconds(10)){
+            shouldThrowExactly<BadRequestException> {
+                api.getAccountByStakeAddress("stake1u9zu4smzyf2r2mfqjd6tc6vxf2p8rccdfk82ye3eut2udkgs46q0w")
+            }
         }
 
         it("rewards").config(timeout = Duration.Companion.seconds(10)){
