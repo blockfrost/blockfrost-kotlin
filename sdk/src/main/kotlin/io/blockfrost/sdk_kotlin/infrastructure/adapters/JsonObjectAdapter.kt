@@ -20,6 +20,10 @@ object JsonObjectAdapter {
                 return JsonObject(it)
             }
 
+            (jdata as? List<*>)?.let {
+                return JsonArray(jdata)
+            }
+
             (jdata as? Collection<*>)?.let {
                 return JsonArray(jdata)
             }

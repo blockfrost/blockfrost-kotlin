@@ -69,11 +69,10 @@ class NutlinkTest : DescribeSpec({
             r[0].payload.shouldNotBeNull()
             r[0].payload.shouldBe(
                 TestUtils.parseJson(
-                    """[[
+                    """[
                 { "value": "0.10547", "source": "coinGecko" },
                 { "value": "0.10663800237162917", "source": "ergoOracles" }
-            ]]"""
-                ) as JsonArray<*>)
+            ]""") as JsonArray<*>)
 
             r[1].txHash.shouldBe("b8cc8d75ca200555ca4efdf79599a06300c2a28ffbaa82fd23f22c8f95967bf9")
             r[1].blockHeight.shouldBe(4925982)
@@ -81,11 +80,10 @@ class NutlinkTest : DescribeSpec({
             r[1].payload.shouldNotBeNull()
             r[1].payload.shouldBe(
                 TestUtils.parseJson(
-                    """[[
+                    """[
                 { "value": "0.106359", "source": "coinGecko" },
                 { "value": "0.10575249137006794", "source": "ergoOracles" }
-            ]]"""
-                ) as JsonArray<*>)
+            ]""") as JsonArray<*>)
         }
 
 
@@ -102,11 +100,10 @@ class NutlinkTest : DescribeSpec({
             r[0].payload.shouldNotBeNull()
             r[0].payload.shouldBe(
                 TestUtils.parseJson(
-                    """[[
+                    """[
                 { "value": "0.10547", "source": "coinGecko" },
                 { "value": "0.10663800237162917", "source": "ergoOracles" }
-            ]]"""
-                ) as JsonArray<*>)
+            ]""") as JsonArray<*>)
 
             r[1].txHash.shouldBe("b8cc8d75ca200555ca4efdf79599a06300c2a28ffbaa82fd23f22c8f95967bf9")
             r[1].blockHeight.shouldBe(4925982)
@@ -114,11 +111,10 @@ class NutlinkTest : DescribeSpec({
             r[1].payload.shouldNotBeNull()
             r[1].payload.shouldBe(
                 TestUtils.parseJson(
-                    """[[
+                    """[
                 { "value": "0.106359", "source": "coinGecko" },
                 { "value": "0.10575249137006794", "source": "ergoOracles" }
-            ]]"""
-                ) as JsonArray<*>)
+            ]""") as JsonArray<*>)
         }
     }
 })
