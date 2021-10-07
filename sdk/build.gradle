@@ -38,8 +38,6 @@ dependencies {
     implementation "io.github.resilience4j:resilience4j-retrofit:$resilience4jVersion"
 
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinVersionCoro"
-    testImplementation 'org.hamcrest:hamcrest-library:2.2'
-    testImplementation 'org.exparity:hamcrest-date:2.0.0'
     testImplementation 'org.mockito:mockito-inline:3.7.7'
     testImplementation 'org.mockito:mockito-junit-jupiter:3.7.7'
     testImplementation 'org.slf4j:slf4j-simple:1.7.12'
