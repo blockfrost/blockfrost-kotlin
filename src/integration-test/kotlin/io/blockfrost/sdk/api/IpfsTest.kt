@@ -9,6 +9,7 @@ import org.openapitools.client.api.IPFSAddApi
 import org.openapitools.client.api.IPFSGatewayApi
 import org.openapitools.client.api.IPFSPinsApi
 import org.openapitools.client.infrastructure.BlockfrostConfig
+import java.io.BufferedInputStream
 import java.io.File
 import kotlin.properties.Delegates
 import kotlin.time.Duration
@@ -43,8 +44,8 @@ class IpfsTest : DescribeSpec({
             r.name.shouldNotBeNull().shouldBe(expHash)
             r.size.shouldNotBeNull().shouldBe(5617)
 
-            tempFile.inputStream().use { fis ->
-                val r2 = apiAdd.add(tempFile)
+            BufferedInputStream(tempFile.inputStream()).use { fis ->
+                val r2 = apiAdd.add(fis)
                 r2.shouldNotBeNull()
                 r2.size.shouldNotBeNull().shouldBe(5617)
                 r2.ipfsHash.shouldNotBeNull().shouldBe(expHash)
@@ -71,6 +72,10 @@ class IpfsTest : DescribeSpec({
             val rget = apiGw.get(expHash)
             rget.shouldNotBeNull()
             rget.bytes().shouldBe(tmpFileData.toByteArray())
+
+            val rdata = apiGw.getData(expHash)
+            rdata.shouldNotBeNull()
+            rdata.shouldBe(tmpFileData.toByteArray())
         }
     }
 }) {
