@@ -1,9 +1,12 @@
+<img src="https://blockfrost.io/images/logo.svg" width="250" align="right" height="90">
+
 # blockfrost-kotlin
 *WIP* Kotlin SDK for Blockfrost.io API
+![CI badge](https://github.com/blockfrost/blockfrost-kotlin/actions/workflows/integration-test.yml/badge.svg)
 
 ## Requires
 
-* Kotlin 1.4.30
+* Kotlin 1.5.30
 * Gradle 7.2
 
 ## Build
