@@ -11,7 +11,7 @@ import kotlin.time.ExperimentalTime
 @OptIn(ExperimentalTime::class)
 class MetricsTest : DescribeSpec({
     var api: MetricsApi by Delegates.notNull()
-    System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "TRACE")
+    System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "INFO")
 
     describe("metrics"){
         beforeTest {

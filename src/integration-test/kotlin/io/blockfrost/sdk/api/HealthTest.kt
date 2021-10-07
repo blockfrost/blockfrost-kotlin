@@ -12,7 +12,7 @@ import kotlin.time.ExperimentalTime
 @OptIn(ExperimentalTime::class)
 class HealthTest : DescribeSpec({
     var api: HealthApi by Delegates.notNull()
-    System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "TRACE")
+    System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "INFO")
 
     describe("health"){
         beforeTest {

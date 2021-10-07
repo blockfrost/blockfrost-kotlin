@@ -16,7 +16,7 @@ import kotlin.time.ExperimentalTime
 @OptIn(ExperimentalTime::class)
 class NutlinkTest : DescribeSpec({
     var api: NutLinkApi by Delegates.notNull()
-    System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "TRACE")
+    System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "INFO")
 
     describe("nutlink"){
         beforeTest {

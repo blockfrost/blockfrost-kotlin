@@ -19,7 +19,7 @@ import kotlin.time.ExperimentalTime
 @OptIn(ExperimentalTime::class)
 class AssetsTest : DescribeSpec({
     var api: CardanoAssetsApi by Delegates.notNull()
-    System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "TRACE")
+    System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "INFO")
 
     describe("load assets"){
         beforeTest {

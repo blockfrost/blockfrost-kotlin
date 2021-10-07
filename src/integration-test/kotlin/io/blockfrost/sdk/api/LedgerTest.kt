@@ -13,7 +13,7 @@ import kotlin.time.ExperimentalTime
 @OptIn(ExperimentalTime::class)
 class LedgerTest : DescribeSpec({
     var api: CardanoLedgerApi by Delegates.notNull()
-    System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "TRACE")
+    System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "INFO")
 
     describe("ledger"){
         beforeTest {
