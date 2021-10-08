@@ -25,7 +25,6 @@ class PoolsTest : DescribeSpec({
         it("retiring").config(timeout = Duration.Companion.seconds(10)){
             val r = api.getRetiringPools()
             r.shouldNotBeNull()
-            r.shouldNotBeEmpty()
             r.forEach { it.shouldNotBeNull() }
         }
 
