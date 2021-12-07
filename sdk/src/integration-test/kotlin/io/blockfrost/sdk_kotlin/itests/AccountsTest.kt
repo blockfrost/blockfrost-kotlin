@@ -38,6 +38,13 @@ class AccountsTest : DescribeSpec({
             }
         }
 
+        it("loads accounts for stake address 2").config(timeout = Duration.Companion.seconds(10)){
+            val r = api.getAccountByStakeAddress("stake1uxdegcz0htrg6az954arwx30vq49xspanxcgkumfmjvftugld9mcj")
+            r.shouldNotBeNull()
+            r.stakeAddress.shouldBe("stake1uxdegcz0htrg6az954arwx30vq49xspanxcgkumfmjvftugld9mcj")
+            r.poolId.shouldBeNull()
+        }
+
         it("rewards").config(timeout = Duration.Companion.seconds(10)){
             val r = api.getAccountRewardHistory("stake1u9fzg77vrgfqlplkjqe9hntdcvsurpvxd60yp2fhn73002qsv9pdk", count = 3, page = 2)
             r.shouldNotBeEmpty()

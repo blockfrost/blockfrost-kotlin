@@ -50,7 +50,7 @@ data class AccountContent (
 
     /* Epoch of the most recent action - registration or deregistration */
     @Json(name = "active_epoch")
-    var activeEpoch: kotlin.Int,
+    var activeEpoch: kotlin.Int?,
 
     /* Balance of the account in Lovelaces */
     @Json(name = "controlled_amount")
