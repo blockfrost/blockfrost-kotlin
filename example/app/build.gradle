@@ -31,7 +31,7 @@ dependencies {
     // implementation project(":sdkKotlin")
 
     // SDK lib - jitpack
-    implementation 'com.github.blockfrost:blockfrost-kotlin:0.0.3'
+    implementation 'com.github.blockfrost:blockfrost-kotlin:0.0.4'
 
     // SDK lib - jitpack - master snapshot - latest version
     //implementation 'com.github.blockfrost:blockfrost-kotlin:master-SNAPSHOT'

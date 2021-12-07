@@ -27,7 +27,7 @@ allprojects {
 Step 2. Add the dependency to your module `build.gradle`
 ```groovy
 dependencies {
-    implementation 'com.github.blockfrost:blockfrost-kotlin:0.0.3'
+    implementation 'com.github.blockfrost:blockfrost-kotlin:0.0.4'
 }
 ```
 
